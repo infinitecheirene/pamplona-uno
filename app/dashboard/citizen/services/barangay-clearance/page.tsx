@@ -463,11 +463,11 @@ export default function BarangayClearancePage() {
   if (submitSuccess) {
     return (
       <CitizenLayout requireAuth={false}>
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-100 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-brand-secondary-50 to-brand-primary-100 flex items-center justify-center p-4">
           <Card className="w-full max-w-md">
             <CardHeader className="text-center">
-              <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <CheckCircle2 className="w-6 h-6 text-green-600" />
+              <div className="mx-auto w-12 h-12 bg-brand-accent-100 rounded-full flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-brand-accent-600" />
               </div>
               <CardTitle className="text-2xl">Application Submitted!</CardTitle>
               <CardDescription>
@@ -475,9 +475,9 @@ export default function BarangayClearancePage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-orange-50 p-4 rounded-lg">
+              <div className="bg-brand-secondary-50 p-4 rounded-lg">
                 <p className="text-sm text-gray-600 mb-1">Reference Number</p>
-                <p className="text-xl font-bold text-orange-600">
+                <p className="text-xl font-bold text-brand-secondary-600">
                   {referenceNumber}
                 </p>
               </div>
@@ -517,7 +517,7 @@ export default function BarangayClearancePage() {
 
   return (
     <CitizenLayout requireAuth={false}>
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-100 py-8 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-brand-secondary-50 to-brand-primary-100 py-8 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
@@ -532,7 +532,7 @@ export default function BarangayClearancePage() {
             <Card>
               <CardContent className="py-12">
                 <div className="flex flex-col items-center justify-center">
-                  <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                  <div className="w-12 h-12 border-4 border-brand-secondary-600 border-t-transparent rounded-full animate-spin mb-4"></div>
                   <p className="text-gray-600">Loading your information...</p>
                 </div>
               </CardContent>
@@ -548,7 +548,7 @@ export default function BarangayClearancePage() {
                         <div
                           className={`w-10 h-10 rounded-full flex items-center justify-center ${
                             currentStep >= step.number
-                              ? "bg-orange-600 text-white"
+                              ? "bg-brand-secondary-600 text-white"
                               : "bg-gray-200 text-gray-600"
                           }`}
                         >
@@ -560,7 +560,7 @@ export default function BarangayClearancePage() {
                       </div>
                       {index < steps.length - 1 && (
                         <div
-                          className={`h-1 flex-1 mx-2 ${currentStep > step.number ? "bg-orange-600" : "bg-gray-200"}`}
+                          className={`h-1 flex-1 mx-2 ${currentStep > step.number ? "bg-brand-secondary-600" : "bg-gray-200"}`}
                         />
                       )}
                     </div>
@@ -586,9 +586,9 @@ export default function BarangayClearancePage() {
                 <CardContent>
                   {/* Error Message */}
                   {errorMessage && (
-                    <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
-                      <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-red-800">{errorMessage}</p>
+                    <div className="mb-4 p-3 bg-brand-primary-50 border border-brand-primary-200 rounded-lg flex items-start gap-2">
+                      <AlertCircle className="w-5 h-5 text-brand-primary-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-brand-primary-800">{errorMessage}</p>
                     </div>
                   )}
 
@@ -802,9 +802,9 @@ export default function BarangayClearancePage() {
                           10MB)
                         </p>
                         {formData.validId && (
-                          <div className="flex items-center gap-2 p-2 bg-green-50 border border-green-200 rounded">
-                            <CheckCircle2 className="w-4 h-4 text-green-600" />
-                            <p className="text-sm text-green-800">
+                          <div className="flex items-center gap-2 p-2 bg-brand-accent-50 border border-brand-accent-200 rounded">
+                            <CheckCircle2 className="w-4 h-4 text-brand-accent-600" />
+                            <p className="text-sm text-brand-accent-800">
                               File selected: {formData.validId.name}
                             </p>
                           </div>
@@ -918,7 +918,7 @@ export default function BarangayClearancePage() {
                       <Button
                         type="button"
                         onClick={handleNext}
-                        className="bg-orange-500 hover:bg-orange-600"
+                        className="bg-brand-secondary-500 hover:bg-brand-secondary-600"
                       >
                         Next
                       </Button>
@@ -927,7 +927,7 @@ export default function BarangayClearancePage() {
                         type="button"
                         onClick={handleSubmit}
                         disabled={isSubmitting}
-                        className="bg-orange-500 hover:bg-orange-600"
+                        className="bg-brand-secondary-500 hover:bg-brand-secondary-600"
                       >
                         {isSubmitting ? "Submitting..." : "Submit Application"}
                       </Button>

@@ -199,14 +199,14 @@ export default function ServicesSection() {
         transition={{ delay: (i % 6) * 0.05, duration: 0.5 }}
         viewport={{ once: true }}
         whileHover={{ y: -8, scale: 1.01 }}
-        className="p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-orange-300 hover:shadow-2xl transition-all group flex flex-col h-full"
+        className="p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-brand-secondary-300 hover:shadow-2xl transition-all group flex flex-col h-full"
       >
         <div className="flex items-start gap-4 flex-1">
-          <div className="w-16 h-16 flex-shrink-0 bg-gradient-to-br from-red-500 via-orange-500 to-green-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+          <div className="w-16 h-16 flex-shrink-0 bg-gradient-to-br from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
             <Icon className="w-8 h-8 text-white" />
           </div>
           <div>
-            <span className="text-xs font-semibold uppercase tracking-wide text-orange-500">
+            <span className="text-xs font-semibold uppercase tracking-wide text-brand-secondary-500">
               {guide.category}
             </span>
             <h3 className="text-xl font-bold text-gray-900 mt-1 mb-2">
@@ -219,7 +219,7 @@ export default function ServicesSection() {
         <div className="mt-6">
           <button
             onClick={() => handleServiceAccess(guide.route)}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 via-orange-500 to-green-500 text-white font-semibold hover:opacity-90 transition"
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 text-white font-semibold hover:opacity-90 transition"
           >
             Apply Now
           </button>
@@ -240,11 +240,11 @@ export default function ServicesSection() {
             className="mb-16 text-center"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent">
                 OUR SERVICES
               </span>
             </h2>
-            <div className="w-32 h-1.5 bg-gradient-to-r from-red-500 via-orange-500 to-green-500 rounded-full mx-auto mb-4" />
+            <div className="w-32 h-1.5 bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 rounded-full mx-auto mb-4" />
           </motion.div>
 
           {/* Search */}
@@ -255,7 +255,7 @@ export default function ServicesSection() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search guides..."
-              className="w-full pl-11 pr-4 py-3 rounded-2xl border-2 border-gray-100 focus:border-orange-300 focus:outline-none transition"
+              className="w-full pl-11 pr-4 py-3 rounded-2xl border-2 border-gray-100 focus:border-brand-secondary-300 focus:outline-none transition"
             />
           </div>
 
@@ -269,8 +269,8 @@ export default function ServicesSection() {
                   onClick={() => setActiveCategory(cat)}
                   className={`px-5 py-2 rounded-full text-sm font-semibold border-2 transition-all ${
                     isActive
-                      ? "bg-gradient-to-r from-red-500 via-orange-500 to-green-500 text-white border-transparent shadow-md"
-                      : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-600"
+                      ? "bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 text-white border-transparent shadow-md"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-brand-secondary-300 hover:text-brand-secondary-600"
                   }`}
                 >
                   {cat}
@@ -304,10 +304,10 @@ export default function ServicesSection() {
 
           {filteredGuides.length === 0 && (
             <div className="text-center py-16">
-              <div className="w-24 h-24 bg-gradient-to-br from-red-500 via-orange-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+              <div className="w-24 h-24 bg-gradient-to-br from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
                 <Search className="w-12 h-12 text-white" />
               </div>
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent mb-3">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent mb-3">
                 No Guides Found
               </h3>
               <p className="text-gray-600 text-lg">
@@ -320,7 +320,7 @@ export default function ServicesSection() {
 
       {/* Stats Section */}
       {/* <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-red-50 via-orange-50 to-green-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-primary-50 via-brand-secondary-50 to-brand-accent-50" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -334,14 +334,14 @@ export default function ServicesSection() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
                   whileHover={{ y: -8, scale: 1.02 }}
-                  className="p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-orange-300 text-center hover:shadow-2xl transition-all group"
+                  className="p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-brand-secondary-300 text-center hover:shadow-2xl transition-all group"
                 >
                   <div className="flex justify-center mb-6">
-                    <div className="p-5 bg-gradient-to-br from-red-500 via-orange-500 to-green-500 rounded-full shadow-xl group-hover:scale-110 transition-transform">
+                    <div className="p-5 bg-gradient-to-br from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 rounded-full shadow-xl group-hover:scale-110 transition-transform">
                       <Icon className="w-10 h-10 text-white" />
                     </div>
                   </div>
-                  <div className="text-5xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent mb-3">
+                  <div className="text-5xl font-bold bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent mb-3">
                     {stat.value}
                   </div>
                   <div className="text-gray-700 font-semibold text-lg">
@@ -355,7 +355,7 @@ export default function ServicesSection() {
       </section> */}
 
       {/* CTA Section */}
-      {/* <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-red-600 via-orange-600 to-green-600 relative overflow-hidden">
+      {/* <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
 
@@ -378,7 +378,7 @@ export default function ServicesSection() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-10 py-4 bg-white text-orange-600 font-bold rounded-full shadow-2xl hover:shadow-white/20 transition-all text-lg"
+                  className="px-10 py-4 bg-white text-brand-secondary-600 font-bold rounded-full shadow-2xl hover:shadow-white/20 transition-all text-lg"
                 >
                   Contact Us
                 </motion.button>

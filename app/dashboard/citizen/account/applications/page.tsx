@@ -86,55 +86,6 @@ interface ReportItem {
 const IMAGE_BASE_URL =
   process.env.NEXT_PUBLIC_IMAGE_URL || "http://localhost:8000";
 
-const imageCache = new Map<string, string>();
-
-const fetchImageAsBase64 = async (
-  imagePath: string,
-): Promise<string | null> => {
-  if (!imagePath) return null;
-
-  if (imageCache.has(imagePath)) {
-    return imageCache.get(imagePath)!;
-  }
-
-  try {
-    const cleanPath = imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
-    const fullImageUrl = `${IMAGE_BASE_URL}${cleanPath}`;
-
-    const response = await fetch(fullImageUrl, {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    });
-
-    if (!response.ok) {
-      console.error(`Failed to fetch image: ${response.status}`);
-      return null;
-    }
-
-    const blob = await response.blob();
-
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64 = reader.result as string;
-        imageCache.set(imagePath, base64);
-        resolve(base64);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
-  } catch (error) {
-    console.error("Error fetching image:", error);
-    return null;
-  }
-};
-
-// API responses here can be wrapped in several layers of { success, data }
-// envelopes before reaching the actual array (e.g. a Laravel paginator's
-// { current_page, data: [...] } nested inside a proxy route's own
-// { success, data } wrapper). Rather than hardcode a fixed nesting depth,
-// this walks common wrapper keys until it finds an array.
 const extractList = <T,>(payload: unknown, depth = 0): T[] => {
   if (depth > 6 || payload === null || payload === undefined) return [];
   if (Array.isArray(payload)) return payload as T[];
@@ -161,9 +112,6 @@ const formatDate = (dateString: string) => {
   });
 };
 
-// Maps the `category` value stored on a report (e.g. "road", "streetlight")
-// to the human-readable label used as the report's `type` label everywhere
-// else on this page.
 const reportCategoryLabels: Record<string, string> = {
   road: "Road Damage",
   streetlight: "Street Light",
@@ -175,9 +123,6 @@ const reportCategoryLabels: Record<string, string> = {
   other: "Other Issue",
 };
 
-// Normalizes a raw report record into the same shape used for every other
-// application type, so it can flow through the existing filtering, sorting,
-// and detail-modal logic unchanged.
 const mapReportToApplication = (report: ReportItem): Application => ({
   id: report.id,
   reference_number: report.report_id,
@@ -194,12 +139,12 @@ const mapReportToApplication = (report: ReportItem): Application => ({
 const categories = [
   {
     id: "report-issue",
-    name: "Report an Issue",
+    name: "Report an issue",
     icon: AlertTriangle,
-    color: "from-red-500 to-orange-600",
-    bgColor: "bg-red-50",
-    borderColor: "border-red-500",
-    textColor: "text-red-700",
+    color: "from-brand-primary-500 to-brand-secondary-600",
+    bgColor: "bg-brand-primary-50",
+    borderColor: "border-brand-primary-500",
+    textColor: "text-brand-primary-700",
     types: [
       "Road Damage",
       "Street Light",
@@ -213,7 +158,7 @@ const categories = [
   },
   {
     id: "health-certificate",
-    name: "Health Certificate",
+    name: "Health certificate",
     icon: Heart,
     color: "from-rose-500 to-pink-600",
     bgColor: "bg-rose-50",
@@ -223,7 +168,7 @@ const categories = [
   },
   {
     id: "barangay-clearance",
-    name: "Barangay Clearance",
+    name: "Barangay clearance",
     icon: Shield,
     color: "from-blue-500 to-cyan-600",
     bgColor: "bg-blue-50",
@@ -233,7 +178,7 @@ const categories = [
   },
   {
     id: "business-permit",
-    name: "Business Permit",
+    name: "Business permit",
     icon: Building,
     color: "from-purple-500 to-violet-600",
     bgColor: "bg-purple-50",
@@ -245,7 +190,7 @@ const categories = [
     id: "cedula",
     name: "Cedula",
     icon: Users,
-    color: "from-teal-500 to-emerald-600",
+    color: "from-teal-500 to-brand-accent-600",
     bgColor: "bg-teal-50",
     borderColor: "border-teal-500",
     textColor: "text-teal-700",
@@ -253,17 +198,17 @@ const categories = [
   },
   {
     id: "medical-assistance",
-    name: "Medical Assistance",
+    name: "Medical assistance",
     icon: FileHeart,
-    color: "from-orange-500 to-amber-600",
-    bgColor: "bg-orange-50",
-    borderColor: "border-orange-500",
-    textColor: "text-orange-700",
+    color: "from-brand-secondary-500 to-amber-600",
+    bgColor: "bg-brand-secondary-50",
+    borderColor: "border-brand-secondary-500",
+    textColor: "text-brand-secondary-700",
     types: ["Medical Assistance"],
   },
   {
     id: "building-permit",
-    name: "Building Permit",
+    name: "Building permit",
     icon: Home,
     color: "from-indigo-500 to-blue-600",
     bgColor: "bg-indigo-50",
@@ -273,7 +218,7 @@ const categories = [
   },
   {
     id: "other",
-    name: "Other Services",
+    name: "Other services",
     icon: FileText,
     color: "from-gray-500 to-slate-600",
     bgColor: "bg-gray-50",
@@ -296,57 +241,69 @@ function ApplicationsContent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [imageData, setImageData] = useState<Map<string, string>>(new Map());
-  const [loadingImages, setLoadingImages] = useState<Set<string>>(new Set());
 
   useEffect(() => {
+    let cancelled = false;
+
     const verifyAuth = async () => {
+      let user: unknown = null;
+
       try {
-        const user = await authClient.getCurrentUser();
+        user = await authClient.getCurrentUser();
+      } catch (err) {
+        // A network or server hiccup is not proof the session is gone,
+        // so show a retryable error instead of sending the person to /login.
+        console.error("Error verifying authentication:", err);
+        if (cancelled) return;
+        setError(
+          "We couldn't verify your session. Check your connection and try again.",
+        );
+        setIsAuthenticated(true); // let the page render the error banner + Retry
+        setLoading(false);
+        return;
+      }
 
-        if (!user) {
-          toast({
-            title: "Authentication Required",
-            description: "Please log in to view your applications.",
-            variant: "destructive",
-          });
-          router.push("/login");
-          return;
-        }
+      if (cancelled) return;
 
-        setIsAuthenticated(true);
-
-        const success = searchParams.get("success");
-        if (success) {
-          toast({
-            title: "Success!",
-            description: `Your ${success} application has been submitted.`,
-          });
-        }
-
-        await fetchApplications();
-      } catch (error) {
-        console.error("Error verifying authentication:", error);
+      if (!user) {
         toast({
-          title: "Authentication Error",
-          description: "Failed to verify your session. Please log in again.",
+          title: "Authentication Required",
+          description: "Please log in to view your applications.",
           variant: "destructive",
         });
         router.push("/login");
+        return;
       }
+
+      setIsAuthenticated(true);
+
+      const success = searchParams.get("success");
+      if (success) {
+        toast({
+          title: "Success!",
+          description: `Your ${success} application has been submitted.`,
+        });
+      }
+
+      await fetchApplications();
     };
 
     verifyAuth();
-  }, [router, searchParams, toast]);
+
+    return () => {
+      cancelled = true;
+    };
+    // Run the session check once per visit. `toast` and `router` are not stable
+    // in every setup, and re-running this effect would refetch (and re-check
+    // auth) on every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fetchApplications = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      // Fetch regular service applications and reported issues in parallel,
-      // then merge them into a single normalized list so they share one
-      // set of filters, sorting, and the detail modal.
       const [applicationsRes, reportsRes] = await Promise.all([
         fetch("/api/applications", {
           method: "GET",
@@ -360,14 +317,25 @@ function ApplicationsContent() {
         }),
       ]);
 
-      if (applicationsRes.status === 401 || reportsRes.status === 401) {
-        toast({
-          title: "Session Expired",
-          description: "Please log in again to continue.",
-          variant: "destructive",
-        });
-        router.push("/login");
-        return;
+      if (applicationsRes.status === 401) {
+        // A 401 from this endpoint doesn't prove the person is logged out
+        // (the request may just be missing the credentials authClient sends).
+        // Only leave the page if the auth client agrees the session is gone.
+        const user = await authClient.getCurrentUser().catch(() => null);
+
+        if (!user) {
+          toast({
+            title: "Session Expired",
+            description: "Please log in again to continue.",
+            variant: "destructive",
+          });
+          router.push("/login");
+          return;
+        }
+
+        throw new Error(
+          "The server rejected the request for your applications (401), but you are still signed in. Try again, and contact support if it keeps happening.",
+        );
       }
 
       if (!applicationsRes.ok) {
@@ -379,9 +347,6 @@ function ApplicationsContent() {
       const data = await applicationsRes.json();
       const apps: Application[] = extractList<Application>(data);
 
-      // Reports endpoint is treated as optional/best-effort: if it fails or
-      // isn't available yet, we still show the regular applications rather
-      // than blocking the whole page on it.
       let reportApps: Application[] = [];
       if (reportsRes.ok) {
         try {
@@ -403,7 +368,6 @@ function ApplicationsContent() {
       );
 
       setApplications(combinedApps);
-      await fetchAllImages(combinedApps);
 
       if (combinedApps.length > 0) {
         toast({
@@ -426,74 +390,25 @@ function ApplicationsContent() {
     }
   };
 
-  const fetchAllImages = async (apps: Application[]) => {
-    const newImageData = new Map<string, string>();
-    const imagePaths = new Set<string>();
-
-    apps.forEach((app) => {
-      const path = app.photo_path || app.image_url || app.document_path;
-      if (path && typeof path === "string") {
-        imagePaths.add(path);
-      }
-
-      if (
-        app.supporting_documents &&
-        typeof app.supporting_documents === "string"
-      ) {
-        imagePaths.add(app.supporting_documents);
-      }
-
-      Object.entries(app).forEach(([key, value]) => {
-        if (
-          (key.includes("photo") ||
-            key.includes("image") ||
-            key.includes("document") ||
-            key.includes("supporting")) &&
-          (key.includes("path") || key.includes("documents")) &&
-          value &&
-          typeof value === "string"
-        ) {
-          imagePaths.add(value as string);
-        }
-      });
-    });
-
-    const imagePromises = Array.from(imagePaths).map(async (imgPath) => {
-      setLoadingImages((prev) => new Set(prev).add(imgPath));
-      const base64 = await fetchImageAsBase64(imgPath);
-      setLoadingImages((prev) => {
-        const newSet = new Set(prev);
-        newSet.delete(imgPath);
-        return newSet;
-      });
-      if (base64) {
-        newImageData.set(imgPath, base64);
-      }
-    });
-
-    await Promise.all(imagePromises);
-    setImageData(newImageData);
-  };
-
   const getStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
       case "approved":
         return (
-          <Badge className="bg-emerald-500 text-white hover:bg-emerald-600 shadow-sm">
+          <Badge className="bg-brand-accent-600 text-white hover:bg-brand-accent-700">
             <CheckCircle className="h-3 w-3 mr-1" />
             Approved
           </Badge>
         );
       case "pending":
         return (
-          <Badge className="bg-amber-500 text-white hover:bg-amber-600 shadow-sm">
+          <Badge className="bg-amber-700 text-white hover:bg-amber-800">
             <Clock className="h-3 w-3 mr-1" />
             Pending
           </Badge>
         );
       case "rejected":
         return (
-          <Badge className="bg-rose-500 text-white hover:bg-rose-600 shadow-sm">
+          <Badge className="bg-brand-primary-600 text-white hover:bg-brand-primary-700">
             <XCircle className="h-3 w-3 mr-1" />
             Rejected
           </Badge>
@@ -506,7 +421,7 @@ function ApplicationsContent() {
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case "approved":
-        return "border-l-emerald-500 bg-emerald-50/50";
+        return "border-l-brand-accent-500 bg-brand-accent-50/50";
       case "pending":
         return "border-l-amber-500 bg-amber-50/50";
       case "rejected":
@@ -595,19 +510,11 @@ function ApplicationsContent() {
 
   if (!isAuthenticated || loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50/20 to-slate-50 flex items-center justify-center">
-        <Card className="w-full max-w-md border-0 shadow-xl">
-          <CardContent className="py-12">
-            <div className="flex flex-col items-center justify-center">
-              <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-              <p className="text-gray-600 font-medium">
-                {!isAuthenticated
-                  ? "Verifying authentication..."
-                  : "Loading applications..."}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+      <div role="status" aria-label={!isAuthenticated ? "Checking your session" : "Loading applications"} className="space-y-4">
+        <div className="h-24 animate-pulse rounded-2xl bg-gray-100" />
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {[0, 1, 2].map((item) => <div key={item} className="h-48 animate-pulse rounded-2xl bg-gray-100" />)}
+        </div>
       </div>
     );
   }
@@ -617,81 +524,63 @@ function ApplicationsContent() {
     : [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50/20 to-slate-50 pb-20 lg:pb-0">
-      <div className="bg-white border-b shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+    <div className="space-y-6">
+      <header>
           <div className="flex items-center gap-3 mb-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => router.back()}
-              className="hover:bg-orange-100"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <div className="flex items-center gap-2 flex-1">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
-                <FileText className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">
-                  My Applications
-                </h1>
-                <p className="text-xs text-gray-500">Browse by category</p>
-              </div>
+            <div className="flex-1">
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">My applications</h1>
+              <p className="mt-1 text-gray-600">Check your request status or choose a category to see details.</p>
             </div>
             <Button
               variant="outline"
               size="sm"
               onClick={fetchApplications}
-              className="hidden sm:flex gap-2"
+              aria-label="Refresh applications"
+              className="hidden sm:flex gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2"
             >
-              <RefreshCw className="h-4 w-4" />
+              <RefreshCw className="h-4 w-4" aria-hidden="true" />
             </Button>
           </div>
 
-          <div className="grid grid-cols-4 gap-2">
-            <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-2.5 text-center shadow">
-              <p className="text-xl font-bold text-white">{stats.total}</p>
-              <p className="text-[10px] text-blue-100 font-medium">Total</p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="rounded-2xl border border-gray-200 bg-white p-4">
+              <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+              <p className="text-sm text-gray-600">All requests</p>
             </div>
 
-            <div className="bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg p-2.5 text-center shadow">
-              <p className="text-xl font-bold text-white">{stats.pending}</p>
-              <p className="text-[10px] text-amber-100 font-medium">Pending</p>
+            <div className="rounded-2xl border border-gray-200 bg-white p-4">
+              <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
+              <p className="text-sm text-gray-600">Pending</p>
             </div>
 
-            <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg p-2.5 text-center shadow">
-              <p className="text-xl font-bold text-white">{stats.approved}</p>
-              <p className="text-[10px] text-emerald-100 font-medium">
-                Approved
-              </p>
+            <div className="rounded-2xl border border-gray-200 bg-white p-4">
+              <p className="text-2xl font-bold text-gray-900">{stats.approved}</p>
+              <p className="text-sm text-gray-600">Approved</p>
             </div>
 
-            <div className="bg-gradient-to-br from-rose-500 to-rose-600 rounded-lg p-2.5 text-center shadow">
-              <p className="text-xl font-bold text-white">{stats.rejected}</p>
-              <p className="text-[10px] text-rose-100 font-medium">Rejected</p>
+            <div className="rounded-2xl border border-gray-200 bg-white p-4">
+              <p className="text-2xl font-bold text-gray-900">{stats.rejected}</p>
+              <p className="text-sm text-gray-600">Rejected</p>
             </div>
           </div>
-        </div>
-      </div>
+      </header>
 
-      <div className="max-w-7xl mx-auto p-4 lg:p-6">
+      <div>
         {error && (
-          <div className="mb-6 p-4 bg-rose-50 border-l-4 border-rose-500 rounded-lg">
+          <div role="alert" className="mb-6 rounded-2xl border-2 border-brand-primary-200 bg-brand-primary-50 p-4">
             <div className="flex items-start gap-3">
               <XCircle className="h-5 w-5 text-rose-600 mt-0.5" />
               <div className="flex-1">
-                <p className="font-medium text-rose-900">
+                <p className="font-medium text-brand-primary-900">
                   Error loading applications
                 </p>
-                <p className="text-sm text-rose-700 mt-1">{error}</p>
+                <p className="text-sm text-brand-primary-700 mt-1">{error}</p>
               </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={fetchApplications}
-                className="text-rose-700 hover:text-rose-800 hover:bg-rose-100"
+                className="rounded-xl text-brand-primary-700 hover:bg-brand-primary-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2"
               >
                 Retry
               </Button>
@@ -702,40 +591,42 @@ function ApplicationsContent() {
         {!selectedCategory ? (
           <div>
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-2">
-                Select a Service Category
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                Choose a request category
               </h2>
               <p className="text-gray-600">
                 Choose a category to view your applications
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {categories.map((category) => {
                 const categoryApps = getCategoryApps(category.id);
                 const Icon = category.icon;
 
                 return (
+                  <li key={category.id}>
                   <Card
-                    key={category.id}
-                    className="hover:shadow-xl transition-all duration-300 cursor-pointer group border-0 overflow-hidden"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setSelectedCategory(category.id); } }}
+                    className="h-full cursor-pointer rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:border-gray-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 motion-reduce:transition-none group"
                     onClick={() => setSelectedCategory(category.id)}
                   >
-                    <div className={`h-2 bg-gradient-to-r ${category.color}`} />
-                    <CardHeader className="pb-4">
+                    <CardHeader className="p-0 pb-4">
                       <div className="flex items-center justify-between mb-3">
                         <div
-                          className={`w-14 h-14 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}
+                          className={`flex h-14 w-14 items-center justify-center rounded-xl ${category.bgColor}`}
                         >
-                          <Icon className="h-7 w-7 text-white" />
+                          <Icon className={`h-7 w-7 ${category.textColor}`} aria-hidden="true" />
                         </div>
                         <div
-                          className={`px-3 py-1 rounded-full ${category.bgColor} ${category.textColor} font-bold text-lg`}
+                          className={`rounded-full px-3 py-1 text-sm font-semibold ${category.bgColor} ${category.textColor}`}
                         >
                           {categoryApps.length}
                         </div>
                       </div>
-                      <CardTitle className="text-xl font-bold group-hover:text-orange-600 transition-colors">
+                      <CardTitle className="text-xl font-bold text-gray-900">
                         {category.name}
                       </CardTitle>
                       <CardDescription className="text-sm">
@@ -743,7 +634,7 @@ function ApplicationsContent() {
                         {categoryApps.length !== 1 ? "s" : ""}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="p-0">
                       <div className="flex gap-2 flex-wrap">
                         {["pending", "approved", "rejected"].map((status) => {
                           const count = categoryApps.filter(
@@ -756,7 +647,7 @@ function ApplicationsContent() {
                               variant="secondary"
                               className={
                                 status === "approved"
-                                  ? "bg-emerald-100 text-emerald-700"
+                                  ? "bg-brand-accent-100 text-brand-accent-700"
                                   : status === "pending"
                                     ? "bg-amber-100 text-amber-700"
                                     : "bg-rose-100 text-rose-700"
@@ -767,18 +658,13 @@ function ApplicationsContent() {
                           );
                         })}
                       </div>
-                      <Button
-                        variant="ghost"
-                        className="w-full mt-4 group-hover:bg-orange-500 group-hover:text-white transition-colors"
-                      >
-                        View Applications
-                        <ArrowLeft className="h-4 w-4 ml-2 rotate-180" />
-                      </Button>
+                      <span className="mt-4 inline-flex font-semibold text-brand-secondary-700">Open category <ArrowLeft className="h-4 w-4 ml-2 rotate-180" aria-hidden="true" /></span>
                     </CardContent>
                   </Card>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           </div>
         ) : (
           <div>
@@ -786,7 +672,7 @@ function ApplicationsContent() {
               <Button
                 variant="ghost"
                 onClick={() => setSelectedCategory(null)}
-                className="mb-4 hover:bg-orange-100"
+                className="mb-4 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Categories
@@ -800,9 +686,9 @@ function ApplicationsContent() {
                 return (
                   <div className="flex items-center gap-4 mb-6">
                     <div
-                      className={`w-16 h-16 rounded-xl bg-gradient-to-br ${category?.color} flex items-center justify-center shadow-lg`}
+                      className={`flex h-14 w-14 items-center justify-center rounded-xl ${category?.bgColor}`}
                     >
-                      <Icon className="h-8 w-8 text-white" />
+                      <Icon className={`h-7 w-7 ${category?.textColor}`} aria-hidden="true" />
                     </div>
                     <div>
                       <h2 className="text-2xl font-bold text-gray-900">
@@ -824,16 +710,16 @@ function ApplicationsContent() {
                     placeholder="Search applications..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
+                    className="rounded-xl border-gray-300 pl-10 focus:border-brand-accent-600 focus:ring-brand-accent-600/30"
                   />
                 </div>
 
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-full sm:w-[160px] border-gray-200">
-                    <SelectValue placeholder="Filter Status" />
+                    <SelectTrigger className="w-full rounded-xl border-gray-300 sm:w-40 focus-visible:ring-2 focus-visible:ring-brand-accent-600">
+                    <SelectValue placeholder="Filter status" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Status</SelectItem>
+                    <SelectItem value="all">All statuses</SelectItem>
                     <SelectItem value="pending">Pending</SelectItem>
                     <SelectItem value="approved">Approved</SelectItem>
                     <SelectItem value="rejected">Rejected</SelectItem>
@@ -841,23 +727,23 @@ function ApplicationsContent() {
                 </Select>
 
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-full sm:w-[160px] border-gray-200">
+                    <SelectTrigger className="w-full rounded-xl border-gray-300 sm:w-40 focus-visible:ring-2 focus-visible:ring-brand-accent-600">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="newest">Newest First</SelectItem>
-                    <SelectItem value="oldest">Oldest First</SelectItem>
-                    <SelectItem value="type">By Type</SelectItem>
+                    <SelectItem value="newest">Newest first</SelectItem>
+                    <SelectItem value="oldest">Oldest first</SelectItem>
+                    <SelectItem value="type">By request type</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
 
             {currentCategoryApps.length === 0 ? (
-              <Card className="border-0 shadow-lg">
+              <Card className="rounded-2xl border border-gray-200 bg-white">
                 <CardContent className="py-16 text-center">
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
-                    <FileText className="h-10 w-10 text-orange-600" />
+                  <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-secondary-50">
+                    <FileText className="h-7 w-7 text-brand-secondary-600" aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-bold mb-2 text-gray-900">
                     {searchQuery
@@ -878,19 +764,22 @@ function ApplicationsContent() {
                 {currentCategoryApps.map((app) => (
                   <Card
                     key={`${app.type}-${app.id}`}
-                    className={`hover:shadow-lg transition-all border-l-4 ${getStatusColor(app.status)} cursor-pointer group`}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setSelectedApp(app); } }}
+                    className={`rounded-2xl border border-gray-200 border-l-4 ${getStatusColor(app.status)} cursor-pointer transition-all hover:border-gray-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 motion-reduce:transition-none group`}
                     onClick={() => setSelectedApp(app)}
                   >
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-md flex-shrink-0 group-hover:scale-110 transition-transform">
-                          <FileText className="h-6 w-6 text-white" />
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-brand-secondary-50">
+                          <FileText className="h-6 w-6 text-brand-secondary-600" aria-hidden="true" />
                         </div>
 
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-start justify-between gap-4 mb-2">
+                              <div className="mb-2 flex flex-wrap items-start justify-between gap-3">
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-bold text-lg text-gray-900 truncate group-hover:text-orange-600 transition-colors mb-1">
+                              <h3 className="font-bold text-lg text-gray-900 truncate group-hover:text-brand-secondary-600 transition-colors mb-1">
                                 {String(app.title || app.type)}
                               </h3>
                               <div className="flex items-center gap-3 text-sm text-gray-500 flex-wrap">
@@ -917,18 +806,10 @@ function ApplicationsContent() {
                             {getStatusBadge(app.status)}
                           </div>
 
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="mt-3 group-hover:bg-orange-500 group-hover:text-white transition-colors"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedApp(app);
-                            }}
-                          >
-                            <Eye className="h-4 w-4 mr-2" />
-                            View Full Details
-                          </Button>
+                              <span className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-secondary-700">
+                                <Eye className="h-4 w-4" aria-hidden="true" />
+                                Open request details
+                              </span>
                         </div>
                       </div>
                     </CardContent>
@@ -947,7 +828,7 @@ function ApplicationsContent() {
         <DialogContent className="max-w-4xl max-h-[85vh] overflow-hidden flex flex-col">
           <DialogHeader className="border-b pb-4">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg flex-shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-secondary-500 to-brand-secondary-600 flex items-center justify-center shadow-lg flex-shrink-0">
                 <FileText className="h-6 w-6 text-white" />
               </div>
               <div className="flex-1 min-w-0">
@@ -967,9 +848,9 @@ function ApplicationsContent() {
             <div className="overflow-y-auto flex-1 px-1">
               <div className="space-y-6 py-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Card className="border-l-4 border-l-blue-500 bg-blue-50/50">
+                  <Card className="rounded-2xl border border-gray-200 bg-white">
                     <CardContent className="p-4">
-                      <p className="text-xs font-medium text-blue-700 mb-1">
+                      <p className="text-sm font-medium text-gray-600 mb-1">
                         Status
                       </p>
                       <div className="mt-2">
@@ -978,23 +859,23 @@ function ApplicationsContent() {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-l-4 border-l-purple-500 bg-purple-50/50">
+                  <Card className="rounded-2xl border border-gray-200 bg-white">
                     <CardContent className="p-4">
-                      <p className="text-xs font-medium text-purple-700 mb-1">
+                      <p className="text-sm font-medium text-gray-600 mb-1">
                         Submitted Date
                       </p>
-                      <p className="font-semibold text-purple-900 mt-2">
+                      <p className="font-semibold text-gray-900 mt-2">
                         {formatDate(selectedApp.created_at)}
                       </p>
                     </CardContent>
                   </Card>
 
-                  <Card className="border-l-4 border-l-teal-500 bg-teal-50/50">
+                  <Card className="rounded-2xl border border-gray-200 bg-white">
                     <CardContent className="p-4">
-                      <p className="text-xs font-medium text-teal-700 mb-1">
+                      <p className="text-sm font-medium text-gray-600 mb-1">
                         Application ID
                       </p>
-                      <p className="font-semibold text-teal-900 mt-2">
+                      <p className="font-semibold text-gray-900 mt-2">
                         #{selectedApp.id}
                       </p>
                     </CardContent>
@@ -1003,7 +884,7 @@ function ApplicationsContent() {
 
                 <div>
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-secondary-500 to-brand-secondary-600 flex items-center justify-center">
                       <FileText className="h-4 w-4 text-white" />
                     </div>
                     <h3 className="font-bold text-lg text-gray-900">
@@ -1229,15 +1110,11 @@ export default function ApplicationsPage() {
     <CitizenLayout>
       <Suspense
         fallback={
-          <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50/20 to-slate-50 flex items-center justify-center">
-            <Card className="w-full max-w-md border-0 shadow-xl">
-              <CardContent className="py-12">
-                <div className="flex flex-col items-center justify-center">
-                  <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                  <p className="text-gray-600 font-medium">Loading...</p>
-                </div>
-              </CardContent>
-            </Card>
+          <div role="status" aria-label="Loading applications" className="space-y-4">
+            <div className="h-24 animate-pulse rounded-2xl bg-gray-100" />
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {[0, 1, 2].map((item) => <div key={item} className="h-48 animate-pulse rounded-2xl bg-gray-100" />)}
+            </div>
           </div>
         }
       >

@@ -373,7 +373,7 @@ export default function CedulaPage() {
       <CitizenLayout requireAuth={false}>
         <div className="min-h-screen bg-gray-50 pb-20 lg:pb-0 flex items-center justify-center">
           <div className="flex flex-col items-center gap-3">
-            <Loader2 className="h-8 w-8 animate-spin text-orange-600" />
+            <Loader2 className="h-8 w-8 animate-spin text-brand-secondary-600" />
             <p className="text-sm text-muted-foreground">
               Loading your information...
             </p>
@@ -392,8 +392,8 @@ export default function CedulaPage() {
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
-                <FileText className="h-5 w-5 text-orange-600" />
+              <div className="w-10 h-10 rounded-full bg-brand-secondary-100 flex items-center justify-center">
+                <FileText className="h-5 w-5 text-brand-secondary-600" />
               </div>
               <div>
                 <h1 className="text-xl font-bold">
@@ -617,8 +617,8 @@ export default function CedulaPage() {
                   </div>
                 </div>
 
-                <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                  <p className="text-sm text-orange-800">
+                <div className="bg-brand-secondary-50 border border-brand-secondary-200 rounded-lg p-4">
+                  <p className="text-sm text-brand-secondary-800">
                     <strong>Note:</strong> Processing time is 3-5 business days.
                     You will receive an email notification once your cedula is
                     ready for pickup.
@@ -628,7 +628,7 @@ export default function CedulaPage() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-orange-500 hover:bg-orange-600"
+                  className="w-full bg-brand-secondary-500 hover:bg-brand-secondary-600"
                 >
                   {isSubmitting ? (
                     <>

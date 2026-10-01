@@ -50,7 +50,7 @@ function VerifySubscriptionContent() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-orange-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-accent-50 to-brand-secondary-50 px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ function VerifySubscriptionContent() {
         <div className="text-center">
           {status === 'loading' && (
             <>
-              <Loader2 className="w-16 h-16 text-emerald-600 animate-spin mx-auto mb-4" />
+              <Loader2 className="w-16 h-16 text-brand-accent-600 animate-spin mx-auto mb-4" />
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 Verifying Your Subscription
               </h1>
@@ -74,7 +74,7 @@ function VerifySubscriptionContent() {
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", duration: 0.5 }}
               >
-                <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
+                <CheckCircle className="w-16 h-16 text-brand-accent-600 mx-auto mb-4" />
               </motion.div>
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 Subscription Verified!
@@ -88,14 +88,14 @@ function VerifySubscriptionContent() {
 
           {status === 'error' && (
             <>
-              <XCircle className="w-16 h-16 text-red-600 mx-auto mb-4" />
+              <XCircle className="w-16 h-16 text-brand-primary-600 mx-auto mb-4" />
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 Verification Failed
               </h1>
               <p className="text-gray-600 mb-6">{message}</p>
               <button
                 onClick={() => router.push('/')}
-                className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all font-medium shadow-md hover:shadow-lg"
+                className="px-6 py-3 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white rounded-lg hover:from-brand-accent-700 hover:to-brand-secondary-600 transition-all font-medium shadow-md hover:shadow-lg"
               >
                 Go to Home
               </button>
@@ -110,10 +110,10 @@ function VerifySubscriptionContent() {
 export default function VerifySubscriptionPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-orange-50 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-accent-50 to-brand-secondary-50 px-4">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center">
-            <Loader2 className="w-16 h-16 text-emerald-600 animate-spin mx-auto mb-4" />
+            <Loader2 className="w-16 h-16 text-brand-accent-600 animate-spin mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               Loading
             </h1>

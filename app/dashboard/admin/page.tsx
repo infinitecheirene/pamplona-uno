@@ -92,10 +92,10 @@ export default function EnhancedAdminDashboard() {
   ]
 
   const serviceDistributionData = [
-    { name: "Medical Assistance", value: stats.totalAssistance || 35, color: "#ef4444" },
-    { name: "Building Permits", value: stats.buildingPermits || 25, color: "#f97316" },
+    { name: "Medical Assistance", value: stats.totalAssistance || 35, color: "var(--brand-primary-500)" },
+    { name: "Building Permits", value: stats.buildingPermits || 25, color: "var(--brand-secondary-500)" },
     { name: "Business Permits", value: stats.businessPermits || 20, color: "#eab308" },
-    { name: "Health Certificates", value: stats.healthCertificates || 30, color: "#22c55e" },
+    { name: "Health Certificates", value: stats.healthCertificates || 30, color: "var(--brand-accent-500)" },
     { name: "Cedula", value: stats.cedula || 40, color: "#3b82f6" },
     { name: "Clearances", value: (stats.barangayClearance || 15) + (stats.policeClearance || 10), color: "#8b5cf6" },
   ]
@@ -268,7 +268,7 @@ export default function EnhancedAdminDashboard() {
           <Icon className={`w-6 h-6 text-${color}-600`} />
         </div>
         {trend && (
-          <div className={`flex items-center gap-1 ${trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
+          <div className={`flex items-center gap-1 ${trend === 'up' ? 'text-brand-accent-600' : 'text-brand-primary-600'}`}>
             {trend === 'up' ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
             <span className="text-sm font-medium">{trendValue}%</span>
           </div>
@@ -303,7 +303,7 @@ export default function EnhancedAdminDashboard() {
           </div>
           <button 
             onClick={fetchDashboardData}
-            className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors flex items-center gap-2"
+            className="px-4 py-2 bg-brand-secondary-600 text-white rounded-lg hover:bg-brand-secondary-700 transition-colors flex items-center gap-2"
           >
             <Activity className="w-4 h-4" />
             Refresh Data
@@ -351,7 +351,7 @@ export default function EnhancedAdminDashboard() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
               <div className="flex items-center gap-3 mb-2">
-                <Building className="w-5 h-5 text-orange-600" />
+                <Building className="w-5 h-5 text-brand-secondary-600" />
                 <span className="text-sm font-medium text-gray-700">Building Permits</span>
               </div>
               <p className="text-2xl font-bold text-gray-900">{stats.buildingPermits}</p>
@@ -367,7 +367,7 @@ export default function EnhancedAdminDashboard() {
             
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
               <div className="flex items-center gap-3 mb-2">
-                <HeartPulse className="w-5 h-5 text-green-600" />
+                <HeartPulse className="w-5 h-5 text-brand-accent-600" />
                 <span className="text-sm font-medium text-gray-700">Health Certificates</span>
               </div>
               <p className="text-2xl font-bold text-gray-900">{stats.healthCertificates}</p>
@@ -393,7 +393,7 @@ export default function EnhancedAdminDashboard() {
             
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
               <div className="flex items-center gap-3 mb-2">
-                <Phone className="w-5 h-5 text-red-600" />
+                <Phone className="w-5 h-5 text-brand-primary-600" />
                 <span className="text-sm font-medium text-gray-700">Ambulance Requests</span>
               </div>
               <p className="text-2xl font-bold text-gray-900">{stats.ambulanceRequests}</p>
@@ -412,8 +412,8 @@ export default function EnhancedAdminDashboard() {
                 <AreaChart data={applicationTrendData}>
                   <defs>
                     <linearGradient id="colorApplications" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#f97316" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#f97316" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="var(--brand-secondary-500)" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="var(--brand-secondary-500)" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -430,7 +430,7 @@ export default function EnhancedAdminDashboard() {
                   <Area 
                     type="monotone" 
                     dataKey="applications" 
-                    stroke="#f97316" 
+                    stroke="var(--brand-secondary-500)"
                     strokeWidth={2}
                     fill="url(#colorApplications)" 
                   />
@@ -501,7 +501,7 @@ export default function EnhancedAdminDashboard() {
                     fontSize: '12px'
                   }} 
                 />
-                <Bar dataKey="activity" fill="#f97316" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="activity" fill="var(--brand-secondary-500)" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -512,7 +512,7 @@ export default function EnhancedAdminDashboard() {
             <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-bold text-gray-900">Recent Applications</h2>
-                <button className="text-sm text-orange-600 font-medium hover:text-orange-700">
+                <button className="text-sm text-brand-secondary-600 font-medium hover:text-brand-secondary-700">
                   View All
                 </button>
               </div>
@@ -542,10 +542,10 @@ export default function EnhancedAdminDashboard() {
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-medium ${
                           activity.status === "pending"
-                            ? "bg-orange-100 text-orange-700"
+                            ? "bg-brand-secondary-100 text-brand-secondary-700"
                             : activity.status === "approved"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-red-100 text-red-700"
+                            ? "bg-brand-accent-100 text-brand-accent-700"
+                            : "bg-brand-primary-100 text-brand-primary-700"
                         }`}
                       >
                         {activity.status}
@@ -560,25 +560,25 @@ export default function EnhancedAdminDashboard() {
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
               <h2 className="text-lg font-bold text-gray-900 mb-4">Status Overview</h2>
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-brand-secondary-50 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-orange-600" />
+                    <Clock className="w-5 h-5 text-brand-secondary-600" />
                     <span className="text-sm font-medium text-gray-700">Pending</span>
                   </div>
                   <span className="text-lg font-bold text-gray-900">{stats.pendingAssistance}</span>
                 </div>
                 
-                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-brand-accent-50 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <CheckCircle className="w-5 h-5 text-brand-accent-600" />
                     <span className="text-sm font-medium text-gray-700">Approved</span>
                   </div>
                   <span className="text-lg font-bold text-gray-900">{stats.approvedAssistance}</span>
                 </div>
                 
-                <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-brand-primary-50 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <XCircle className="w-5 h-5 text-red-600" />
+                    <XCircle className="w-5 h-5 text-brand-primary-600" />
                     <span className="text-sm font-medium text-gray-700">Rejected</span>
                   </div>
                   <span className="text-lg font-bold text-gray-900">{stats.rejectedAssistance}</span>

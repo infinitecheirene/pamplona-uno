@@ -17,7 +17,7 @@ export default function AdminHeader() {
       toast({
         title: "✓ Logged Out Successfully",
         description: "You have been securely logged out.",
-        className: "bg-green-50 border-green-200",
+        className: "bg-brand-accent-50 border-brand-accent-200",
         duration: 2000,
       });
 
@@ -57,7 +57,7 @@ export default function AdminHeader() {
           <div className="flex items-center gap-2">
             <button className="relative p-2 hover:bg-gray-100 rounded-lg">
               <Bell size={20} />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              <span className="absolute top-1 right-1 w-2 h-2 bg-brand-primary-500 rounded-full"></span>
             </button>
             <button
               onClick={handleLogout}

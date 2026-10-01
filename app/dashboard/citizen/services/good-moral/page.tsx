@@ -579,9 +579,9 @@ export default function GoodMoralCertificatePage() {
                 <CardContent>
                   {/* Error Message */}
                   {errorMessage && (
-                    <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
-                      <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-red-800">{errorMessage}</p>
+                    <div className="mb-4 p-3 bg-brand-primary-50 border border-brand-primary-200 rounded-lg flex items-start gap-2">
+                      <AlertCircle className="w-5 h-5 text-brand-primary-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-brand-primary-800">{errorMessage}</p>
                     </div>
                   )}
 

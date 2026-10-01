@@ -176,7 +176,7 @@ export default function LoginForm() {
             <p className="text-sm">Redirecting...</p>
           </div>
         ),
-        className: "bg-green-50 border-green-200",
+        className: "bg-brand-accent-50 border-brand-accent-200",
         duration: 3000,
       });
 
@@ -226,7 +226,7 @@ export default function LoginForm() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-orange-50 flex items-center justify-center px-4">
+    <main className="min-h-screen bg-gradient-to-br from-brand-accent-50 via-white to-brand-secondary-50 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -240,10 +240,10 @@ export default function LoginForm() {
             transition={{ delay: 0.1 }}
             className="text-center mb-10"
           >
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-orange-100 to-emerald-100 mb-4">
-              <span className="text-2xl font-bold text-orange-600">C</span>
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-brand-secondary-100 to-brand-accent-100 mb-4">
+              <span className="text-2xl font-bold text-brand-secondary-600">C</span>
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-emerald-600 bg-clip-text text-transparent mb-2">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent mb-2">
               Welcome Back
             </h1>
             <p className="text-gray-600">
@@ -275,14 +275,14 @@ export default function LoginForm() {
                 }}
                 className={`w-full px-4 py-3 rounded-lg border ${
                   errors.email
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-200"
-                    : "border-orange-200 focus:border-orange-500 focus:ring-orange-200"
+                    ? "border-brand-primary-500 focus:border-brand-primary-500 focus:ring-brand-primary-200"
+                    : "border-brand-secondary-200 focus:border-brand-secondary-500 focus:ring-brand-secondary-200"
                 } focus:ring-2 transition`}
                 placeholder="your@email.com"
                 onKeyDown={(e) => e.key === "Enter" && handleLogin(e)}
               />
               {errors.email && (
-                <div className="mt-1 flex items-start gap-1 text-red-600 text-xs">
+                <div className="mt-1 flex items-start gap-1 text-brand-primary-600 text-xs">
                   <AlertCircle className="w-3 h-3 mt-0.5 flex-shrink-0" />
                   <span>{errors.email.join(", ")}</span>
                 </div>
@@ -312,14 +312,14 @@ export default function LoginForm() {
                 }}
                 className={`w-full px-4 py-3 rounded-lg border ${
                   errors.password
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-200"
-                    : "border-orange-200 focus:border-orange-500 focus:ring-orange-200"
+                    ? "border-brand-primary-500 focus:border-brand-primary-500 focus:ring-brand-primary-200"
+                    : "border-brand-secondary-200 focus:border-brand-secondary-500 focus:ring-brand-secondary-200"
                 } focus:ring-2 transition`}
                 placeholder="••••••••"
                 onKeyDown={(e) => e.key === "Enter" && handleLogin(e)}
               />
               {errors.password && (
-                <div className="mt-1 flex items-start gap-1 text-red-600 text-xs">
+                <div className="mt-1 flex items-start gap-1 text-brand-primary-600 text-xs">
                   <AlertCircle className="w-3 h-3 mt-0.5 flex-shrink-0" />
                   <span>{errors.password.join(", ")}</span>
                 </div>
@@ -334,7 +334,7 @@ export default function LoginForm() {
             >
               <Link
                 href="#"
-                className="text-sm text-orange-600 font-semibold hover:text-orange-700"
+                className="text-sm text-brand-secondary-600 font-semibold hover:text-brand-secondary-700"
               >
                 Forgot password?
               </Link>
@@ -348,7 +348,7 @@ export default function LoginForm() {
               whileTap={{ scale: 0.98 }}
               onClick={handleLogin}
               disabled={loading}
-              className="w-full px-6 py-4 rounded-lg bg-gradient-to-r from-orange-600 to-orange-500 text-white font-bold hover:shadow-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+              className="w-full px-6 py-4 rounded-lg bg-gradient-to-r from-brand-secondary-600 to-brand-secondary-500 text-white font-bold hover:shadow-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
             >
               {loading ? (
                 <>
@@ -368,13 +368,13 @@ export default function LoginForm() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-8 pt-8 border-t border-orange-100 text-center"
+            className="mt-8 pt-8 border-t border-brand-secondary-100 text-center"
           >
             <p className="text-gray-600">
               Don't have an account?{" "}
               <Link
                 href="/register"
-                className="text-orange-600 font-bold hover:text-orange-700"
+                className="text-brand-secondary-600 font-bold hover:text-brand-secondary-700"
               >
                 Register here
               </Link>

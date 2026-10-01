@@ -427,7 +427,7 @@ export default function BuildingPermitPage() {
         {isLoadingUserData && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-secondary-500 mx-auto mb-4"></div>
               <p className="text-gray-600">
                 Loading your profile information...
               </p>
@@ -458,7 +458,7 @@ export default function BuildingPermitPage() {
                     <div
                       className={`w-10 h-10 rounded-full flex items-center justify-center ${
                         currentStep >= step.id
-                          ? "bg-orange-500 text-white"
+                          ? "bg-brand-secondary-500 text-white"
                           : "bg-gray-200 text-gray-500"
                       }`}
                     >
@@ -474,7 +474,7 @@ export default function BuildingPermitPage() {
                   </div>
                   {index < steps.length - 1 && (
                     <div
-                      className={`h-1 flex-1 mx-2 ${currentStep > step.id ? "bg-orange-500" : "bg-gray-200"}`}
+                      className={`h-1 flex-1 mx-2 ${currentStep > step.id ? "bg-brand-secondary-500" : "bg-gray-200"}`}
                     />
                   )}
                 </div>
@@ -503,9 +503,9 @@ export default function BuildingPermitPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               {error && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
-                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-red-800">{error}</p>
+                <div className="p-3 bg-brand-primary-50 border border-brand-primary-200 rounded-lg flex items-start gap-2">
+                  <AlertCircle className="w-5 h-5 text-brand-primary-600 flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-brand-primary-800">{error}</p>
                 </div>
               )}
 
@@ -707,7 +707,7 @@ export default function BuildingPermitPage() {
                   <div className="space-y-2">
                     <Label>Building Plans *</Label>
                     {!buildingPlans ? (
-                      <label className="border-2 border-dashed rounded-lg p-8 text-center block cursor-pointer hover:border-orange-500 transition-colors">
+                      <label className="border-2 border-dashed rounded-lg p-8 text-center block cursor-pointer hover:border-brand-secondary-500 transition-colors">
                         <Upload className="h-12 w-12 mx-auto text-gray-400 mb-4" />
                         <p className="text-sm text-muted-foreground mb-2">
                           Click to upload or drag and drop
@@ -725,7 +725,7 @@ export default function BuildingPermitPage() {
                     ) : (
                       <div className="border rounded-lg p-4 flex items-center justify-between bg-gray-50">
                         <div className="flex items-center gap-3">
-                          <FileText className="h-8 w-8 text-orange-500" />
+                          <FileText className="h-8 w-8 text-brand-secondary-500" />
                           <div>
                             <p className="text-sm font-medium">
                               {buildingPlans.name}
@@ -748,7 +748,7 @@ export default function BuildingPermitPage() {
                   <div className="space-y-2">
                     <Label>Land Title / Tax Declaration *</Label>
                     {!landTitle ? (
-                      <label className="border-2 border-dashed rounded-lg p-8 text-center block cursor-pointer hover:border-orange-500 transition-colors">
+                      <label className="border-2 border-dashed rounded-lg p-8 text-center block cursor-pointer hover:border-brand-secondary-500 transition-colors">
                         <Upload className="h-12 w-12 mx-auto text-gray-400 mb-4" />
                         <p className="text-sm text-muted-foreground mb-2">
                           Click to upload or drag and drop
@@ -766,7 +766,7 @@ export default function BuildingPermitPage() {
                     ) : (
                       <div className="border rounded-lg p-4 flex items-center justify-between bg-gray-50">
                         <div className="flex items-center gap-3">
-                          <FileText className="h-8 w-8 text-orange-500" />
+                          <FileText className="h-8 w-8 text-brand-secondary-500" />
                           <div>
                             <p className="text-sm font-medium">
                               {landTitle.name}
@@ -888,7 +888,7 @@ export default function BuildingPermitPage() {
                 {currentStep < steps.length ? (
                   <Button
                     onClick={handleNext}
-                    className="flex-1 bg-orange-500 hover:bg-orange-600"
+                    className="flex-1 bg-brand-secondary-500 hover:bg-brand-secondary-600"
                   >
                     Next
                   </Button>
@@ -896,7 +896,7 @@ export default function BuildingPermitPage() {
                   <Button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
-                    className="flex-1 bg-orange-500 hover:bg-orange-600"
+                    className="flex-1 bg-brand-secondary-500 hover:bg-brand-secondary-600"
                   >
                     {isSubmitting ? "Submitting..." : "Submit Application"}
                   </Button>

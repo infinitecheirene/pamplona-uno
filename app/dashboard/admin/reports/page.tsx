@@ -108,7 +108,7 @@ export default function AdminReportsPage() {
     {
       value: "garbage",
       label: "Garbage",
-      color: "bg-green-100 text-green-700",
+      color: "bg-brand-accent-100 text-brand-accent-700",
     },
     { value: "water", label: "Water", color: "bg-cyan-100 text-cyan-700" },
     {
@@ -135,21 +135,21 @@ export default function AdminReportsPage() {
     {
       value: "resolved",
       label: "Resolved",
-      color: "bg-green-100 text-green-700",
+      color: "bg-brand-accent-100 text-brand-accent-700",
       icon: CheckCircle,
     },
     {
       value: "rejected",
       label: "Rejected",
-      color: "bg-red-100 text-red-700",
+      color: "bg-brand-primary-100 text-brand-primary-700",
       icon: XCircle,
     },
   ];
 
   const urgencies = [
-    { value: "low", label: "Low", color: "text-green-600" },
+    { value: "low", label: "Low", color: "text-brand-accent-600" },
     { value: "medium", label: "Medium", color: "text-yellow-600" },
-    { value: "high", label: "High", color: "text-red-600" },
+    { value: "high", label: "High", color: "text-brand-primary-600" },
   ];
 
   useEffect(() => {
@@ -351,7 +351,7 @@ export default function AdminReportsPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-secondary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -365,8 +365,8 @@ export default function AdminReportsPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-orange-100 rounded-lg">
-                  <AlertCircle className="w-6 h-6 text-orange-600" />
+                <div className="p-2 bg-brand-secondary-100 rounded-lg">
+                  <AlertCircle className="w-6 h-6 text-brand-secondary-600" />
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">
@@ -393,7 +393,7 @@ export default function AdminReportsPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent"
                 />
               </div>
 
@@ -405,7 +405,7 @@ export default function AdminReportsPage() {
                     setCategoryFilter(e.target.value);
                     setPagination((prev) => ({ ...prev, current_page: 1 }));
                   }}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent appearance-none bg-white"
                 >
                   <option value="all">All Categories</option>
                   {categories.map((cat) => (
@@ -424,7 +424,7 @@ export default function AdminReportsPage() {
                     setStatusFilter(e.target.value);
                     setPagination((prev) => ({ ...prev, current_page: 1 }));
                   }}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent appearance-none bg-white"
                 >
                   <option value="all">All Status</option>
                   {statuses.map((stat) => (
@@ -443,7 +443,7 @@ export default function AdminReportsPage() {
                     setUrgencyFilter(e.target.value);
                     setPagination((prev) => ({ ...prev, current_page: 1 }));
                   }}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent appearance-none bg-white"
                 >
                   <option value="all">All Urgency</option>
                   {urgencies.map((urg) => (
@@ -457,7 +457,7 @@ export default function AdminReportsPage() {
 
             <button
               onClick={handleSearch}
-              className="mt-4 w-full sm:w-auto px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium"
+              className="mt-4 w-full sm:w-auto px-6 py-2 bg-brand-secondary-600 text-white rounded-lg hover:bg-brand-secondary-700 transition-colors text-sm font-medium"
             >
               Search
             </button>
@@ -485,7 +485,7 @@ export default function AdminReportsPage() {
             </div>
             <div className="bg-white p-4 rounded-lg border border-gray-200">
               <p className="text-xs text-gray-500 mb-1">Resolved</p>
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-2xl font-bold text-brand-accent-600">
                 {reports.filter((r) => r.status === "resolved").length}
               </p>
             </div>
@@ -496,7 +496,7 @@ export default function AdminReportsPage() {
             {loading ? (
               <div className="flex items-center justify-center py-12">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-secondary-600 mx-auto"></div>
                   <p className="mt-4 text-gray-600">Loading reports...</p>
                 </div>
               </div>
@@ -585,7 +585,7 @@ export default function AdminReportsPage() {
                                 )
                               }
                               disabled={isUpdating}
-                              className="text-xs font-medium rounded-full px-2 py-1 border-0 focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="text-xs font-medium rounded-full px-2 py-1 border-0 focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                               style={{
                                 backgroundColor:
                                   statuses
@@ -663,7 +663,7 @@ export default function AdminReportsPage() {
                               )
                             }
                             disabled={isUpdating}
-                            className="text-xs font-medium rounded-full px-2 py-1 border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50"
+                            className="text-xs font-medium rounded-full px-2 py-1 border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 disabled:opacity-50"
                           >
                             {statuses.map((stat) => (
                               <option key={stat.value} value={stat.value}>
@@ -727,7 +727,7 @@ export default function AdminReportsPage() {
                                 onClick={() => handlePageChange(pageNum)}
                                 className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
                                   pagination.current_page === pageNum
-                                    ? "bg-orange-600 text-white"
+                                    ? "bg-brand-secondary-600 text-white"
                                     : "border border-gray-300 hover:bg-gray-50"
                                 }`}
                               >
@@ -782,8 +782,8 @@ export default function AdminReportsPage() {
                 <div className="space-y-6">
                   {/* Citizen Info */}
                   <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
-                    <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                      <User className="w-5 h-5 text-orange-600" />
+                    <div className="w-10 h-10 bg-brand-secondary-100 rounded-full flex items-center justify-center">
+                      <User className="w-5 h-5 text-brand-secondary-600" />
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">
@@ -834,7 +834,7 @@ export default function AdminReportsPage() {
                             )
                           }
                           disabled={isUpdating}
-                          className="text-sm font-medium rounded-lg px-3 py-1.5 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50"
+                          className="text-sm font-medium rounded-lg px-3 py-1.5 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 disabled:opacity-50"
                         >
                           {statuses.map((stat) => (
                             <option key={stat.value} value={stat.value}>

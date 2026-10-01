@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
+import { getLaravelApiUrl } from "@/lib/laravel-api-url"
 
 export async function GET(request: Request) {
   try {
@@ -28,12 +29,9 @@ export async function GET(request: Request) {
       'Authorization': `Bearer ${token.value}`,
     }
     
-    // Get Laravel API URL from environment variable
-    const laravelApiUrl = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_LARAVEL_API_URL
-    
-    if (!laravelApiUrl) {
-      throw new Error('LARAVEL_API_URL is not configured in environment variables')
-    }
+    const laravelApiUrl = getLaravelApiUrl(
+      process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_LARAVEL_API_URL,
+    )
     
     // Fetch from Laravel backend
     const response = await fetch(`${laravelApiUrl}/reports/user`, {

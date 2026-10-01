@@ -118,7 +118,7 @@ export default function NewsSection() {
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 border-4 border-transparent border-t-red-500 border-r-orange-500 border-b-green-500 rounded-full"
+                    className="absolute inset-0 border-4 border-transparent border-t-brand-primary-500 border-r-brand-secondary-500 border-b-brand-accent-500 rounded-full"
                   />
                 </div>
                 <p className="text-gray-700 font-medium">Loading news...</p>
@@ -130,13 +130,13 @@ export default function NewsSection() {
               animate={{ opacity: 1, scale: 1 }}
               className="text-center py-16"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-brand-primary-500 to-brand-secondary-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <X className="w-8 h-8 text-white" />
               </div>
-              <p className="text-red-700 mb-6 font-semibold text-lg">Failed to load news: {error}</p>
+              <p className="text-brand-primary-700 mb-6 font-semibold text-lg">Failed to load news: {error}</p>
               <button
                 onClick={() => window.location.reload()}
-                className="px-8 py-4 bg-gradient-to-r from-red-500 via-orange-500 to-green-500 text-white rounded-full hover:shadow-2xl transition-all font-semibold text-lg hover:scale-105"
+                className="px-8 py-4 bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 text-white rounded-full hover:shadow-2xl transition-all font-semibold text-lg hover:scale-105"
               >
                 Try Again
               </button>
@@ -147,10 +147,10 @@ export default function NewsSection() {
               animate={{ opacity: 1, scale: 1 }}
               className="text-center py-20"
             >
-              <div className="w-24 h-24 bg-gradient-to-br from-red-500 via-orange-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+              <div className="w-24 h-24 bg-gradient-to-br from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
                 <Newspaper className="w-12 h-12 text-white" />
               </div>
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent mb-3">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent mb-3">
                 No News Available
               </h3>
               <p className="text-gray-600 text-lg">Check back later for community updates and stories.</p>
@@ -166,13 +166,13 @@ export default function NewsSection() {
                   viewport={{ once: true }}
                   whileHover={{ y: -12, scale: 1.02 }}
                   onClick={() => setSelectedArticle(article)}
-                  className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer border-2 border-gray-100 hover:border-orange-300"
+                  className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer border-2 border-gray-100 hover:border-brand-secondary-300"
                 >
                   {/* Hover Gradient Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 via-orange-500/5 to-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-primary-500/5 via-brand-secondary-500/5 to-brand-accent-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
                   {/* Image */}
-                  <div className="relative h-56 overflow-hidden bg-gradient-to-br from-red-100 via-orange-100 to-green-100 flex items-center justify-center">
+                  <div className="relative h-56 overflow-hidden bg-gradient-to-br from-brand-primary-100 via-brand-secondary-100 to-brand-accent-100 flex items-center justify-center">
                     <img
                       src={getImageUrl(article.image)}
                       alt={article.title}
@@ -183,7 +183,7 @@ export default function NewsSection() {
                     />
                     {/* Category Badge */}
                     <div className="absolute top-4 left-4">
-                      <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase bg-gradient-to-r from-red-500 via-orange-500 to-green-500 text-white shadow-lg">
+                      <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 text-white shadow-lg">
                         {article.category}
                       </span>
                     </div>
@@ -198,7 +198,7 @@ export default function NewsSection() {
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:bg-gradient-to-r group-hover:from-red-600 group-hover:via-orange-600 group-hover:to-green-600 group-hover:bg-clip-text group-hover:text-transparent transition-all line-clamp-2">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:bg-gradient-to-r group-hover:from-brand-primary-600 group-hover:via-brand-secondary-600 group-hover:to-brand-accent-600 group-hover:bg-clip-text group-hover:text-transparent transition-all line-clamp-2">
                       {article.title}
                     </h3>
 
@@ -208,10 +208,10 @@ export default function NewsSection() {
 
                     <motion.div
                       whileHover={{ x: 5 }}
-                      className="inline-flex items-center gap-2 text-sm font-bold bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent"
+                      className="inline-flex items-center gap-2 text-sm font-bold bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent"
                     >
                       Read Full Story
-                      <svg className="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-brand-secondary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </motion.div>
@@ -255,7 +255,7 @@ export default function NewsSection() {
                     />
                   </div>
                 ) : (
-                  <div className="w-full h-64 bg-gradient-to-r from-red-500 via-orange-500 to-green-500 rounded-xl"></div>
+                  <div className="w-full h-64 bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 rounded-xl"></div>
                 )}
                 
                 {/* Close Button */}
@@ -271,7 +271,7 @@ export default function NewsSection() {
 
                 {/* Category Badge on Image */}
                 <div className="absolute top-4 left-4 z-20">
-                  <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold uppercase bg-gradient-to-r from-red-500 via-orange-500 to-green-500 text-white shadow-xl">
+                  <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold uppercase bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 text-white shadow-xl">
                     {selectedArticle.category}
                   </span>
                 </div>
@@ -281,15 +281,15 @@ export default function NewsSection() {
               <div className="flex-1 overflow-y-auto p-8 md:p-10">
                 <div className="space-y-6">
                   {/* Title */}
-                  <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent leading-tight">
+                  <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent leading-tight">
                     {selectedArticle.title}
                   </h2>
 
                   {/* Meta Info */}
                   <div className="flex flex-wrap items-center gap-6 pb-6 border-b-2 border-gray-200">
                     <div className="flex items-center gap-2 text-gray-600">
-                      <div className="w-10 h-10 bg-gradient-to-br from-red-100 via-orange-100 to-green-100 rounded-full flex items-center justify-center">
-                        <Calendar className="w-5 h-5 text-orange-600" />
+                      <div className="w-10 h-10 bg-gradient-to-br from-brand-primary-100 via-brand-secondary-100 to-brand-accent-100 rounded-full flex items-center justify-center">
+                        <Calendar className="w-5 h-5 text-brand-secondary-600" />
                       </div>
                       <span className="font-medium">
                         {formatDate(selectedArticle.published_at || selectedArticle.created_at)}
@@ -298,8 +298,8 @@ export default function NewsSection() {
                     
                     {selectedArticle.author && (
                       <div className="flex items-center gap-2 text-gray-600">
-                        <div className="w-10 h-10 bg-gradient-to-br from-red-100 via-orange-100 to-green-100 rounded-full flex items-center justify-center">
-                          <User className="w-5 h-5 text-orange-600" />
+                        <div className="w-10 h-10 bg-gradient-to-br from-brand-primary-100 via-brand-secondary-100 to-brand-accent-100 rounded-full flex items-center justify-center">
+                          <User className="w-5 h-5 text-brand-secondary-600" />
                         </div>
                         <span className="font-medium">By {selectedArticle.author.name}</span>
                       </div>
@@ -316,12 +316,12 @@ export default function NewsSection() {
               </div>
 
               {/* Modal Footer */}
-              <div className="border-t-2 border-gray-200 px-8 md:px-10 py-6 bg-gradient-to-r from-red-50 via-orange-50 to-green-50">
+              <div className="border-t-2 border-gray-200 px-8 md:px-10 py-6 bg-gradient-to-r from-brand-primary-50 via-brand-secondary-50 to-brand-accent-50">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setSelectedArticle(null)}
-                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-red-600 via-orange-600 to-green-600 text-white rounded-full hover:shadow-2xl transition-all font-bold text-lg"
+                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 text-white rounded-full hover:shadow-2xl transition-all font-bold text-lg"
                 >
                   Close
                 </motion.button>

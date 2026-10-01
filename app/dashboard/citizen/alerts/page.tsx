@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
-import { AlertCircle, Loader, Bell } from "lucide-react";
+import { AlertCircle, Bell } from "lucide-react";
 import CitizenLayout from "@/components/citizenLayout";
 
 interface AdminAlert {
@@ -201,10 +201,10 @@ export default function UserAlertsPage() {
   const getDisasterColor = (disasterType: string) => {
     const colors: Record<string, string> = {
       Typhoon: "bg-blue-50 border-l-4 border-l-blue-500",
-      Earthquake: "bg-red-50 border-l-4 border-l-red-500",
+      Earthquake: "bg-brand-primary-50 border-l-4 border-l-brand-primary-500",
       Flood: "bg-cyan-50 border-l-4 border-l-cyan-500",
       Landslide: "bg-amber-50 border-l-4 border-l-amber-500",
-      Fire: "bg-orange-50 border-l-4 border-l-orange-500",
+      Fire: "bg-brand-secondary-50 border-l-4 border-l-brand-secondary-500",
       Weather: "bg-indigo-50 border-l-4 border-l-indigo-500",
       Other: "bg-gray-50 border-l-4 border-l-gray-500",
     };
@@ -242,39 +242,35 @@ export default function UserAlertsPage() {
   const totalAlerts =
     activeAdminAlerts.length + earthquakeAlerts.length + typhoonAlerts.length;
 
+  const getAlertTimestamp = (alert: AdminAlert | EarthquakeAlert | TyphoonAlert) =>
+    new Date("disaster_type" in alert ? alert.created_at : alert.timestamp).getTime();
+  const newestFirstAlerts = [...filteredAlerts].sort(
+    (a, b) => getAlertTimestamp(b) - getAlertTimestamp(a),
+  );
+
   return (
     <CitizenLayout requireAuth={false}>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-        <div className="max-w-4xl mx-auto">
+      <div className="space-y-6">
           {/* Header */}
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-2">
-              <Bell className="w-8 h-8 text-orange-600" />
-              <h1 className="text-4xl font-bold text-foreground">
-                Disaster Alerts
-              </h1>
-            </div>
-            <p className="text-muted-foreground text-lg">
-              Stay informed about active disaster alerts and real-time
-              monitoring data for the Philippines
+          <header>
+            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Disaster alerts</h1>
+            <p className="mt-2 text-gray-600">See local notices and recent earthquake and typhoon updates.</p>
+            <p className="mt-2 text-sm text-gray-600">
+              Active notices: {activeAdminAlerts.length} · Earthquakes: {earthquakeAlerts.length} · Typhoons: {typhoonAlerts.length}
             </p>
-            <p className="text-sm text-muted-foreground mt-2">
-              Active Alerts: {activeAdminAlerts.length} | Earthquakes (7 days):{" "}
-              {earthquakeAlerts.length} | Typhoons: {typhoonAlerts.length}
-            </p>
-          </div>
+          </header>
 
           {/* Filter Tabs */}
-          <div className="flex gap-3 mb-6 flex-wrap">
+          <div className="flex gap-2 overflow-x-auto pb-1">
             {(["all", "active", "earthquakes", "typhoons"] as const).map(
               (tab) => (
                 <button
                   key={tab}
                   onClick={() => setFilter(tab)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  className={`rounded-xl border px-4 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 ${
                     filter === tab
-                      ? "bg-orange-600 text-white"
-                      : "bg-white text-foreground border border-border hover:bg-muted"
+                      ? "border-brand-accent-600 bg-brand-accent-600 text-white"
+                      : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
                   }`}
                 >
                   {tab === "all" && `All (${totalAlerts})`}
@@ -290,37 +286,39 @@ export default function UserAlertsPage() {
 
           {/* Error Message */}
           {error && (
-            <Card className="p-4 mb-6 bg-red-50 border border-red-200">
+            <Card role="alert" className="rounded-2xl border-2 border-brand-primary-200 bg-brand-primary-50 p-5">
               <div className="flex items-center gap-3">
-                <AlertCircle className="w-5 h-5 text-red-600" />
-                <p className="text-red-700">{error}</p>
+                <AlertCircle className="w-5 h-5 text-brand-primary-600" />
+                <div>
+                  <p className="text-brand-primary-700">{error}. Check your connection, then try again.</p>
+                  <button type="button" onClick={fetchAllAlerts} className="mt-3 rounded-xl border border-brand-primary-300 px-4 py-2 font-semibold text-brand-primary-700 hover:bg-brand-primary-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">Refresh alerts</button>
+                </div>
               </div>
             </Card>
           )}
 
           {/* Loading State */}
           {loading && (
-            <Card className="p-12 text-center">
-              <Loader className="w-8 h-8 animate-spin mx-auto text-orange-600 mb-4" />
-              <p className="text-muted-foreground">Loading alerts...</p>
-            </Card>
+            <div role="status" aria-label="Loading disaster alerts" className="space-y-4">
+              {[0, 1, 2].map((item) => <div key={item} className="h-40 animate-pulse rounded-2xl bg-gray-100" />)}
+            </div>
           )}
 
           {/* Alerts List */}
           {!loading && (
             <>
-              {filteredAlerts.length === 0 ? (
-                <Card className="p-12 text-center bg-white">
-                  <div className="text-5xl mb-4">✅</div>
-                  <p className="text-muted-foreground text-lg">
+              {newestFirstAlerts.length === 0 ? (
+                <Card className="rounded-2xl border border-gray-200 bg-white p-8 text-center">
+                  <p className="text-lg text-gray-700">
                     {filter === "active"
                       ? "No active alerts at the moment. Stay safe!"
                       : "No alerts to display."}
                   </p>
+                  <button type="button" onClick={fetchAllAlerts} className="mt-5 rounded-xl bg-brand-accent-600 px-6 py-3 font-bold text-white hover:bg-brand-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">Refresh alerts</button>
                 </Card>
               ) : (
-                <div className="space-y-4">
-                  {filteredAlerts.map((alert) => {
+                <ul className="grid gap-4">
+                  {newestFirstAlerts.map((alert) => {
                     // Admin alert
                     if ("disaster_type" in alert) {
                       const adminAlert = alert as AdminAlert;
@@ -330,18 +328,18 @@ export default function UserAlertsPage() {
                       );
 
                       return (
+                        <li key={adminAlert.id}>
                         <Card
-                          key={adminAlert.id}
-                          className={`p-6 transition-all hover:shadow-lg ${getDisasterColor(adminAlert.disaster_type)}`}
+                          className={`rounded-2xl border border-gray-200 p-5 ${getDisasterColor(adminAlert.disaster_type)}`}
                         >
                           <div className="space-y-4">
                             <div className="flex items-start justify-between">
                               <div className="flex items-start gap-4">
-                                <span className="text-4xl">
+                                <span className="text-4xl" aria-hidden="true">
                                   {getDisasterIcon(adminAlert.disaster_type)}
                                 </span>
                                 <div>
-                                  <h3 className="text-2xl font-bold text-foreground">
+                                  <h3 className="text-xl font-bold text-gray-900">
                                     {adminAlert.disaster_type}
                                   </h3>
                                   <p className="text-sm text-muted-foreground mt-1">
@@ -351,15 +349,14 @@ export default function UserAlertsPage() {
                               </div>
                               <div className="text-right">
                                 <span
-                                  className={`inline-block px-4 py-2 rounded-full text-sm font-semibold ${
+                                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-semibold ${
                                     isCurrentlyActive
-                                      ? "bg-red-100 text-red-700"
+                                      ? "bg-brand-primary-100 text-brand-primary-700"
                                       : "bg-gray-100 text-gray-700"
                                   }`}
                                 >
-                                  {isCurrentlyActive
-                                    ? "🔴 ACTIVE"
-                                    : "⚪ INACTIVE"}
+                                  <AlertCircle className="h-4 w-4" aria-hidden="true" />
+                                  {isCurrentlyActive ? "Active" : "Inactive"}
                                 </span>
                               </div>
                             </div>
@@ -399,6 +396,7 @@ export default function UserAlertsPage() {
                             )}
                           </div>
                         </Card>
+                        </li>
                       );
                     }
 
@@ -407,13 +405,13 @@ export default function UserAlertsPage() {
                       const earthquakeAlert = alert as EarthquakeAlert;
 
                       return (
+                        <li key={earthquakeAlert.id}>
                         <Card
-                          key={earthquakeAlert.id}
-                          className="p-6 transition-all hover:shadow-lg border-l-4"
+                          className="rounded-2xl border border-gray-200 border-l-4 p-5"
                           style={{
                             borderLeftColor:
                               earthquakeAlert.magnitude >= 6
-                                ? "#dc2626"
+                                ? "var(--brand-primary-600)"
                                 : earthquakeAlert.magnitude >= 5
                                   ? "#f59e0b"
                                   : earthquakeAlert.magnitude >= 4
@@ -432,18 +430,18 @@ export default function UserAlertsPage() {
                           <div className="space-y-4">
                             <div className="flex items-start justify-between">
                               <div className="flex items-start gap-4">
-                                <span className="text-4xl">🌍</span>
+                                <span className="text-4xl" aria-hidden="true">🌍</span>
                                 <div>
                                   <div className="flex items-center gap-3 mb-2">
                                     <span className="text-2xl font-bold text-foreground">
                                       M {earthquakeAlert.magnitude.toFixed(1)}
                                     </span>
                                     <span
-                                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                                      className={`rounded-full px-3 py-1 text-sm font-semibold ${
                                         earthquakeAlert.magnitude >= 6
-                                          ? "bg-red-100 text-red-700"
+                                          ? "bg-brand-primary-100 text-brand-primary-700"
                                           : earthquakeAlert.magnitude >= 5
-                                            ? "bg-orange-100 text-orange-700"
+                                            ? "bg-brand-secondary-100 text-brand-secondary-700"
                                             : earthquakeAlert.magnitude >= 4
                                               ? "bg-yellow-100 text-yellow-700"
                                               : "bg-blue-100 text-blue-700"
@@ -495,6 +493,7 @@ export default function UserAlertsPage() {
                             </div>
                           </div>
                         </Card>
+                        </li>
                       );
                     }
 
@@ -503,14 +502,14 @@ export default function UserAlertsPage() {
                       const typhoonAlert = alert as TyphoonAlert;
 
                       return (
+                        <li key={typhoonAlert.id}>
                         <Card
-                          key={typhoonAlert.id}
-                          className="p-6 transition-all hover:shadow-lg bg-blue-50 border-l-4 border-l-blue-600"
+                          className="rounded-2xl border border-gray-200 border-l-4 border-l-blue-600 bg-blue-50 p-5"
                         >
                           <div className="space-y-4">
                             <div className="flex items-start justify-between">
                               <div className="flex items-start gap-4">
-                                <span className="text-4xl">🌪️</span>
+                                <span className="text-4xl" aria-hidden="true">🌪️</span>
                                 <div>
                                   <div className="flex items-center gap-3 mb-2">
                                     <h3 className="text-2xl font-bold text-foreground">
@@ -519,9 +518,9 @@ export default function UserAlertsPage() {
                                     <span
                                       className={`px-3 py-1 rounded-full text-xs font-semibold ${
                                         typhoonAlert.windSpeed >= 118
-                                          ? "bg-red-100 text-red-700"
+                                          ? "bg-brand-primary-100 text-brand-primary-700"
                                           : typhoonAlert.windSpeed >= 89
-                                            ? "bg-orange-100 text-orange-700"
+                                            ? "bg-brand-secondary-100 text-brand-secondary-700"
                                             : typhoonAlert.windSpeed >= 62
                                               ? "bg-yellow-100 text-yellow-700"
                                               : "bg-blue-100 text-blue-700"
@@ -568,25 +567,25 @@ export default function UserAlertsPage() {
                             )}
                           </div>
                         </Card>
+                        </li>
                       );
                     }
 
                     return null;
                   })}
-                </div>
+                </ul>
               )}
             </>
           )}
 
           {/* Footer Info */}
-          <div className="mt-8 text-center text-sm text-muted-foreground">
+          <div className="pt-2 text-sm text-gray-600">
             <p>Alerts are automatically updated every 30 seconds</p>
             <p className="mt-1">
               Data sources: USGS (Earthquakes) • GDACS (Typhoons) • Local
               Authorities
             </p>
           </div>
-        </div>
       </div>
     </CitizenLayout>
   );

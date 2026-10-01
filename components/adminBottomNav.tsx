@@ -153,7 +153,7 @@ export default function AdminBottomNav() {
       {activeDropup && (
         <div className="lg:hidden fixed bottom-16 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-50 animate-in slide-in-from-bottom duration-300">
           <div className="max-h-[60vh] overflow-y-auto">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-emerald-600 to-orange-500 text-white">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white">
               {/* Back button for sub-categories */}
               {activeDropup !== 'More' && 
                activeDropup !== 'Dashboard' && 
@@ -197,13 +197,13 @@ export default function AdminBottomNav() {
                       }}
                       className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
                         itemActive || groupItemActive
-                          ? 'bg-gradient-to-r from-emerald-50 to-orange-50 text-emerald-700 font-semibold' 
+                          ? 'bg-gradient-to-r from-brand-accent-50 to-brand-secondary-50 text-brand-accent-700 font-semibold' 
                           : 'hover:bg-gray-50 text-gray-700'
                       }`}
                     >
                       <item.icon size={20} className={
                         itemActive || groupItemActive
-                          ? 'text-emerald-600' 
+                          ? 'text-brand-accent-600' 
                           : 'text-gray-500'
                       } />
                       <span className="text-sm">{item.label}</span>
@@ -228,11 +228,11 @@ export default function AdminBottomNav() {
                             onClick={() => handleSubItemClick(item.path!)}
                             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
                               active 
-                                ? 'bg-gradient-to-r from-emerald-50 to-orange-50 text-emerald-700 font-semibold' 
+                                ? 'bg-gradient-to-r from-brand-accent-50 to-brand-secondary-50 text-brand-accent-700 font-semibold' 
                                 : 'hover:bg-gray-50 text-gray-700'
                             }`}
                           >
-                            <item.icon size={20} className={active ? 'text-emerald-600' : 'text-gray-500'} />
+                            <item.icon size={20} className={active ? 'text-brand-accent-600' : 'text-gray-500'} />
                             <span className="text-sm">{item.label}</span>
                           </button>
                         );
@@ -249,11 +249,11 @@ export default function AdminBottomNav() {
                         onClick={() => item.path && handleSubItemClick(item.path)}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
                           active 
-                            ? 'bg-gradient-to-r from-emerald-50 to-orange-50 text-emerald-700 font-semibold' 
+                            ? 'bg-gradient-to-r from-brand-accent-50 to-brand-secondary-50 text-brand-accent-700 font-semibold' 
                             : 'hover:bg-gray-50 text-gray-700'
                         }`}
                       >
-                        <item.icon size={20} className={active ? 'text-emerald-600' : 'text-gray-500'} />
+                        <item.icon size={20} className={active ? 'text-brand-accent-600' : 'text-gray-500'} />
                         <span className="text-sm">{item.label}</span>
                       </button>
                     );
@@ -284,14 +284,14 @@ export default function AdminBottomNav() {
                 onClick={() => handleNavClick(item)}
                 className={`flex-1 flex flex-col items-center py-3 transition-colors relative ${
                   active || isDropupOpen
-                    ? 'text-emerald-600'
+                    ? 'text-brand-accent-600'
                     : 'text-gray-500'
                 }`}
               >
                 <div className="relative">
                   <item.icon 
                     size={22} 
-                    className={active || isDropupOpen ? 'text-emerald-600' : ''} 
+                    className={active || isDropupOpen ? 'text-brand-accent-600' : ''} 
                   />
                   {item.type === 'dropup' && (
                     <ChevronUp 
@@ -306,7 +306,7 @@ export default function AdminBottomNav() {
                 <span className="text-[10px] mt-1 font-medium">{item.label}</span>
 
                 {(active || isDropupOpen) && (
-                  <div className="absolute bottom-0 w-10 h-1 bg-gradient-to-r from-emerald-600 to-orange-500 rounded-t-full" />
+                  <div className="absolute bottom-0 w-10 h-1 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 rounded-t-full" />
                 )}
               </button>
             );
@@ -317,21 +317,21 @@ export default function AdminBottomNav() {
             onClick={() => setActiveDropup(activeDropup === 'More' ? null : 'More')}
             className={`flex-1 flex flex-col items-center py-3 transition-colors relative ${
               isMoreActive() || activeDropup === 'More'
-                ? 'text-emerald-600'
+                ? 'text-brand-accent-600'
                 : 'text-gray-500'
             }`}
           >
             <div className="relative">
               <MoreHorizontal 
                 size={22} 
-                className={isMoreActive() || activeDropup === 'More' ? 'text-emerald-600' : ''} 
+                className={isMoreActive() || activeDropup === 'More' ? 'text-brand-accent-600' : ''} 
               />
             </div>
 
             <span className="text-[10px] mt-1 font-medium">More</span>
 
             {(isMoreActive() || activeDropup === 'More') && (
-              <div className="absolute bottom-0 w-10 h-1 bg-gradient-to-r from-emerald-600 to-orange-500 rounded-t-full" />
+              <div className="absolute bottom-0 w-10 h-1 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 rounded-t-full" />
             )}
           </button>
         </div>

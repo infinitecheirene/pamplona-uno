@@ -17,10 +17,10 @@ import CitizenLayout from "@/components/citizenLayout";
 export default function PoliceClearanceGuide() {
   return (
     <CitizenLayout requireAuth={false}>
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-100 py-8 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-brand-secondary-50 to-brand-primary-100 py-8 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <div className="mx-auto w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mb-4">
+            <div className="mx-auto w-16 h-16 bg-brand-secondary-600 rounded-full flex items-center justify-center mb-4">
               <Shield className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
@@ -31,10 +31,10 @@ export default function PoliceClearanceGuide() {
             </p>
           </div>
 
-          <Card className="mb-6 border-l-4 border-l-orange-600">
+          <Card className="mb-6 border-l-4 border-l-brand-secondary-600">
             <CardHeader>
               <div className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-orange-600 mt-1" />
+                <AlertCircle className="w-5 h-5 text-brand-secondary-600 mt-1" />
                 <div>
                   <CardTitle className="text-lg">Important Notice</CardTitle>
                   <CardDescription>
@@ -51,7 +51,7 @@ export default function PoliceClearanceGuide() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-orange-600" />
+                  <Shield className="w-5 h-5 text-brand-secondary-600" />
                   What is Police Clearance?
                 </CardTitle>
               </CardHeader>
@@ -76,7 +76,7 @@ export default function PoliceClearanceGuide() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-orange-600" />
+                  <Clock className="w-5 h-5 text-brand-secondary-600" />
                   Processing Time
                 </CardTitle>
               </CardHeader>
@@ -104,7 +104,7 @@ export default function PoliceClearanceGuide() {
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-orange-600" />
+                <FileText className="w-5 h-5 text-brand-secondary-600" />
                 Requirements
               </CardTitle>
             </CardHeader>
@@ -119,13 +119,13 @@ export default function PoliceClearanceGuide() {
                     "Clearance fee (usually ₱50-₱150)",
                   ].map((req, index) => (
                     <li key={index} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-brand-accent-600 mt-0.5 flex-shrink-0" />
                       <span>{req}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-4 p-3 bg-orange-50 rounded-lg">
+                <div className="mt-4 p-3 bg-brand-secondary-50 rounded-lg">
                   <p className="text-sm text-gray-700">
                     <strong>Note:</strong> Requirements may vary. It is best to
                     contact the police station beforehand to confirm the
@@ -139,12 +139,12 @@ export default function PoliceClearanceGuide() {
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-orange-600" />
+                <MapPin className="w-5 h-5 text-brand-secondary-600" />
                 Where to Apply in Pamplona Uno City
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-orange-50 p-4 rounded-lg">
+              <div className="bg-brand-secondary-50 p-4 rounded-lg">
                 <h4 className="font-semibold mb-2 flex items-center gap-2">
                   <Shield className="w-4 h-4" />
                   Pamplona Uno City Police Station
@@ -212,7 +212,7 @@ export default function PoliceClearanceGuide() {
                   },
                 ].map((step, index) => (
                   <li key={index} className="flex gap-3 text-sm">
-                    <span className="flex-shrink-0 w-6 h-6 bg-orange-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                    <span className="flex-shrink-0 w-6 h-6 bg-brand-secondary-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
                       {index + 1}
                     </span>
                     <div>

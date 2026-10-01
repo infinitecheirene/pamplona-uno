@@ -1,7 +1,8 @@
 // app/api/barangay-clearance/route.ts
 import { NextRequest, NextResponse } from "next/server"
+import { getLaravelApiUrl } from "@/lib/laravel-api-url"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api"
+const API_URL = getLaravelApiUrl()
 
 function getAuthToken(request: NextRequest): string | null {
   // Try cookie first

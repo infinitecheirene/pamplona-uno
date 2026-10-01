@@ -313,8 +313,8 @@ export default function MedicalAssistancePage() {
         <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-100 flex items-center justify-center p-4">
           <Card className="w-full max-w-md">
             <CardHeader className="text-center">
-              <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <CheckCircle2 className="w-6 h-6 text-green-600" />
+              <div className="mx-auto w-12 h-12 bg-brand-accent-100 rounded-full flex items-center justify-center mb-4">
+                <CheckCircle2 className="w-6 h-6 text-brand-accent-600" />
               </div>
               <CardTitle className="text-2xl">Application Submitted!</CardTitle>
               <CardDescription>
@@ -659,7 +659,7 @@ export default function MedicalAssistancePage() {
                       bills (PDF, JPG, PNG - Max 10MB)
                     </p>
                     {supportingDocuments && (
-                      <p className="text-sm text-green-600">
+                      <p className="text-sm text-brand-accent-600">
                         File selected: {supportingDocuments.name}
                       </p>
                     )}

@@ -38,16 +38,47 @@ interface NewsArticle {
   };
 }
 
-// Hero background videos, served from /public. Drop your files in
-// public/videos/ (or adjust these paths to match your actual filenames) —
-// the carousel auto-advances to the next clip when the current one
-// finishes playing, and the dots at the bottom let people jump to a
-// specific clip manually.
+const UNSPLASH_FALLBACK =
+  "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1600&q=85";
+
 const heroVideos = [
   "/videos/hero-1.mp4",
   "/videos/hero-2.mp4",
   "/videos/hero-3.mp4",
 ];
+
+const getCategoryImage = (category: string) => {
+  const images: Record<string, string> = {
+    Development:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
+
+    Business:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=85",
+
+    Health:
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1600&q=85",
+
+    Event:
+      "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1600&q=85",
+
+    Alert:
+      "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=1600&q=85",
+
+    Notice:
+      "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1600&q=85",
+
+    Update:
+      "https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1600&q=85",
+
+    Community:
+      "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=85",
+  };
+
+  return (
+    images[category] ||
+    "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1600&q=85"
+  );
+};
 
 const heroText = "Welcome to Pamplona Uno";
 const TYPE_SPEED_MS = 65; // per character
@@ -218,15 +249,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white">
       <Header />
-
-      {/* Hero Section — full-bleed video carousel, minimal mark.
-          The video stays landscape (16:9) at all breakpoints instead of
-          being stretched/cropped to fill a tall portrait phone screen.
-          A blurred copy of the same video fills any leftover space
-          behind it so there's no hard letterbox bars. */}
       <section className="relative w-full aspect-video max-h-[92svh] sm:max-h-[85svh] lg:h-screen lg:max-h-none lg:aspect-auto overflow-hidden bg-black">
-        {/* Blurred fill layer — only visible where the landscape video
-            doesn't reach the edges (mainly on tall mobile screens) */}
         <div className="absolute inset-0 overflow-hidden">
           <video
             key={`bg-${currentVideoIndex}`}
@@ -261,12 +284,6 @@ export default function Home() {
           </AnimatePresence>
         </div>
 
-        {/* Typewriter intro — types once, holds, then fades out for good
-            so the video underneath is left completely unobstructed.
-            Text now carries the brand's red → orange → green gradient
-            (same treatment used on section headings) instead of plain
-            white, with a soft drop-shadow so it still reads clearly
-            over any video frame. */}
         <AnimatePresence>
           {introVisible && (
             <motion.div
@@ -280,7 +297,7 @@ export default function Home() {
 
               <div className="relative h-full flex flex-col items-center justify-center px-6 text-center">
                 <h1
-                  className="font-serif text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight max-w-[90vw] break-words bg-gradient-to-r from-red-400 via-orange-300 to-green-400 bg-clip-text text-transparent"
+                  className="font-serif text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight max-w-[90vw] break-words bg-gradient-to-r from-brand-primary-400 via-brand-secondary-300 to-brand-accent-400 bg-clip-text text-transparent"
                   style={{
                     fontFamily: "Georgia, 'Times New Roman', serif",
                     filter:
@@ -295,13 +312,10 @@ export default function Home() {
                       repeat: Infinity,
                       repeatType: "reverse",
                     }}
-                    className="inline-block w-[3px] h-[0.85em] bg-gradient-to-b from-red-400 via-orange-300 to-green-400 ml-1 translate-y-[0.08em] rounded-full"
+                    className="inline-block w-[3px] h-[0.85em] bg-gradient-to-b from-brand-primary-400 via-brand-secondary-300 to-brand-accent-400 ml-1 translate-y-[0.08em] rounded-full"
                   />
                 </h1>
 
-                {/* Gradient accent underline — grows in once the line
-                    finishes typing, echoing the underline used under
-                    "OUR SERVICES" elsewhere on the page. */}
                 <motion.div
                   initial={{ scaleX: 0, opacity: 0 }}
                   animate={
@@ -310,7 +324,7 @@ export default function Home() {
                       : { scaleX: 0, opacity: 0 }
                   }
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  className="mt-5 h-1 w-24 sm:w-32 origin-center rounded-full bg-gradient-to-r from-red-500 via-orange-500 to-green-500 shadow-[0_0_16px_rgba(249,115,22,0.6)]"
+                  className="mt-5 h-1 w-24 sm:w-32 origin-center rounded-full bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 shadow-[0_0_16px_rgba(var(--brand-secondary-rgb),0.6)]"
                 />
               </div>
             </motion.div>
@@ -361,11 +375,10 @@ export default function Home() {
                 key={i}
                 onClick={() => setCurrentVideoIndex(i)}
                 aria-label={`Show background clip ${i + 1}`}
-                className={`h-1 rounded-full transition-all duration-500 ${
-                  i === currentVideoIndex
-                    ? "w-8 bg-white"
-                    : "w-3 bg-white/35 hover:bg-white/60"
-                }`}
+                className={`h-1 rounded-full transition-all duration-500 ${i === currentVideoIndex
+                  ? "w-8 bg-white"
+                  : "w-3 bg-white/35 hover:bg-white/60"
+                  }`}
               />
             ))}
           </div>
@@ -392,8 +405,8 @@ export default function Home() {
       {/* Welcome Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
         {/* Soft decorative glow, consistent with CTA section styling */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-orange-100/40 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-green-100/40 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-brand-secondary-100/40 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-accent-100/40 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -407,15 +420,15 @@ export default function Home() {
             >
               <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3]">
                 <img
-                  src="/images/meeting/1.jpg"
-                  alt="Barangay Pamplona Uno"
+                  src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1600&q=85"
+                  alt="Community gathering and barangay activities"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
               </div>
               {/* Accent badge */}
               <div className="absolute -bottom-6 -right-6 hidden sm:flex items-center gap-3 bg-white rounded-2xl shadow-xl px-5 py-4 border-2 border-gray-100">
-                <div className="p-2.5 bg-gradient-to-br from-red-500 via-orange-500 to-green-500 rounded-full">
+                <div className="p-2.5 bg-gradient-to-br from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 rounded-full">
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -435,11 +448,11 @@ export default function Home() {
               viewport={{ once: true }}
               className="order-1 lg:order-2"
             >
-              <span className="inline-block text-orange-600 font-semibold uppercase tracking-wide text-sm mb-3">
+              <span className="inline-block text-brand-secondary-600 font-semibold uppercase tracking-wide text-sm mb-3">
                 Barangay Pamplona Uno
               </span>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent">
                   Serving Our Community, Building a Better Tomorrow
                 </span>
               </h2>
@@ -458,7 +471,7 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 rounded-full bg-gradient-to-r from-red-600 via-orange-600 to-green-600 text-white font-bold inline-flex items-center gap-3 shadow-xl hover:shadow-orange-500/40 transition-all"
+                  className="px-8 py-4 rounded-full bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 text-white font-bold inline-flex items-center gap-3 shadow-xl hover:shadow-brand-secondary-500/40 transition-all"
                 >
                   Learn More About Us <ArrowRight className="w-5 h-5" />
                 </motion.button>
@@ -485,14 +498,14 @@ export default function Home() {
                   transition={{ delay: i * 0.1, duration: 0.5 }}
                   viewport={{ once: true }}
                   whileHover={{ y: -8, scale: 1.02 }}
-                  className="p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-orange-300 text-center hover:shadow-2xl transition-all group"
+                  className="p-8 rounded-3xl bg-white border-2 border-gray-100 hover:border-brand-secondary-300 text-center hover:shadow-2xl transition-all group"
                 >
                   <div className="flex justify-center mb-6">
-                    <div className="p-5 bg-gradient-to-br from-red-500 via-orange-500 to-green-500 rounded-full shadow-xl group-hover:scale-110 transition-transform">
+                    <div className="p-5 bg-gradient-to-br from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 rounded-full shadow-xl group-hover:scale-110 transition-transform">
                       <Icon className="w-10 h-10 text-white" />
                     </div>
                   </div>
-                  <div className="text-5xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent mb-3">
+                  <div className="text-5xl font-bold bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent mb-3">
                     {stat.value}
                   </div>
                   <div className="text-gray-700 font-semibold text-lg">
@@ -518,11 +531,11 @@ export default function Home() {
             className="mb-16 text-center"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent">
                 Latest Updates
               </span>
             </h2>
-            <div className="w-32 h-1.5 bg-gradient-to-r from-red-500 via-orange-500 to-green-500 rounded-full mx-auto mb-4" />
+            <div className="w-32 h-1.5 bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 rounded-full mx-auto mb-4" />
             <p className="text-lg text-gray-700 max-w-2xl mx-auto font-medium">
               Stay informed with recent news and announcements from our barangay
             </p>
@@ -533,7 +546,7 @@ export default function Home() {
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="p-6 rounded-3xl bg-gradient-to-br from-red-200 via-orange-200 to-green-200 animate-pulse h-96"
+                  className="p-6 rounded-3xl bg-gradient-to-br from-brand-primary-200 via-brand-secondary-200 to-brand-accent-200 animate-pulse h-96"
                 />
               ))}
             </div>
@@ -548,22 +561,27 @@ export default function Home() {
                   viewport={{ once: true }}
                   whileHover={{ y: -12, scale: 1.02 }}
                   onClick={() => setSelectedArticle(item)}
-                  className="group rounded-3xl bg-white overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer border-2 border-gray-100 hover:border-orange-300"
+                  className="group rounded-3xl bg-white overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer border-2 border-gray-100 hover:border-brand-secondary-300"
                 >
-                  <div className="relative h-56 overflow-hidden bg-gradient-to-br from-red-100 via-orange-100 to-green-100">
+                  <div className="relative h-56 overflow-hidden bg-gradient-to-br from-brand-primary-100 via-brand-secondary-100 to-brand-accent-100">
                     {item.image ? (
                       <img
                         src={`${process.env.NEXT_PUBLIC_IMAGE_URL || ""}/${item.image}`}
                         alt={item.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        onError={(e) => {
+                          e.currentTarget.src = UNSPLASH_FALLBACK;
+                        }}
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-red-500 via-orange-500 to-green-500 text-white text-6xl">
-                        📰
-                      </div>
+                      <img
+                        src={UNSPLASH_FALLBACK}
+                        alt="Community activities"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
                     )}
                     <div className="absolute top-4 right-4">
-                      <span className="px-4 py-2 rounded-full text-xs font-bold uppercase bg-gradient-to-r from-red-500 via-orange-500 to-green-500 text-white shadow-lg">
+                      <span className="px-4 py-2 rounded-full text-xs font-bold uppercase bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 text-white shadow-lg">
                         {getCategoryLabel(item.category)}
                       </span>
                     </div>
@@ -576,7 +594,7 @@ export default function Home() {
                         ? formatDate(item.published_at)
                         : formatDate(item.created_at)}
                     </p>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:bg-gradient-to-r group-hover:from-red-600 group-hover:via-orange-600 group-hover:to-green-600 group-hover:bg-clip-text group-hover:text-transparent transition-all">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:bg-gradient-to-r group-hover:from-brand-primary-600 group-hover:via-brand-secondary-600 group-hover:to-brand-accent-600 group-hover:bg-clip-text group-hover:text-transparent transition-all">
                       {item.title}
                     </h3>
                     <p className="text-gray-600 line-clamp-3 leading-relaxed mb-4">
@@ -584,10 +602,10 @@ export default function Home() {
                     </p>
                     <motion.div
                       whileHover={{ x: 5 }}
-                      className="inline-flex items-center gap-2 text-sm font-bold bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent"
+                      className="inline-flex items-center gap-2 text-sm font-bold bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent"
                     >
                       Read More
-                      <ArrowRight className="w-4 h-4 text-orange-500" />
+                      <ArrowRight className="w-4 h-4 text-brand-secondary-500" />
                     </motion.div>
                   </div>
                 </motion.div>
@@ -609,7 +627,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 rounded-full bg-gradient-to-r from-red-600 via-orange-600 to-green-600 text-white font-bold inline-flex items-center gap-3 shadow-2xl hover:shadow-orange-500/50 transition-all text-lg"
+                className="px-10 py-4 rounded-full bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 text-white font-bold inline-flex items-center gap-3 shadow-2xl hover:shadow-brand-secondary-500/50 transition-all text-lg"
               >
                 View All News <ArrowRight className="w-5 h-5" />
               </motion.button>
@@ -644,7 +662,7 @@ export default function Home() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-r from-red-500 via-orange-500 to-green-500 flex items-center justify-center text-white text-8xl">
+                  <div className="w-full h-full bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 flex items-center justify-center text-white text-8xl">
                     📰
                   </div>
                 )}
@@ -662,7 +680,7 @@ export default function Home() {
                 </motion.button>
 
                 <div className="absolute bottom-6 left-6">
-                  <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold uppercase bg-gradient-to-r from-red-500 via-orange-500 to-green-500 text-white shadow-xl">
+                  <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold uppercase bg-gradient-to-r from-brand-primary-500 via-brand-secondary-500 to-brand-accent-500 text-white shadow-xl">
                     {getCategoryLabel(selectedArticle.category)}
                   </span>
                 </div>
@@ -670,14 +688,14 @@ export default function Home() {
 
               <div className="flex-1 overflow-y-auto p-8 md:p-10">
                 <div className="space-y-6">
-                  <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-green-600 bg-clip-text text-transparent leading-tight">
+                  <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 bg-clip-text text-transparent leading-tight">
                     {selectedArticle.title}
                   </h2>
 
                   <div className="flex flex-wrap items-center gap-6 pb-6 border-b-2 border-gray-200">
                     <div className="flex items-center gap-2 text-gray-600">
-                      <div className="w-10 h-10 bg-gradient-to-br from-red-100 via-orange-100 to-green-100 rounded-full flex items-center justify-center">
-                        <Calendar className="w-5 h-5 text-orange-600" />
+                      <div className="w-10 h-10 bg-gradient-to-br from-brand-primary-100 via-brand-secondary-100 to-brand-accent-100 rounded-full flex items-center justify-center">
+                        <Calendar className="w-5 h-5 text-brand-secondary-600" />
                       </div>
                       <span className="font-medium">
                         {selectedArticle.published_at
@@ -688,8 +706,8 @@ export default function Home() {
 
                     {selectedArticle.author && (
                       <div className="flex items-center gap-2 text-gray-600">
-                        <div className="w-10 h-10 bg-gradient-to-br from-red-100 via-orange-100 to-green-100 rounded-full flex items-center justify-center">
-                          <User className="w-5 h-5 text-orange-600" />
+                        <div className="w-10 h-10 bg-gradient-to-br from-brand-primary-100 via-brand-secondary-100 to-brand-accent-100 rounded-full flex items-center justify-center">
+                          <User className="w-5 h-5 text-brand-secondary-600" />
                         </div>
                         <span className="font-medium">
                           By {selectedArticle.author.name}
@@ -706,12 +724,12 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="border-t-2 border-gray-200 px-8 md:px-10 py-6 bg-gradient-to-r from-red-50 via-orange-50 to-green-50">
+              <div className="border-t-2 border-gray-200 px-8 md:px-10 py-6 bg-gradient-to-r from-brand-primary-50 via-brand-secondary-50 to-brand-accent-50">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setSelectedArticle(null)}
-                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-red-600 via-orange-600 to-green-600 text-white rounded-full hover:shadow-2xl transition-all font-bold text-lg"
+                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 text-white rounded-full hover:shadow-2xl transition-all font-bold text-lg"
                 >
                   Close
                 </motion.button>
@@ -722,7 +740,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-red-600 via-orange-600 to-green-600 relative overflow-hidden">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-brand-primary-600 via-brand-secondary-600 to-brand-accent-600 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
 
@@ -745,7 +763,7 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-10 py-4 bg-white text-orange-600 font-bold rounded-full shadow-2xl hover:shadow-white/20 transition-all text-lg"
+                  className="px-10 py-4 bg-white text-brand-secondary-600 font-bold rounded-full shadow-2xl hover:shadow-white/20 transition-all text-lg"
                 >
                   Sign Up Today
                 </motion.button>

@@ -26,8 +26,8 @@ const toastVariants = cva(
       variant: {
         default: "border bg-white text-gray-950",
         destructive:
-          "destructive group border-red-500 bg-red-500 text-white",
-        success: "border-emerald-500 bg-emerald-500 text-white",
+          "destructive group border-brand-primary-500 bg-brand-primary-500 text-white",
+        success: "border-brand-accent-500 bg-brand-accent-500 text-white",
         warning: "border-amber-500 bg-amber-500 text-white",
       },
     },
@@ -58,7 +58,7 @@ const ToastAction = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Action
     ref={ref}
-    className={`inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-white transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-gray-100/40 group-[.destructive]:hover:border-red-500/30 group-[.destructive]:hover:bg-red-500 group-[.destructive]:hover:text-white group-[.destructive]:focus:ring-red-500 ${className || ""}`}
+    className={`inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-white transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-gray-100/40 group-[.destructive]:hover:border-brand-primary-500/30 group-[.destructive]:hover:bg-brand-primary-500 group-[.destructive]:hover:text-white group-[.destructive]:focus:ring-brand-primary-500 ${className || ""}`}
     {...props}
   />
 ))
@@ -70,7 +70,7 @@ const ToastClose = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Close
     ref={ref}
-    className={`absolute right-2 top-2 rounded-md p-1 text-gray-950/50 opacity-0 transition-opacity hover:text-gray-950 focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600 group-[.success]:text-white/70 group-[.success]:hover:text-white group-[.warning]:text-white/70 group-[.warning]:hover:text-white ${className || ""}`}
+    className={`absolute right-2 top-2 rounded-md p-1 text-gray-950/50 opacity-0 transition-opacity hover:text-gray-950 focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-brand-primary-300 group-[.destructive]:hover:text-brand-primary-50 group-[.destructive]:focus:ring-brand-primary-400 group-[.destructive]:focus:ring-offset-brand-primary-600 group-[.success]:text-white/70 group-[.success]:hover:text-white group-[.warning]:text-white/70 group-[.warning]:hover:text-white ${className || ""}`}
     toast-close=""
     {...props}
   >

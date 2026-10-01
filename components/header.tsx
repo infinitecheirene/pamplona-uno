@@ -165,7 +165,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-orange-200">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-brand-secondary-200">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4 flex items-center justify-between relative">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 md:gap-3">
@@ -186,7 +186,7 @@ export default function Header() {
                 <span className="text-base md:text-lg font-bold gradient-text">
                   Pamplona Uno
                 </span>
-                <span className="text-[10px] md:text-xs text-orange-600 font-semibold">
+                <span className="text-[10px] md:text-xs text-brand-secondary-600 font-semibold">
                   Government System
                 </span>
               </div>
@@ -206,12 +206,12 @@ export default function Header() {
                   href={link.href}
                   className={`text-sm font-semibold transition-all relative group px-2 py-1 ${
                     pathname === link.href
-                      ? "text-orange-600"
-                      : "text-gray-700 hover:text-orange-600"
+                      ? "text-brand-secondary-600"
+                      : "text-gray-700 hover:text-brand-secondary-600"
                   }`}
                 >
                   {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-600 to-emerald-500 group-hover:w-full transition-all duration-300" />
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-secondary-600 to-brand-accent-500 group-hover:w-full transition-all duration-300" />
                 </Link>
               </motion.div>
             ))}
@@ -232,7 +232,7 @@ export default function Header() {
                   exit={{ scale: 0.8, opacity: 0 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   onClick={handleInstallClick}
-                  className="px-3 xl:px-4 py-2 xl:py-2.5 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 text-white text-sm font-semibold hover:shadow-xl transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5 xl:gap-2"
+                  className="px-3 xl:px-4 py-2 xl:py-2.5 rounded-full bg-gradient-to-r from-brand-accent-600 to-brand-accent-500 text-white text-sm font-semibold hover:shadow-xl transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5 xl:gap-2"
                 >
                   <Download size={16} className="xl:w-[18px] xl:h-[18px]" />
                   <span className="hidden xl:inline">
@@ -247,7 +247,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-orange-50 transition-colors"
+            className="lg:hidden p-2 rounded-lg hover:bg-brand-secondary-50 transition-colors"
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -260,7 +260,7 @@ export default function Header() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="lg:hidden bg-white border-t border-orange-100 px-4 py-4 space-y-2.5 overflow-hidden absolute top-full left-0 w-full z-40 shadow-md"
+                className="lg:hidden bg-white border-t border-brand-secondary-100 px-4 py-4 space-y-2.5 overflow-hidden absolute top-full left-0 w-full z-40 shadow-md"
               >
                 {navLinks.map((link) => (
                   <Link
@@ -268,8 +268,8 @@ export default function Header() {
                     href={link.href}
                     className={`block text-sm font-medium py-2.5 px-2 rounded-lg transition-colors ${
                       pathname === link.href
-                        ? "text-orange-600 font-semibold bg-orange-50"
-                        : "text-gray-700 hover:text-orange-600 hover:bg-orange-50"
+                        ? "text-brand-secondary-600 font-semibold bg-brand-secondary-50"
+                        : "text-gray-700 hover:text-brand-secondary-600 hover:bg-brand-secondary-50"
                     }`}
                     onClick={() => setIsOpen(false)}
                   >
@@ -285,7 +285,7 @@ export default function Header() {
                       handleInstallClick();
                       setIsOpen(false);
                     }}
-                    className="block w-full px-4 py-3 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-medium text-sm text-center flex items-center justify-center gap-2 hover:shadow-lg transition-all active:scale-95"
+                    className="block w-full px-4 py-3 rounded-lg bg-gradient-to-r from-brand-accent-600 to-brand-accent-500 text-white font-medium text-sm text-center flex items-center justify-center gap-2 hover:shadow-lg transition-all active:scale-95"
                   >
                     <Download size={18} />
                     <span>Install App</span>
@@ -323,8 +323,8 @@ export default function Header() {
               </button>
 
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-2.5 md:p-3 bg-orange-100 rounded-full">
-                  <Smartphone className="text-orange-600" size={22} />
+                <div className="p-2.5 md:p-3 bg-brand-secondary-100 rounded-full">
+                  <Smartphone className="text-brand-secondary-600" size={22} />
                 </div>
                 <div>
                   <h3 className="text-lg md:text-xl font-bold text-gray-900">
@@ -338,7 +338,7 @@ export default function Header() {
 
               <div className="space-y-3.5 md:space-y-4 mt-5 md:mt-6">
                 <div className="flex items-start gap-2.5 md:gap-3">
-                  <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold text-sm">
+                  <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 bg-brand-secondary-100 rounded-full flex items-center justify-center text-brand-secondary-600 font-bold text-sm">
                     1
                   </div>
                   <div className="flex-1">
@@ -351,7 +351,7 @@ export default function Header() {
                 </div>
 
                 <div className="flex items-start gap-2.5 md:gap-3">
-                  <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold text-sm">
+                  <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 bg-brand-secondary-100 rounded-full flex items-center justify-center text-brand-secondary-600 font-bold text-sm">
                     2
                   </div>
                   <div className="flex-1">
@@ -363,7 +363,7 @@ export default function Header() {
                 </div>
 
                 <div className="flex items-start gap-2.5 md:gap-3">
-                  <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold text-sm">
+                  <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 bg-brand-secondary-100 rounded-full flex items-center justify-center text-brand-secondary-600 font-bold text-sm">
                     3
                   </div>
                   <div className="flex-1">
@@ -376,7 +376,7 @@ export default function Header() {
 
               <button
                 onClick={dismissIOSInstructions}
-                className="w-full mt-5 md:mt-6 px-4 py-2.5 md:py-3 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-semibold text-sm md:text-base rounded-lg hover:shadow-lg transition-all active:scale-95"
+                className="w-full mt-5 md:mt-6 px-4 py-2.5 md:py-3 bg-gradient-to-r from-brand-secondary-600 to-brand-secondary-500 text-white font-semibold text-sm md:text-base rounded-lg hover:shadow-lg transition-all active:scale-95"
               >
                 Got it!
               </button>

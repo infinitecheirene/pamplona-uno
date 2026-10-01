@@ -1,33 +1,241 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import {
-  Ambulance,
   LayoutDashboard,
   Newspaper,
+  Megaphone,
   Mail,
+  ClipboardList,
   User,
   LogOut,
   Shield,
-  FileText,
+  Store,
   Building,
+  HeartHandshake,
   ScrollText,
-  Heart,
-  UserCheck,
-  ShieldCheck,
+  MapPin,
   Home,
   HandHelping,
-  MapPin,
+  UserCheck,
+  Stethoscope,
+  Ambulance,
+  BadgeCheck,
+  ShieldCheck,
+  Landmark,
+  HeartPulse,
+  type LucideIcon,
 } from "lucide-react";
 import { authClient } from "@/lib/auth";
 import { useToast } from "@/components/ui/use-toast";
+
+type NavItem = {
+  icon: LucideIcon;
+  label: string;
+  path: string;
+};
+
+type NavGroup = {
+  title?: string;
+  icon?: LucideIcon;
+  items: NavItem[];
+};
+
+const BASE = "/dashboard/admin";
+
+const navGroups: NavGroup[] = [
+  {
+    items: [
+      { icon: LayoutDashboard, label: "Dashboard", path: BASE },
+      { icon: Newspaper, label: "News", path: `${BASE}/news` },
+      {
+        icon: Megaphone,
+        label: "Announcements",
+        path: `${BASE}/announcements`,
+      },
+      {
+        icon: Mail,
+        label: "Contact messages",
+        path: `${BASE}/contact`,
+      },
+      {
+        icon: ClipboardList,
+        label: "Reports",
+        path: `${BASE}/reports`,
+      },
+    ],
+  },
+
+  {
+    title: "Government services",
+    icon: Landmark,
+    items: [
+      {
+        icon: Store,
+        label: "Business permit",
+        path: `${BASE}/business-permit`,
+      },
+      {
+        icon: Building,
+        label: "Building permit",
+        path: `${BASE}/building-permit`,
+      },
+      {
+        icon: HeartHandshake,
+        label: "Marriage license",
+        path: `${BASE}/marriage-license`,
+      },
+    ],
+  },
+
+  {
+    title: "Civil registry",
+    icon: ScrollText,
+    items: [
+      {
+        icon: ScrollText,
+        label: "Cedula",
+        path: `${BASE}/cedula`,
+      },
+      {
+        icon: MapPin,
+        label: "Residency certificate",
+        path: `${BASE}/residency-certificate`,
+      },
+      {
+        icon: Home,
+        label: "Indigency certificate",
+        path: `${BASE}/indigency-certificate`,
+      },
+      {
+        icon: HandHelping,
+        label: "Good moral certificate",
+        path: `${BASE}/good-moral-certificate`,
+      },
+    ],
+  },
+
+  {
+    title: "Health services",
+    icon: HeartPulse,
+    items: [
+      {
+        icon: UserCheck,
+        label: "Health certificate",
+        path: `${BASE}/health-certificate`,
+      },
+      {
+        icon: Stethoscope,
+        label: "Medical assistance",
+        path: `${BASE}/medical-assistance`,
+      },
+      {
+        icon: Ambulance,
+        label: "Ambulance requests",
+        path: `${BASE}/ambulance-request`,
+      },
+    ],
+  },
+
+  {
+    title: "Public safety",
+    icon: ShieldCheck,
+    items: [
+      {
+        icon: BadgeCheck,
+        label: "Barangay clearance",
+        path: `${BASE}/barangay-clearance`,
+      },
+      {
+        icon: ShieldCheck,
+        label: "Barangay blotter",
+        path: `${BASE}/barangay-blotter`,
+      },
+    ],
+  },
+
+  {
+    items: [
+      {
+        icon: User,
+        label: "Users",
+        path: `${BASE}/users`,
+      },
+    ],
+  },
+];
+
+const allItems = navGroups.flatMap((group) => group.items);
+
+const focusRing =
+  "focus-visible:outline-none focus-visible:ring-2 " +
+  "focus-visible:ring-white/80 focus-visible:ring-offset-2 " +
+  "focus-visible:ring-offset-brand-accent-600";
 
 export default function AdminSidebar() {
   const router = useRouter();
   const pathname = usePathname();
   const { toast } = useToast();
+
   const [isLoggingOut, setIsLoggingOut] = React.useState(false);
+
+  // Find the most specific active route.
+  const activePath = React.useMemo(() => {
+    let best: string | null = null;
+    let bestLen = -1;
+
+    for (const item of allItems) {
+      const isMatch =
+        pathname === item.path ||
+        (item.path !== BASE &&
+          pathname.startsWith(item.path + "/"));
+
+      if (isMatch && item.path.length > bestLen) {
+        best = item.path;
+        bestLen = item.path.length;
+      }
+    }
+
+    return best;
+  }, [pathname]);
+
+  const renderItem = (item: NavItem) => {
+    const active = item.path === activePath;
+
+    return (
+      <li key={item.path}>
+        <Link
+          href={item.path}
+          aria-current={active ? "page" : undefined}
+          className={`relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${focusRing} ${
+            active
+              ? "bg-white font-semibold text-brand-accent-700 shadow-sm"
+              : "text-white/85 hover:bg-white/15 hover:text-white"
+          }`}
+        >
+          {active && (
+            <span
+              aria-hidden="true"
+              className="absolute -left-4 top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-white"
+            />
+          )}
+
+          <item.icon
+            size={18}
+            strokeWidth={active ? 2.25 : 1.75}
+            className="shrink-0"
+            aria-hidden="true"
+          />
+
+          <span className="truncate">
+            {item.label}
+          </span>
+        </Link>
+      </li>
+    );
+  };
 
   const handleLogout = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -39,278 +247,137 @@ export default function AdminSidebar() {
       await authClient.logout();
 
       toast({
-        title: "✓ Logged Out Successfully",
+        title: "✓ Logged out",
         description: "You have been securely logged out.",
-        className: "bg-green-50 border-green-200",
+        className:
+          "bg-brand-accent-50 border-brand-accent-200",
         duration: 2000,
       });
 
-      setTimeout(() => router.push("/login"), 500);
+      setTimeout(() => {
+        router.push("/login");
+      }, 500);
     } catch (error) {
       console.error("Logout error:", error);
 
       toast({
         variant: "destructive",
-        title: "Logout Failed",
-        description: "An error occurred. Please try again.",
+        title: "Logout failed",
+        description: "Something went wrong. Please try again.",
       });
 
       setIsLoggingOut(false);
     }
   };
 
-  const isActive = (path: string) => {
-    if (path === "/dashboard/admin") {
-      return pathname === path;
-    }
-    return pathname === path || pathname.startsWith(path + "/");
-  };
-
-  const navigationItems = [
-    { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard/admin" },
-    { icon: Newspaper, label: "News", path: "/dashboard/admin/news" },
-    {
-      icon: Newspaper,
-      label: "Announcements",
-      path: "/dashboard/admin/announcements",
-    },
-    { icon: Mail, label: "Contact Messages", path: "/dashboard/admin/contact" },
-    { icon: Mail, label: "Reports", path: "/dashboard/admin/reports" },
-  ];
-
-  // ------------------------
-  // FIXED CATEGORIZATION
-  // ------------------------
-
-  const governmentServices = [
-    {
-      icon: FileText,
-      label: "Business Permit",
-      path: "/dashboard/admin/business-permit",
-    },
-    {
-      icon: Building,
-      label: "Building Permit",
-      path: "/dashboard/admin/building-permit",
-    },
-    {
-      icon: Heart,
-      label: "Marriage License",
-      path: "/dashboard/admin/marriage-license",
-    },
-  ];
-
-  const civilRegistry = [
-    { icon: ScrollText, label: "Cedula", path: "/dashboard/admin/cedula" },
-    {
-      icon: MapPin,
-      label: "Residency Certificate",
-      path: "/dashboard/admin/residency-certificate",
-    },
-    {
-      icon: Home,
-      label: "Indigency Certificate",
-      path: "/dashboard/admin/indigency-certificate",
-    },
-    {
-      icon: HandHelping,
-      label: "Good Moral Certificate",
-      path: "/dashboard/admin/good-moral-certificate",
-    },
-  ];
-
-  const healthServices = [
-    {
-      icon: UserCheck,
-      label: "Health Certificate",
-      path: "/dashboard/admin/health-certificate",
-    },
-    {
-      icon: Heart,
-      label: "Medical Assistance",
-      path: "/dashboard/admin/medical-assistance",
-    },
-    {
-      icon: Ambulance,
-      label: "Ambulance Request",
-      path: "/dashboard/admin/ambulance-request",
-    },
-  ];
-
-  const publicSafety = [
-    {
-      icon: FileText,
-      label: "Barangay Clearance",
-      path: "/dashboard/admin/barangay-clearance",
-    },
-    {
-      icon: ShieldCheck,
-      label: "Barangay Blotter",
-      path: "/dashboard/admin/barangay-blotter",
-    },
-  ];
-
   return (
-    <aside className="hidden lg:block fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-emerald-600 to-orange-500 text-white shadow-2xl z-50 overflow-y-auto">
-      <div className="p-6 flex flex-col min-h-full">
-        {/* Logo Section */}
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-            <Shield className="text-slate-800" size={20} />
-          </div>
-          <div>
-            <h1 className="font-bold text-base">Pamplona Uno City</h1>
-            <p className="text-xs text-slate-200">Admin Panel</p>
-          </div>
-        </div>
+    <aside
+      aria-label="Admin navigation"
+      className="fixed left-0 top-0 z-50 hidden h-full w-64 flex-col bg-gradient-to-b from-brand-accent-600 to-brand-secondary-500 text-white shadow-2xl lg:flex"
+    >
+      {/* Brand */}
+      <div className="border-b border-white/15 px-5 pb-4 pt-5">
+        <Link
+          href={BASE}
+          className={`flex min-w-0 items-center gap-3 rounded-xl ${focusRing}`}
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-slate-800">
+            <Shield
+              size={20}
+              aria-hidden="true"
+            />
+          </span>
 
-        {/* Main Navigation */}
-        <nav className="space-y-1 flex-1">
-          {navigationItems.map((item, index) => {
-            const active = isActive(item.path);
+          <span className="min-w-0 leading-tight">
+            <span className="block truncate text-base font-semibold">
+              Pamplona Uno City
+            </span>
+
+            <span className="block text-sm text-slate-200">
+              Admin panel
+            </span>
+          </span>
+        </Link>
+      </div>
+
+      {/* Navigation */}
+      <nav
+        aria-label="Admin navigation"
+        className="flex-1 overflow-y-auto px-4 py-3 [scrollbar-color:rgba(255,255,255,0.3)_transparent] [scrollbar-width:thin]"
+      >
+        <div className="space-y-4">
+          {navGroups.map((group, index) => {
+            const GroupIcon = group.icon;
 
             return (
-              <button
-                key={index}
-                onClick={() => router.push(item.path)}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors text-sm
-                  ${active ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}
-                `}
+              <section
+                key={group.title ?? `group-${index}`}
+                className={
+                  index > 0
+                    ? "border-t border-white/15 pt-4"
+                    : ""
+                }
               >
-                <item.icon size={18} />
-                <span className="font-medium">{item.label}</span>
-              </button>
+                {/* Section title */}
+                {group.title && (
+                  <div className="mb-2 flex items-center gap-2 px-3">
+                    {GroupIcon && (
+                      <GroupIcon
+                        size={16}
+                        strokeWidth={1.75}
+                        className="text-brand-accent-100"
+                        aria-hidden="true"
+                      />
+                    )}
+
+                    <h2 className="text-xs font-semibold uppercase tracking-wider text-brand-accent-100">
+                      {group.title}
+                    </h2>
+                  </div>
+                )}
+
+                <ul className="space-y-0.5">
+                  {group.items.map(renderItem)}
+                </ul>
+              </section>
             );
           })}
-
-          {/* Government Services Section */}
-          <div className="pt-3 mt-2 border-t border-white/20">
-            <h3 className="text-xs font-semibold text-white/70 px-3 mb-1">
-              GOVERNMENT SERVICES
-            </h3>
-            {governmentServices.map((item, index) => {
-              const active = isActive(item.path);
-
-              return (
-                <button
-                  key={index}
-                  onClick={() => router.push(item.path)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors text-sm
-                    ${active ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}
-                  `}
-                >
-                  <item.icon size={16} />
-                  <span className="font-medium">{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Civil Registry Services Section */}
-          <div className="pt-3 mt-2 border-t border-white/20">
-            <h3 className="text-xs font-semibold text-white/70 px-3 mb-1">
-              CIVIL REGISTRY SERVICES
-            </h3>
-            {civilRegistry.map((item, index) => {
-              const active = isActive(item.path);
-
-              return (
-                <button
-                  key={index}
-                  onClick={() => router.push(item.path)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors text-sm
-                    ${active ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}
-                  `}
-                >
-                  <item.icon size={16} />
-                  <span className="font-medium">{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Health Services Section */}
-          <div className="pt-3 mt-2 border-t border-white/20">
-            <h3 className="text-xs font-semibold text-white/70 px-3 mb-1">
-              HEALTH SERVICES
-            </h3>
-            {healthServices.map((item, index) => {
-              const active = isActive(item.path);
-
-              return (
-                <button
-                  key={index}
-                  onClick={() => router.push(item.path)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors text-sm
-                    ${active ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}
-                  `}
-                >
-                  <item.icon size={16} />
-                  <span className="font-medium">{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Public Safety Section */}
-          <div className="pt-3 mt-2 border-t border-white/20">
-            <h3 className="text-xs font-semibold text-white/70 px-3 mb-1">
-              PUBLIC SAFETY
-            </h3>
-            {publicSafety.map((item, index) => {
-              const active = isActive(item.path);
-
-              return (
-                <button
-                  key={index}
-                  onClick={() => router.push(item.path)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors text-sm
-                    ${active ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}
-                  `}
-                >
-                  <item.icon size={16} />
-                  <span className="font-medium">{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Account Section */}
-          <div className="pt-3 mt-2 border-t border-white/20">
-            <button
-              onClick={() => router.push("/dashboard/admin/users")}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors text-sm
-                ${isActive("/dashboard/admin/users") ? "bg-white/20 font-semibold shadow-lg" : "hover:bg-white/10"}
-              `}
-            >
-              <User size={18} />
-              <span className="font-medium">Users</span>
-            </button>
-          </div>
-        </nav>
-
-        {/* Logout Section */}
-        <div className="mt-3 pt-3 border-t border-white/20">
-          <button
-            onClick={handleLogout}
-            disabled={isLoggingOut}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-500/20 transition-colors text-left group disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-          >
-            {isLoggingOut ? (
-              <>
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                <span className="font-medium">Logging out...</span>
-              </>
-            ) : (
-              <>
-                <LogOut size={18} className="group-hover:text-red-200" />
-                <span className="font-medium group-hover:text-red-200">
-                  Logout
-                </span>
-              </>
-            )}
-          </button>
         </div>
+      </nav>
+
+      {/* Footer */}
+      <div className="border-t border-white/15 px-4 py-3">
+        <button
+          type="button"
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+          className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/90 transition-colors hover:bg-brand-primary-500/20 hover:text-brand-primary-100 disabled:cursor-not-allowed disabled:opacity-50 ${focusRing}`}
+        >
+          {isLoggingOut ? (
+            <>
+              <span
+                className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent motion-reduce:animate-none"
+                aria-hidden="true"
+              />
+
+              <span className="font-medium">
+                Logging out…
+              </span>
+            </>
+          ) : (
+            <>
+              <LogOut
+                size={18}
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+
+              <span className="font-medium">
+                Log out
+              </span>
+            </>
+          )}
+        </button>
       </div>
     </aside>
   );

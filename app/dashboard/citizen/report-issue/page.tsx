@@ -219,136 +219,130 @@ export default function ReportIssuePage() {
 
   return (
     <CitizenLayout requireAuth={false}>
-      <div className="flex flex-col min-h-screen bg-white">
-        {/* Header */}
-        <header className="bg-orange-600 text-white px-4 py-4">
-          <div className="flex items-center justify-between gap-3 mb-2">
-            <div className="flex items-center gap-3">
-              <Link href="/dashboard/citizen/">
-                <ChevronLeft className="w-6 h-6" />
-              </Link>
-              <h1 className="text-xl font-bold">Report an Issue</h1>
-            </div>
-            <Link
-              href="/dashboard/citizen/account/applications"
-              className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 transition-colors px-3 py-2 rounded-lg text-sm font-semibold"
-            >
-              <ClipboardList className="w-4 h-4" />
-              View Reports
-            </Link>
+      <div>
+        <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Report an issue</h1>
+            <p className="mt-2 text-gray-600">Tell us where there is a problem so the right team can review it.</p>
           </div>
-          <p className="text-orange-100 text-sm">
-            Help us improve pamplona Tres City
-          </p>
+          <Link
+            href="/dashboard/citizen/account/applications"
+            className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-2.5 font-semibold text-gray-800 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2"
+          >
+            <ClipboardList className="h-4 w-4" aria-hidden="true" />
+            View my reports
+          </Link>
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 px-4 py-6 pb-24">
+        <section>
+          <h2 className="mb-4 text-2xl font-bold text-gray-800">Share the details</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Error Message */}
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />
-                <div className="text-sm text-red-900">
+              <div role="alert" className="bg-brand-primary-50 border-2 border-brand-primary-200 rounded-xl p-4 flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-brand-primary-600 mt-0.5 flex-shrink-0" />
+                <div className="text-sm text-brand-primary-900">
                   <p className="font-semibold mb-1">Error</p>
-                  <p className="text-red-700">{error}</p>
+                  <p className="text-brand-primary-700">{error}. Check the details and try again.</p>
                 </div>
               </div>
             )}
 
+            <fieldset className="space-y-5">
+              <legend className="sr-only">Issue details</legend>
+              <div>
+                <label htmlFor="issue-location" className="mb-2 block text-sm font-semibold text-gray-900">
+                  Location (required)
+                </label>
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden="true" />
+                  <input
+                    id="issue-location"
+                    type="text"
+                    required
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                    placeholder="Street, barangay, or nearby landmark"
+                    className="w-full rounded-xl border border-gray-300 py-3 pl-11 pr-4 text-gray-900 placeholder:text-gray-400 focus:border-brand-accent-600 focus:outline-none focus:ring-2 focus:ring-brand-accent-600/30"
+                  />
+                </div>
+              </div>
+
             {/* Category Selection */}
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-3">
-                Issue Category *
-              </label>
+              <fieldset>
+                <legend className="mb-3 text-sm font-semibold text-gray-900">Issue category (required)</legend>
               <div className="grid grid-cols-2 gap-3">
                 {categories.map((cat) => (
                   <button
                     key={cat.value}
                     type="button"
+                    aria-pressed={formData.category === cat.value}
                     onClick={() =>
                       setFormData({ ...formData, category: cat.value })
                     }
-                    className={`p-4 rounded-xl border-2 transition-all ${
+                    className={`p-4 rounded-xl border transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 ${
                       formData.category === cat.value
-                        ? "border-orange-600 bg-orange-50"
+                        ? "border-brand-accent-600 bg-brand-accent-50"
                         : "border-gray-200 bg-white hover:border-gray-300"
                     }`}
                   >
-                    <div className="text-2xl mb-2">{cat.icon}</div>
+                    <div className="text-2xl mb-2" aria-hidden="true">{cat.icon}</div>
                     <div className="text-sm font-medium text-gray-900">
                       {cat.label}
                     </div>
                   </button>
                 ))}
               </div>
+              </fieldset>
             </div>
 
             {/* Title */}
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
-                Issue Title *
+              <label htmlFor="issue-title" className="mb-2 block text-sm font-semibold text-gray-900">
+                Short title (required)
               </label>
               <input
+                id="issue-title"
                 type="text"
                 required
                 value={formData.title}
                 onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
                 }
-                placeholder="Brief description of the issue"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                placeholder="For example, broken streetlight"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-brand-accent-600 focus:outline-none focus:ring-2 focus:ring-brand-accent-600/30"
               />
             </div>
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
-                Detailed Description *
+              <label htmlFor="issue-description" className="mb-2 block text-sm font-semibold text-gray-900">
+                Description (required)
               </label>
               <textarea
+                id="issue-description"
                 required
                 value={formData.description}
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })
                 }
-                placeholder="Provide more details about the issue..."
+                placeholder="Describe what happened and any details that can help us find it."
                 rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none"
+                className="w-full resize-y rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-brand-accent-600 focus:outline-none focus:ring-2 focus:ring-brand-accent-600/30"
               />
             </div>
 
-            {/* Location */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
-                Location *
-              </label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  required
-                  value={formData.location}
-                  onChange={(e) =>
-                    setFormData({ ...formData, location: e.target.value })
-                  }
-                  placeholder="Street, Barangay, or landmark"
-                  className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-
             {/* Urgency Level */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-3">
-                Urgency Level *
-              </label>
+            <fieldset>
+              <legend className="mb-3 block text-sm font-semibold text-gray-900">Urgency (required)</legend>
               <div className="flex gap-3">
                 {[
                   {
                     value: "low",
                     label: "Low",
-                    color: "bg-green-100 text-green-700 border-green-300",
+                    color: "bg-brand-accent-100 text-brand-accent-700 border-brand-accent-300",
                   },
                   {
                     value: "medium",
@@ -358,7 +352,7 @@ export default function ReportIssuePage() {
                   {
                     value: "high",
                     label: "High",
-                    color: "bg-red-100 text-red-700 border-red-300",
+                    color: "bg-brand-primary-100 text-brand-primary-700 border-brand-primary-300",
                   },
                 ].map((urgency) => (
                   <button
@@ -367,7 +361,7 @@ export default function ReportIssuePage() {
                     onClick={() =>
                       setFormData({ ...formData, urgency: urgency.value })
                     }
-                    className={`flex-1 py-3 rounded-xl border-2 font-semibold text-sm transition-all ${
+                    className={`flex-1 py-3 rounded-xl border-2 font-semibold text-sm transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 ${
                       formData.urgency === urgency.value
                         ? urgency.color
                         : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
@@ -377,12 +371,12 @@ export default function ReportIssuePage() {
                   </button>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
             {/* Photo/Video Upload */}
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-3">
-                Photos/Videos (Optional, max 5)
+              <label htmlFor="issue-photos" className="mb-3 block text-sm font-semibold text-gray-900">
+                Add photos or videos (optional, up to 5)
               </label>
 
               {previews.length > 0 && (
@@ -401,7 +395,8 @@ export default function ReportIssuePage() {
                       <button
                         type="button"
                         onClick={() => removeFile(index)}
-                        className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold hover:bg-red-600 transition-colors z-10"
+                        aria-label={`Remove photo or video ${index + 1}`}
+                        className="absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary-600 text-sm font-bold text-white hover:bg-brand-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 motion-reduce:transition-none"
                       >
                         ×
                       </button>
@@ -411,7 +406,7 @@ export default function ReportIssuePage() {
               )}
 
               {files.length < 5 && (
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-orange-500 hover:bg-orange-50 transition-colors">
+                <label htmlFor="issue-photos" className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-brand-accent-600 hover:bg-brand-accent-50 focus-within:ring-2 focus-within:ring-brand-accent-600 focus-within:ring-offset-2 motion-reduce:transition-none">
                   <div className="flex flex-col items-center">
                     <Upload className="w-8 h-8 text-gray-400 mb-2" />
                     <p className="text-sm font-medium text-gray-600">
@@ -422,6 +417,7 @@ export default function ReportIssuePage() {
                     </p>
                   </div>
                   <input
+                    id="issue-photos"
                     type="file"
                     multiple
                     accept="image/*,video/*"
@@ -433,15 +429,12 @@ export default function ReportIssuePage() {
             </div>
 
             {/* Info Box */}
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3">
+            <div className="rounded-2xl border border-gray-200 bg-white p-5 flex items-start gap-3">
               <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-              <div className="text-sm text-blue-900">
-                <p className="font-semibold mb-1">
-                  Your report helps improve our city
-                </p>
-                <p className="text-blue-700">
-                  All reports are reviewed by city officials. You will receive
-                  updates on the status of your report.
+              <div className="text-sm text-gray-700">
+                <p className="font-semibold mb-1 text-gray-900">What happens next</p>
+                <p>
+                  Barangay staff will review your report. You can check for status updates in My reports.
                 </p>
               </div>
             </div>
@@ -450,12 +443,13 @@ export default function ReportIssuePage() {
             <button
               type="submit"
               disabled={loading || !formData.category}
-              className="w-full bg-orange-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg active:scale-98 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full rounded-xl bg-brand-accent-600 px-6 py-3 font-bold text-white hover:bg-brand-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? "Submitting Report..." : "Submit Report"}
+              {loading ? "Sending report..." : "Send report"}
             </button>
+            </fieldset>
           </form>
-        </main>
+        </section>
       </div>
     </CitizenLayout>
   );

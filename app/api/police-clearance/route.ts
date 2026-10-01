@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { getLaravelApiUrl } from "@/lib/laravel-api-url"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api"
+const API_URL = getLaravelApiUrl()
 
 function camelToSnake(str: string): string {
   return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`)

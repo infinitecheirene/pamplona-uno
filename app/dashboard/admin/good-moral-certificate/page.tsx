@@ -278,10 +278,10 @@ export default function AdminGoodMoralCertificatePage() {
 
   const getStatusBadge = (status: string) => {
     const styles = {
-      pending: "bg-orange-100 text-orange-700",
+      pending: "bg-brand-secondary-100 text-brand-secondary-700",
       processing: "bg-blue-100 text-blue-700",
-      approved: "bg-green-100 text-green-700",
-      rejected: "bg-red-100 text-red-700",
+      approved: "bg-brand-accent-100 text-brand-accent-700",
+      rejected: "bg-brand-primary-100 text-brand-primary-700",
     };
 
     const icons = {
@@ -351,7 +351,7 @@ export default function AdminGoodMoralCertificatePage() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                    className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent"
                   />
                 </div>
 
@@ -364,7 +364,7 @@ export default function AdminGoodMoralCertificatePage() {
                         setStatusFilter(e.target.value);
                         setPagination((prev) => ({ ...prev, current_page: 1 }));
                       }}
-                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent appearance-none bg-white"
                     >
                       <option value="all">All Status</option>
                       <option value="pending">Pending</option>
@@ -376,7 +376,7 @@ export default function AdminGoodMoralCertificatePage() {
 
                   <button
                     onClick={handleSearch}
-                    className="px-4 py-2 bg-orange-600 text-white rounded-lg text-sm font-medium hover:bg-orange-700 transition-colors"
+                    className="px-4 py-2 bg-brand-secondary-600 text-white rounded-lg text-sm font-medium hover:bg-brand-secondary-700 transition-colors"
                   >
                     Search
                   </button>
@@ -388,7 +388,7 @@ export default function AdminGoodMoralCertificatePage() {
               {loading ? (
                 <div className="flex items-center justify-center py-12">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-orange-500 mx-auto mb-3"></div>
+                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-brand-secondary-500 mx-auto mb-3"></div>
                     <p className="text-gray-600 text-sm">
                       Loading applications...
                     </p>
@@ -410,7 +410,7 @@ export default function AdminGoodMoralCertificatePage() {
                   <div className="hidden sm:block overflow-x-auto">
                     <div className="inline-block min-w-full align-middle">
                       <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gradient-to-r from-emerald-600 to-orange-500 text-white">
+                        <thead className="bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white">
                           <tr>
                             <th className="px-3 sm:px-4 py-3 text-left text-xs font-semibold uppercase whitespace-nowrap">
                               Reference #
@@ -436,7 +436,7 @@ export default function AdminGoodMoralCertificatePage() {
                             <th className="px-3 sm:px-4 py-3 text-left text-xs font-semibold uppercase whitespace-nowrap">
                               Date
                             </th>
-                            <th className="px-3 sm:px-4 py-3 text-center text-xs font-semibold uppercase whitespace-nowrap sticky right-0 bg-gradient-to-r from-emerald-600 to-orange-500">
+                            <th className="px-3 sm:px-4 py-3 text-center text-xs font-semibold uppercase whitespace-nowrap sticky right-0 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500">
                               Actions
                             </th>
                           </tr>
@@ -499,7 +499,7 @@ export default function AdminGoodMoralCertificatePage() {
                               <td className="px-3 sm:px-4 py-3 text-center whitespace-nowrap sticky right-0 bg-white">
                                 <button
                                   onClick={() => handleViewCertificate(cert)}
-                                  className="inline-flex items-center gap-1 px-2 sm:px-3 py-1.5 bg-orange-100 text-orange-700 rounded-lg text-xs font-medium hover:bg-orange-200 transition-colors"
+                                  className="inline-flex items-center gap-1 px-2 sm:px-3 py-1.5 bg-brand-secondary-100 text-brand-secondary-700 rounded-lg text-xs font-medium hover:bg-brand-secondary-200 transition-colors"
                                 >
                                   <Eye className="w-3 h-3" />
                                   <span className="hidden sm:inline">View</span>
@@ -553,7 +553,7 @@ export default function AdminGoodMoralCertificatePage() {
                           </div>
                           <button
                             onClick={() => handleViewCertificate(cert)}
-                            className="inline-flex items-center gap-1 px-3 py-2 bg-orange-100 text-orange-700 rounded-lg text-xs font-medium hover:bg-orange-200 transition-colors flex-shrink-0"
+                            className="inline-flex items-center gap-1 px-3 py-2 bg-brand-secondary-100 text-brand-secondary-700 rounded-lg text-xs font-medium hover:bg-brand-secondary-200 transition-colors flex-shrink-0"
                           >
                             <Eye className="w-4 h-4" />
                             <span>View</span>
@@ -609,7 +609,7 @@ export default function AdminGoodMoralCertificatePage() {
                               onClick={() => handlePageChange(pageNum)}
                               className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
                                 pagination.current_page === pageNum
-                                  ? "bg-orange-600 text-white"
+                                  ? "bg-brand-secondary-600 text-white"
                                   : "border border-gray-300 hover:bg-gray-50"
                               }`}
                             >
@@ -641,7 +641,7 @@ export default function AdminGoodMoralCertificatePage() {
         {isModalOpen && selectedCertificate && (
           <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50 p-0 sm:p-4">
             <div className="bg-white sm:rounded-xl shadow-2xl w-full sm:max-w-4xl h-[95vh] sm:h-auto sm:max-h-[90vh] overflow-hidden flex flex-col">
-              <div className="bg-gradient-to-r from-emerald-600 to-orange-600 text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 z-10">
+              <div className="bg-gradient-to-r from-brand-accent-600 to-brand-secondary-600 text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 z-10">
                 <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                   <FileText className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                   <div className="min-w-0">
@@ -671,8 +671,8 @@ export default function AdminGoodMoralCertificatePage() {
                       {getStatusBadge(selectedCertificate.status)}
                     </div>
                     {selectedCertificate.rejection_reason && (
-                      <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <p className="text-sm text-red-800">
+                      <div className="mt-2 p-3 bg-brand-primary-50 border border-brand-primary-200 rounded-lg">
+                        <p className="text-sm text-brand-primary-800">
                           <span className="font-medium">
                             Rejection Reason:{" "}
                           </span>
@@ -681,8 +681,8 @@ export default function AdminGoodMoralCertificatePage() {
                       </div>
                     )}
                     {selectedCertificate.certificate_number && (
-                      <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-lg">
-                        <p className="text-sm text-green-800">
+                      <div className="mt-2 p-3 bg-brand-accent-50 border border-brand-accent-200 rounded-lg">
+                        <p className="text-sm text-brand-accent-800">
                           <span className="font-medium">
                             Certificate Number:{" "}
                           </span>
@@ -852,7 +852,7 @@ export default function AdminGoodMoralCertificatePage() {
                         onClick={() =>
                           handleUpdateStatus(selectedCertificate.id, "rejected")
                         }
-                        className="w-full sm:w-auto px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                        className="w-full sm:w-auto px-4 py-3 bg-brand-primary-600 text-white rounded-lg hover:bg-brand-primary-700 transition-colors text-sm font-medium"
                       >
                         Reject
                       </button>
@@ -860,7 +860,7 @@ export default function AdminGoodMoralCertificatePage() {
                         onClick={() =>
                           handleUpdateStatus(selectedCertificate.id, "approved")
                         }
-                        className="w-full sm:w-auto px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                        className="w-full sm:w-auto px-4 py-3 bg-brand-accent-600 text-white rounded-lg hover:bg-brand-accent-700 transition-colors text-sm font-medium"
                       >
                         Approve
                       </button>
@@ -882,7 +882,7 @@ export default function AdminGoodMoralCertificatePage() {
         {isRejectionModalOpen && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-xl shadow-2xl w-full max-w-md">
-              <div className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-t-xl">
+              <div className="bg-gradient-to-r from-brand-primary-600 to-brand-primary-700 text-white px-6 py-4 rounded-t-xl">
                 <h3 className="text-lg font-bold">Reject Certificate</h3>
                 <p className="text-sm text-white/90 mt-1">
                   Please provide a reason for rejection
@@ -891,13 +891,13 @@ export default function AdminGoodMoralCertificatePage() {
 
               <div className="p-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Rejection Reason <span className="text-red-500">*</span>
+                  Rejection Reason <span className="text-brand-primary-500">*</span>
                 </label>
                 <textarea
                   value={rejectionReason}
                   onChange={(e) => setRejectionReason(e.target.value)}
                   placeholder="Enter the reason for rejecting this certificate..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary-500 focus:border-transparent resize-none"
                   rows={4}
                   autoFocus
                 />
@@ -916,7 +916,7 @@ export default function AdminGoodMoralCertificatePage() {
                 </button>
                 <button
                   onClick={handleRejectSubmit}
-                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                  className="px-4 py-2 bg-brand-primary-600 text-white rounded-lg hover:bg-brand-primary-700 transition-colors text-sm font-medium"
                 >
                   Confirm Rejection
                 </button>

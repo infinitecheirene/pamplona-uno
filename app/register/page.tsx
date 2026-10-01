@@ -11,6 +11,8 @@ import {
   CheckCircle2,
   XCircle,
   AlertCircle,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -28,6 +30,8 @@ export default function RegisterPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -107,12 +111,12 @@ export default function RegisterPage() {
     try {
       // Create FormData for file upload
       const data = new FormData();
-      data.append("name", formData.name);
+      data.append("fullName", formData.name);
       data.append("email", formData.email);
       data.append("password", formData.password);
-      data.append("phone_number", formData.phone_number);
+      data.append("phoneNumber", formData.phone_number);
       data.append("address", formData.address);
-      data.append("voters_id", formData.voters_id);
+      data.append("votersId", formData.voters_id);
 
       const response = await fetch("/api/auth/register", {
         method: "POST",
@@ -158,7 +162,7 @@ export default function RegisterPage() {
         description:
           "Your account has been created and is pending verification. You'll receive a notification once approved.",
         duration: 6000,
-        className: "bg-green-50 border-green-200",
+        className: "bg-brand-accent-50 border-brand-accent-200",
       });
 
       // Small delay before redirect to let user see the success message
@@ -199,7 +203,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-orange-50 flex items-center justify-center px-4 py-12">
+    <main className="min-h-screen bg-gradient-to-br from-brand-accent-50 via-white to-brand-secondary-50 flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -213,8 +217,8 @@ export default function RegisterPage() {
             transition={{ delay: 0.1 }}
             className="text-center mb-10"
           >
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-orange-100 to-emerald-100 mb-4">
-              <span className="text-2xl font-bold text-orange-600">C</span>
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-brand-secondary-100 to-brand-accent-100 mb-4">
+              <span className="text-2xl font-bold text-brand-secondary-600">C</span>
             </div>
             <h1 className="text-4xl font-bold gradient-text mb-2">
               Create Account
@@ -228,13 +232,13 @@ export default function RegisterPage() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3"
+              className="mb-6 p-4 bg-brand-primary-50 border border-brand-primary-200 rounded-lg flex items-start gap-3"
             >
               <XCircle
-                className="text-red-600 flex-shrink-0 mt-0.5"
+                className="text-brand-primary-600 flex-shrink-0 mt-0.5"
                 size={20}
               />
-              <p className="text-red-600 text-sm font-medium">{error}</p>
+              <p className="text-brand-primary-600 text-sm font-medium">{error}</p>
             </motion.div>
           )}
 
@@ -254,7 +258,7 @@ export default function RegisterPage() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-orange-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
+                  className="w-full px-4 py-3 rounded-lg border border-brand-secondary-200 focus:border-brand-secondary-500 focus:ring-2 focus:ring-brand-secondary-200 transition"
                   placeholder="Juan Dela Cruz"
                   required
                 />
@@ -269,7 +273,7 @@ export default function RegisterPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-orange-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
+                  className="w-full px-4 py-3 rounded-lg border border-brand-secondary-200 focus:border-brand-secondary-500 focus:ring-2 focus:ring-brand-secondary-200 transition"
                   placeholder="juan@email.com"
                   required
                 />
@@ -284,7 +288,7 @@ export default function RegisterPage() {
                   name="phone_number"
                   value={formData.phone_number}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-orange-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
+                  className="w-full px-4 py-3 rounded-lg border border-brand-secondary-200 focus:border-brand-secondary-500 focus:ring-2 focus:ring-brand-secondary-200 transition"
                   placeholder="+63 912 345 6789"
                   required
                 />
@@ -294,9 +298,9 @@ export default function RegisterPage() {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Voters ID Upload *
                 </label>
-                <label className="w-full px-4 py-3 rounded-lg border-2 border-dashed border-orange-200 hover:border-orange-500 cursor-pointer flex items-center justify-center gap-2 transition bg-orange-50 hover:bg-orange-100">
-                  <Upload size={18} className="text-orange-600" />
-                  <span className="text-sm text-orange-600 font-medium truncate max-w-[150px]">
+                <label className="w-full px-4 py-3 rounded-lg border-2 border-dashed border-brand-secondary-200 hover:border-brand-secondary-500 cursor-pointer flex items-center justify-center gap-2 transition bg-brand-secondary-50 hover:bg-brand-secondary-100">
+                  <Upload size={18} className="text-brand-secondary-600" />
+                  <span className="text-sm text-brand-secondary-600 font-medium truncate max-w-[150px]">
                     {formData.voters_id ? formData.voters_id.name : "Upload ID"}
                   </span>
                   <input
@@ -313,32 +317,54 @@ export default function RegisterPage() {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Password *
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-orange-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
-                  placeholder="••••••••"
-                  required
-                  minLength={8}
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 pr-12 rounded-lg border border-brand-secondary-200 focus:border-brand-secondary-500 focus:ring-2 focus:ring-brand-secondary-200 transition"
+                    placeholder="••••••••"
+                    required
+                    minLength={8}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((visible) => !visible)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-pressed={showPassword}
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
+                  </button>
+                </div>
               </motion.div>
 
               <motion.div variants={fieldVariants}>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Confirm Password *
                 </label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-orange-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
-                  placeholder="••••••••"
-                  required
-                  minLength={8}
-                />
+                <div className="relative">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 pr-12 rounded-lg border border-brand-secondary-200 focus:border-brand-secondary-500 focus:ring-2 focus:ring-brand-secondary-200 transition"
+                    placeholder="••••••••"
+                    required
+                    minLength={8}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword((visible) => !visible)}
+                    aria-label={showConfirmPassword ? "Hide confirmation password" : "Show confirmation password"}
+                    aria-pressed={showConfirmPassword}
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700"
+                  >
+                    {showConfirmPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
+                  </button>
+                </div>
               </motion.div>
 
               <motion.div variants={fieldVariants} className="md:col-span-2">
@@ -350,7 +376,7 @@ export default function RegisterPage() {
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-orange-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
+                  className="w-full px-4 py-3 rounded-lg border border-brand-secondary-200 focus:border-brand-secondary-500 focus:ring-2 focus:ring-brand-secondary-200 transition"
                   placeholder="123 Main Street, Barangay 1, Pamplona Uno"
                   required
                 />
@@ -365,7 +391,7 @@ export default function RegisterPage() {
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-4 rounded-lg bg-gradient-to-r from-orange-600 to-orange-500 text-white font-bold hover:shadow-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+              className="w-full px-6 py-4 rounded-lg bg-gradient-to-r from-brand-secondary-600 to-brand-secondary-500 text-white font-bold hover:shadow-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
             >
               {loading ? "Creating Account..." : "Create Account"}
               <ArrowRight size={18} />
@@ -376,13 +402,13 @@ export default function RegisterPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="mt-8 pt-8 border-t border-orange-100 text-center"
+            className="mt-8 pt-8 border-t border-brand-secondary-100 text-center"
           >
             <p className="text-gray-600">
               Already have an account?{" "}
               <Link
                 href="/login"
-                className="text-orange-600 font-bold hover:text-orange-700"
+                className="text-brand-secondary-600 font-bold hover:text-brand-secondary-700"
               >
                 Sign in here
               </Link>

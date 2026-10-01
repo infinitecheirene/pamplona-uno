@@ -89,14 +89,14 @@ function UnsubscribeContent() {
 
           {status === 'error' && (
             <>
-              <XCircle className="w-16 h-16 text-red-600 mx-auto mb-4" />
+              <XCircle className="w-16 h-16 text-brand-primary-600 mx-auto mb-4" />
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 Unsubscribe Failed
               </h1>
               <p className="text-gray-600 mb-6">{message}</p>
               <button
                 onClick={() => router.push('/')}
-                className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all font-medium shadow-md hover:shadow-lg"
+                className="px-6 py-3 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white rounded-lg hover:from-brand-accent-700 hover:to-brand-secondary-600 transition-all font-medium shadow-md hover:shadow-lg"
               >
                 Go to Home
               </button>

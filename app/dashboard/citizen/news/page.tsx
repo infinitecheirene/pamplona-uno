@@ -2,11 +2,7 @@
 
 import { useState, useEffect } from "react";
 import {
-  ChevronLeft,
   Calendar,
-  Eye,
-  Share2,
-  Bookmark,
   Newspaper,
 } from "lucide-react";
 import Image from "next/image";
@@ -48,7 +44,7 @@ export default function NewsPage() {
   const [loading, setLoading] = useState(true);
 
   const categories = [
-    { value: "all", label: "All News" },
+    { value: "all", label: "All news" },
     { value: "announcements", label: "Announcements" },
     { value: "events", label: "Events" },
     { value: "projects", label: "Projects" },
@@ -161,150 +157,87 @@ export default function NewsPage() {
 
   return (
     <CitizenLayout requireAuth={false}>
-      <div className="h-screen overflow-auto bg-gray-50">
-        {/* Header */}
-        <header className="bg-gradient-to-r from-emerald-600 to-orange-500 text-white px-4 sm:px-6 py-3 sm:py-4 sticky top-0 z-10 shadow-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <Link
-                href="/"
-                className="hover:bg-white/10 p-1 rounded-lg transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-              </Link>
-              <div>
-                <h1 className="text-xl sm:text-2xl font-bold">City News</h1>
-                <p className="text-white/90 text-xs sm:text-sm mt-0.5">
-                  Latest updates from Pamplona Uno City
-                </p>
-              </div>
-            </div>
-            <div className="hidden sm:flex items-center gap-2 text-sm">
-              <Newspaper className="w-5 h-5" />
-              <span className="font-medium">
-                {filteredNews.length} Articles
-              </span>
-            </div>
-          </div>
+      <div>
+        <header className="mb-6">
+          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">City news</h1>
+          <p className="mt-2 text-gray-600">Read the latest updates from Pamplona Uno.</p>
+          <p className="mt-2 text-sm text-gray-600">{filteredNews.length} articles</p>
         </header>
 
         {/* Category Filter */}
-        <div className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 sticky top-[60px] sm:top-[68px] z-10 shadow-sm">
-          <div className="max-w-7xl mx-auto overflow-x-auto">
-            <div className="flex gap-2">
+        <section aria-label="Filter news" className="mb-8 overflow-x-auto">
+            <div className="flex min-w-max gap-2">
               {categories.map((category) => (
                 <button
                   key={category.value}
                   onClick={() => setSelectedCategory(category.value)}
-                  className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-semibold text-xs sm:text-sm whitespace-nowrap transition-all ${
+                  className={`rounded-xl border px-4 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 ${
                     selectedCategory === category.value
-                      ? "bg-gradient-to-r from-emerald-600 to-orange-500 text-white shadow-md"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      ? "border-brand-accent-600 bg-brand-accent-600 text-white"
+                      : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
                   }`}
                 >
                   {category.label}
                 </button>
               ))}
             </div>
-          </div>
-        </div>
+        </section>
 
         {/* Main Content */}
-        <main className="px-4 sm:px-6 py-4 sm:py-6">
-          <div className="max-w-7xl mx-auto">
+        <div>
             {loading ? (
-              <div className="flex items-center justify-center py-12">
-                <div className="text-center">
-                  <div className="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                  <p className="text-gray-600">Loading news...</p>
-                </div>
+              <div role="status" aria-label="Loading news" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {[0, 1, 2].map((item) => <div key={item} className="animate-pulse rounded-2xl bg-gray-100 h-72" />)}
               </div>
             ) : filteredNews.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-12">
-                <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-orange-100 rounded-full flex items-center justify-center mb-4">
-                  <Calendar className="w-10 h-10 text-emerald-600" />
+              <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-secondary-50">
+                  <Calendar className="h-7 w-7 text-brand-secondary-600" aria-hidden="true" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  No news articles
-                </h3>
-                <p className="text-gray-600 text-center max-w-sm">
-                  Check back later for updates from the city.
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                  No articles in this category
+                </h2>
+                <p className="mx-auto max-w-prose text-gray-700 leading-relaxed">
+                  Choose another category or browse community announcements.
                 </p>
+                <Link href="/announcements" className="mt-5 inline-flex rounded-xl bg-brand-accent-600 px-6 py-3 font-bold text-white hover:bg-brand-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">Browse announcements</Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {filteredNews.map((article) => (
-                  <Link
-                    key={article.id}
-                    href={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${article.id}`}
-                    className="group block bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-all duration-300"
-                  >
-                    {article.image && (
-                      <div className="relative aspect-video bg-gradient-to-br from-emerald-100 to-orange-100 overflow-hidden">
-                        <Image
-                          src={article.image}
-                          alt={article.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      </div>
-                    )}
-
-                    <div className="p-4 sm:p-5">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="px-2.5 py-1 bg-gradient-to-r from-emerald-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-sm">
-                          {article.category}
-                        </span>
-                        <span className="text-xs text-gray-500 flex items-center gap-1">
-                          <Calendar className="w-3.5 h-3.5" />
-                          {article.publishedAt}
-                        </span>
-                      </div>
-
-                      <h3 className="font-bold text-gray-900 mb-2 text-base sm:text-lg leading-tight group-hover:text-emerald-600 transition-colors line-clamp-2">
-                        {article.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray-600 mb-4 leading-relaxed line-clamp-2">
-                        {article.excerpt}
-                      </p>
-
-                      <div className="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
-                        <span className="font-medium text-gray-700 truncate max-w-[120px]">
-                          By {article.author}
-                        </span>
-                        <div className="flex items-center gap-3 sm:gap-4">
-                          <span className="flex items-center gap-1">
-                            <Eye className="w-3.5 h-3.5" />
-                            {article.views}
-                          </span>
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              // Share functionality
-                            }}
-                            className="flex items-center gap-1 hover:text-emerald-600 transition-colors"
-                          >
-                            <Share2 className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              // Bookmark functionality
-                            }}
-                            className="flex items-center gap-1 hover:text-orange-600 transition-colors"
-                          >
-                            <Bookmark className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
+              <>
+                {[filteredNews[0]].map((article) => (
+                  <article key={article.id} className="mb-8 overflow-hidden rounded-3xl border border-gray-200 bg-white sm:grid sm:grid-cols-2">
+                    <Link href={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${article.id}`} aria-label={`Read ${article.title}`} className="relative block min-h-56 bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-inset">
+                      {article.image ? <Image src={article.image} alt={article.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" /> : <div className="flex h-full min-h-56 items-center justify-center"><Newspaper className="h-12 w-12 text-brand-secondary-600" aria-hidden="true" /></div>}
+                    </Link>
+                    <div className="p-6 sm:p-8">
+                      <span className="inline-flex rounded-full bg-brand-secondary-50 px-3 py-1 text-sm font-semibold text-brand-secondary-700">Featured {article.category.toLowerCase()}</span>
+                      <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700"><Calendar className="h-4 w-4" aria-hidden="true" />{article.publishedAt}</p>
+                      <h2 className="mt-4 text-2xl font-bold text-gray-900"><Link href={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${article.id}`} className="hover:text-brand-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600">{article.title}</Link></h2>
+                      <p className="mt-3 leading-relaxed text-gray-700">{article.excerpt}</p>
+                      <p className="mt-4 text-sm text-gray-600">By {article.author}</p>
                     </div>
-                  </Link>
+                  </article>
                 ))}
-              </div>
+                <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  {filteredNews.slice(1).map((article) => (
+                    <li key={article.id}>
+                      <article className="h-full overflow-hidden rounded-2xl border border-gray-200 bg-white">
+                        {article.image && <Link href={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${article.id}`} className="relative block aspect-video bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600"><Image src={article.image} alt={article.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" /></Link>}
+                        <div className="p-5">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="rounded-full bg-brand-secondary-50 px-3 py-1 text-sm font-semibold text-brand-secondary-700">{article.category}</span>
+                            <span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700"><Calendar className="h-4 w-4" aria-hidden="true" />{article.publishedAt}</span>
+                          </div>
+                          <h3 className="mt-3 font-bold text-gray-900"><Link href={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${article.id}`} className="hover:text-brand-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600">{article.title}</Link></h3>
+                          <p className="mt-2 text-sm leading-relaxed text-gray-700">{article.excerpt}</p>
+                        </div>
+                      </article>
+                    </li>
+                  ))}
+                </ul>
+              </>
             )}
-          </div>
-        </main>
+        </div>
       </div>
     </CitizenLayout>
   );

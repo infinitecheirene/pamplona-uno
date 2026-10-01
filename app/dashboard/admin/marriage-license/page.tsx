@@ -86,7 +86,7 @@ export default function MarriageLicenseGuidePage() {
                     <div
                       className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                         currentStep >= step.id
-                          ? "bg-orange-500 text-white"
+                          ? "bg-brand-secondary-500 text-white"
                           : "bg-gray-200 text-gray-500"
                       }`}
                     >
@@ -102,7 +102,7 @@ export default function MarriageLicenseGuidePage() {
                   </div>
                   {index < steps.length - 1 && (
                     <div
-                      className={`h-1 flex-1 mx-1 sm:mx-2 mb-4 sm:mb-5 ${currentStep > step.id ? "bg-orange-500" : "bg-gray-200"}`}
+                      className={`h-1 flex-1 mx-1 sm:mx-2 mb-4 sm:mb-5 ${currentStep > step.id ? "bg-brand-secondary-500" : "bg-gray-200"}`}
                     />
                   )}
                 </div>
@@ -229,14 +229,14 @@ export default function MarriageLicenseGuidePage() {
 
               {currentStep === 2 && (
                 <div className="space-y-5 sm:space-y-6">
-                  <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 sm:p-4">
+                  <div className="bg-brand-secondary-50 border border-brand-secondary-200 rounded-lg p-3 sm:p-4">
                     <div className="flex gap-2">
-                      <MapPin className="h-5 w-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <MapPin className="h-5 w-5 text-brand-secondary-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <h4 className="font-medium text-sm sm:text-base text-orange-900">
+                        <h4 className="font-medium text-sm sm:text-base text-brand-secondary-900">
                           Where to Apply
                         </h4>
-                        <p className="text-xs sm:text-sm text-orange-800 mt-1">
+                        <p className="text-xs sm:text-sm text-brand-secondary-800 mt-1">
                           Local Civil Registrar's Office of the city or
                           municipality where either party has resided for at
                           least one month
@@ -252,7 +252,7 @@ export default function MarriageLicenseGuidePage() {
 
                     <div className="space-y-2.5 sm:space-y-3">
                       <div className="flex gap-3 sm:gap-4">
-                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
+                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-brand-secondary-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
                           1
                         </div>
                         <div className="flex-1 min-w-0">
@@ -267,7 +267,7 @@ export default function MarriageLicenseGuidePage() {
                       </div>
 
                       <div className="flex gap-3 sm:gap-4">
-                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
+                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-brand-secondary-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
                           2
                         </div>
                         <div className="flex-1 min-w-0">
@@ -283,7 +283,7 @@ export default function MarriageLicenseGuidePage() {
                       </div>
 
                       <div className="flex gap-3 sm:gap-4">
-                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
+                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-brand-secondary-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
                           3
                         </div>
                         <div className="flex-1 min-w-0">
@@ -298,7 +298,7 @@ export default function MarriageLicenseGuidePage() {
                       </div>
 
                       <div className="flex gap-3 sm:gap-4">
-                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
+                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-brand-secondary-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
                           4
                         </div>
                         <div className="flex-1 min-w-0">
@@ -313,7 +313,7 @@ export default function MarriageLicenseGuidePage() {
                       </div>
 
                       <div className="flex gap-3 sm:gap-4">
-                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
+                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-brand-secondary-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
                           5
                         </div>
                         <div className="flex-1 min-w-0">
@@ -328,7 +328,7 @@ export default function MarriageLicenseGuidePage() {
                       </div>
 
                       <div className="flex gap-3 sm:gap-4">
-                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
+                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-brand-secondary-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
                           6
                         </div>
                         <div className="flex-1 min-w-0">
@@ -343,7 +343,7 @@ export default function MarriageLicenseGuidePage() {
                       </div>
 
                       <div className="flex gap-3 sm:gap-4">
-                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
+                        <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 bg-brand-secondary-500 text-white rounded-full flex items-center justify-center font-semibold text-sm sm:text-base">
                           7
                         </div>
                         <div className="flex-1 min-w-0">
@@ -364,14 +364,14 @@ export default function MarriageLicenseGuidePage() {
               {currentStep === 3 && (
                 <div className="space-y-5 sm:space-y-6">
                   <div className="space-y-3 sm:space-y-4">
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-3 sm:p-4">
+                    <div className="bg-brand-accent-50 border border-brand-accent-200 rounded-lg p-3 sm:p-4">
                       <div className="flex gap-2">
-                        <DollarSign className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                        <DollarSign className="h-5 w-5 text-brand-accent-600 flex-shrink-0 mt-0.5" />
                         <div>
-                          <h4 className="font-medium text-sm sm:text-base text-green-900">
+                          <h4 className="font-medium text-sm sm:text-base text-brand-accent-900">
                             Application Fee
                           </h4>
-                          <p className="text-xs sm:text-sm text-green-800 mt-1">
+                          <p className="text-xs sm:text-sm text-brand-accent-800 mt-1">
                             Fees vary by city/municipality, typically ranging
                             from ₱200 to ₱500. Check with your local Civil
                             Registrar's Office for exact amount.
@@ -465,11 +465,11 @@ export default function MarriageLicenseGuidePage() {
                     </div>
                   </div>
 
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-3 sm:p-4">
-                    <h4 className="font-medium text-sm sm:text-base text-red-900 mb-1.5 sm:mb-2">
+                  <div className="bg-brand-primary-50 border border-brand-primary-200 rounded-lg p-3 sm:p-4">
+                    <h4 className="font-medium text-sm sm:text-base text-brand-primary-900 mb-1.5 sm:mb-2">
                       Grounds for Denial
                     </h4>
-                    <p className="text-xs sm:text-sm text-red-800">
+                    <p className="text-xs sm:text-sm text-brand-primary-800">
                       Your application may be denied if either party is already
                       married, below legal age without consent, or if there are
                       valid legal impediments to marriage.
@@ -491,14 +491,14 @@ export default function MarriageLicenseGuidePage() {
                 {currentStep < steps.length ? (
                   <Button
                     onClick={handleNext}
-                    className="flex-1 bg-orange-500 hover:bg-orange-600"
+                    className="flex-1 bg-brand-secondary-500 hover:bg-brand-secondary-600"
                   >
                     Next
                   </Button>
                 ) : (
                   <Button
                     onClick={() => setCurrentStep(1)}
-                    className="flex-1 bg-orange-500 hover:bg-orange-600"
+                    className="flex-1 bg-brand-secondary-500 hover:bg-brand-secondary-600"
                   >
                     Back to Start
                   </Button>

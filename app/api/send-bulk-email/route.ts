@@ -1,6 +1,7 @@
 // app/api/send-bulk-email/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { emailBrandPalette } from '@/lib/email-brand-palette';
 
 // Create transporter
 const transporter = nodemailer.createTransport({
@@ -24,7 +25,7 @@ const emailTemplates = {
         <style>
           body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
           .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          .header { background: linear-gradient(135deg, #059669 0%, #f97316 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+          .header { background: linear-gradient(135deg, ${emailBrandPalette.primary600} 0%, ${emailBrandPalette.secondary600} 50%, ${emailBrandPalette.accent600} 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
           .content { background: #f9fafb; padding: 30px; }
           .badge { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
           .badge-alert { background: #fee2e2; color: #991b1b; }
@@ -33,7 +34,7 @@ const emailTemplates = {
           .badge-development { background: #e0e7ff; color: #3730a3; }
           .badge-health { background: #d1fae5; color: #065f46; }
           .badge-notice { background: #fef3c7; color: #92400e; }
-          .announcement-content { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #059669; }
+          .announcement-content { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid ${emailBrandPalette.accent600}; }
           .footer { text-align: center; padding: 20px; color: #6b7280; font-size: 12px; border-radius: 0 0 10px 10px; background: #f9fafb; }
           .unsubscribe { color: #6b7280; text-decoration: none; }
         </style>
@@ -72,12 +73,12 @@ const emailTemplates = {
         <style>
           body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
           .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          .header { background: linear-gradient(135deg, #059669 0%, #f97316 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+          .header { background: linear-gradient(135deg, ${emailBrandPalette.primary600} 0%, ${emailBrandPalette.secondary600} 50%, ${emailBrandPalette.accent600} 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
           .content { background: #f9fafb; padding: 30px; }
           .badge { display: inline-block; padding: 5px 10px; background: #dbeafe; color: #1e40af; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
           .news-image { width: 100%; max-width: 100%; height: auto; border-radius: 8px; margin: 20px 0; }
           .news-content { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
-          .button { display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #059669 0%, #f97316 100%); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }
+          .button { display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, ${emailBrandPalette.primary600} 0%, ${emailBrandPalette.secondary600} 50%, ${emailBrandPalette.accent600} 100%); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }
           .footer { text-align: center; padding: 20px; color: #6b7280; font-size: 12px; border-radius: 0 0 10px 10px; background: #f9fafb; }
           .unsubscribe { color: #6b7280; text-decoration: none; }
         </style>

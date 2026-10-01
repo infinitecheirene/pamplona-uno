@@ -38,11 +38,11 @@ export default function CitizenHeader() {
           <div className="flex items-center gap-2">
             <button className="relative p-2 hover:bg-gray-100 rounded-lg">
               <Bell size={20} />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              <span className="absolute top-1 right-1 w-2 h-2 bg-brand-primary-500 rounded-full"></span>
             </button>
             <button
               onClick={handleLogout}
-              className="p-2 text-orange-600 hover:bg-orange-50 rounded-lg"
+              className="p-2 text-brand-secondary-600 hover:bg-brand-secondary-50 rounded-lg"
             >
               <LogOut size={20} />
             </button>

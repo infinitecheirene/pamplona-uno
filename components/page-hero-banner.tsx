@@ -20,7 +20,7 @@ export default function PageHeroBanner({ title, subtitle, image }: PageHeroBanne
       />
 
       {/* Gradient Overlay - Red Orange Green - Darker for better readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-red-800/90 via-orange-700/90 to-green-800/90" />
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-primary-800/90 via-brand-secondary-700/90 to-brand-accent-800/90" />
 
       {/* Animated Decorative Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />

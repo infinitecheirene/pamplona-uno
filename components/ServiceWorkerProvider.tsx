@@ -105,7 +105,7 @@ export default function ServiceWorkerProvider() {
       onClick={handleDismiss}
     >
       <div
-        className="w-full max-w-sm bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded-xl shadow-2xl p-5 border border-orange-400 animate-in zoom-in-95 duration-200"
+        className="w-full max-w-sm bg-gradient-to-r from-brand-secondary-600 to-brand-secondary-500 text-white rounded-xl shadow-2xl p-5 border border-brand-secondary-400 animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between mb-2">
@@ -117,7 +117,7 @@ export default function ServiceWorkerProvider() {
               <h3 className="font-bold text-lg leading-tight">
                 Install Pamplona Uno App
               </h3>
-              <p className="text-sm text-orange-50 mt-0.5">
+              <p className="text-sm text-brand-secondary-50 mt-0.5">
                 Get quick access to services
               </p>
             </div>
@@ -132,7 +132,7 @@ export default function ServiceWorkerProvider() {
         </div>
 
         {isIOS ? (
-          <div className="mt-3 text-sm text-orange-50 space-y-2">
+          <div className="mt-3 text-sm text-brand-secondary-50 space-y-2">
             <p className="font-semibold">To install on iOS:</p>
             <ol className="list-decimal list-inside space-y-1 ml-2">
               <li>Tap the Share button (square with arrow)</li>
@@ -141,7 +141,7 @@ export default function ServiceWorkerProvider() {
             </ol>
             <Button
               onClick={handleDismiss}
-              className="w-full mt-3 bg-white text-orange-600 hover:bg-orange-50 font-semibold"
+              className="w-full mt-3 bg-white text-brand-secondary-600 hover:bg-brand-secondary-50 font-semibold"
             >
               Got it
             </Button>
@@ -149,7 +149,7 @@ export default function ServiceWorkerProvider() {
         ) : (
           <Button
             onClick={handleInstallClick}
-            className="w-full mt-3 bg-white text-orange-600 hover:bg-orange-50 font-semibold"
+            className="w-full mt-3 bg-white text-brand-secondary-600 hover:bg-brand-secondary-50 font-semibold"
           >
             Install Now
           </Button>

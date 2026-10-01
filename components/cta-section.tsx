@@ -22,7 +22,7 @@ export default function CTASection() {
             animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
             transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY }}
             style={{
-              backgroundImage: "linear-gradient(90deg, #1f2937, #ea580c, #059669, #1f2937)",
+              backgroundImage: "linear-gradient(90deg, var(--brand-primary-600), var(--brand-secondary-500), var(--brand-accent-500), var(--brand-primary-600))",
               backgroundSize: "200% auto",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -44,10 +44,10 @@ export default function CTASection() {
               <motion.button
                 whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 20px 40px rgba(234, 88, 12, 0.3)",
+                  boxShadow: "0 20px 40px rgba(var(--brand-secondary-rgb), 0.3)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 rounded-full border-2 border-orange-600 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-bold relative overflow-hidden"
+                className="px-8 py-3 rounded-full border-2 border-brand-secondary-600 bg-gradient-to-r from-brand-secondary-600 to-brand-secondary-500 text-white font-bold relative overflow-hidden"
               >
                 <span className="relative z-10">Services</span>
               </motion.button>
@@ -55,9 +55,9 @@ export default function CTASection() {
 
             <Link href="/contact">
               <motion.button
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(254, 243, 199, 0.5)" }}
+                whileHover={{ scale: 1.05, backgroundColor: "rgba(var(--brand-secondary-rgb), 0.12)" }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 rounded-full border-2 border-orange-600 text-orange-600 font-bold transition-colors"
+                className="px-8 py-3 rounded-full border-2 border-brand-secondary-600 text-brand-secondary-600 font-bold transition-colors"
               >
                 Contact
               </motion.button>

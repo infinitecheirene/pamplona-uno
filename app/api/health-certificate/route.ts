@@ -1,8 +1,9 @@
 // app/api/health-certificate/route.ts
 import { type NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
+import { getLaravelApiUrl } from "@/lib/laravel-api-url"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api"
+const API_URL = getLaravelApiUrl()
 
 export async function GET(request: NextRequest) {
   try {

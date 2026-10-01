@@ -1,17 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import {
-  ArrowLeft,
-  Home,
-  Grid3x3,
-  Newspaper,
-  AlertTriangle,
-  User,
-  ChevronRight,
-} from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -76,8 +67,8 @@ export default function CitizenGuidePage() {
                   </p>
                 </div>
               </div>
-              <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 mt-4">
-                <p className="text-sm text-orange-800">
+              <div className="bg-brand-secondary-50 border border-brand-secondary-200 rounded-lg p-3 mt-4">
+                <p className="text-sm text-brand-secondary-800">
                   <strong>Note:</strong> Once registered, you can access all
                   online services including permit applications, document
                   requests, and more.
@@ -98,7 +89,7 @@ export default function CitizenGuidePage() {
           fullContent: (
             <div className="space-y-4">
               <p className="text-sm text-gray-600">
-                Applying for a business permit in pamplona Uno City is now
+                Applying for a business permit in Pamplona Uno is now
                 easier with our online application system.
               </p>
               <div className="space-y-3">
@@ -143,7 +134,7 @@ export default function CitizenGuidePage() {
                 </div>
               </div>
               <Link href="/dashboard/citizen/services/business-permit">
-                <Button className="w-full bg-orange-500 hover:bg-orange-600 mt-4">
+                <Button className="w-full bg-brand-secondary-500 hover:bg-brand-secondary-600 mt-4">
                   Apply for Business Permit
                 </Button>
               </Link>
@@ -158,7 +149,7 @@ export default function CitizenGuidePage() {
             <div className="space-y-4">
               <p className="text-sm text-gray-600">
                 A building permit is required for any construction, renovation,
-                or structural modification in pamplona Uno City.
+                or structural modification in Pamplona Uno.
               </p>
               <div className="space-y-3">
                 <div>
@@ -215,7 +206,7 @@ export default function CitizenGuidePage() {
                 </div>
               </div>
               <Link href="/dashboard/citizen/services/building-permit">
-                <Button className="w-full bg-orange-500 hover:bg-orange-600 mt-4">
+                <Button className="w-full bg-brand-secondary-500 hover:bg-brand-secondary-600 mt-4">
                   Apply for Building Permit
                 </Button>
               </Link>
@@ -252,7 +243,7 @@ export default function CitizenGuidePage() {
                     <li>
                       Proof of business registration (for business owners)
                     </li>
-                    <li>Proof of residency in pamplona Uno City</li>
+                    <li>Proof of residency in Pamplona Uno</li>
                   </ul>
                 </div>
                 <div>
@@ -277,7 +268,7 @@ export default function CitizenGuidePage() {
                 </div>
               </div>
               <Link href="/dashboard/citizen/services/cedula">
-                <Button className="w-full bg-orange-500 hover:bg-orange-600 mt-4">
+                <Button className="w-full bg-brand-secondary-500 hover:bg-brand-secondary-600 mt-4">
                   Apply for Cedula
                 </Button>
               </Link>
@@ -301,18 +292,18 @@ export default function CitizenGuidePage() {
                 situation.
               </p>
               <div className="space-y-3">
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-red-900 mb-2">
+                <div className="bg-brand-primary-50 border border-brand-primary-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-brand-primary-900 mb-2">
                     National Emergency Hotline
                   </h4>
-                  <p className="text-2xl font-bold text-red-600">911</p>
-                  <p className="text-sm text-red-700 mt-1">
+                  <p className="text-2xl font-bold text-brand-primary-600">911</p>
+                  <p className="text-sm text-brand-primary-700 mt-1">
                     For all types of emergencies
                   </p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">
-                    pamplona Uno City Police Station
+                    Pamplona Uno Police Station
                   </h4>
                   <p className="text-lg font-semibold text-gray-700">
                     (043) 288-2222
@@ -321,7 +312,7 @@ export default function CitizenGuidePage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">
-                    pamplona Uno Fire Station
+                    Pamplona Uno Fire Station
                   </h4>
                   <p className="text-lg font-semibold text-gray-700">
                     (043) 288-3333
@@ -332,7 +323,7 @@ export default function CitizenGuidePage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">
-                    pamplona Uno City Hospital
+                    Pamplona Uno Hospital
                   </h4>
                   <p className="text-lg font-semibold text-gray-700">
                     (043) 288-4444
@@ -354,7 +345,7 @@ export default function CitizenGuidePage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">
-                    Red Cross pamplona Uno
+                    Red Cross Pamplona Uno
                   </h4>
                   <p className="text-lg font-semibold text-gray-700">
                     (043) 288-6666
@@ -364,8 +355,8 @@ export default function CitizenGuidePage() {
                   </p>
                 </div>
               </div>
-              <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 mt-4">
-                <p className="text-sm text-orange-800">
+              <div className="bg-brand-secondary-50 border border-brand-secondary-200 rounded-lg p-3 mt-4">
+                <p className="text-sm text-brand-secondary-800">
                   <strong>Tip:</strong> Save these numbers in your phone
                   contacts for quick access during emergencies.
                 </p>
@@ -448,7 +439,7 @@ export default function CitizenGuidePage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">
-                    Evacuation Centers in pamplona Uno
+                    Evacuation centers in Pamplona Uno
                   </h4>
                   <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
                     <li>Pamplona Uno City Sports Complex</li>
@@ -474,39 +465,17 @@ export default function CitizenGuidePage() {
 
   return (
     <CitizenLayout requireAuth={false}>
-      <div className="flex flex-col min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white px-4 py-4 border-b border-gray-200">
-          <div className="flex items-center gap-3">
-            <Link href="/dashboard/citizen">
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <ArrowLeft className="w-5 h-5 text-gray-700" />
-              </Button>
-            </Link>
-            <h1 className="text-xl font-bold text-gray-900">Citizen Guide</h1>
-          </div>
+      <div>
+        <header className="mb-8">
+          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Citizen guide</h1>
+          <p className="mt-2 text-gray-600">Learn what to prepare and what to expect when using city services.</p>
         </header>
 
-        {/* Main Content */}
-        <main className="flex-1 px-4 py-6 pb-24 overflow-y-auto">
-          <Card className="mb-6 border-orange-200 bg-orange-50">
-            <CardContent className="p-4">
-              <h2 className="font-semibold text-gray-900 mb-2">
-                Welcome to Pamplona Uno City!
-              </h2>
-              <p className="text-sm text-gray-700">
-                This guide will help you navigate city services, understand
-                procedures, and access important information.
-              </p>
-            </CardContent>
-          </Card>
-
+        <div className="space-y-8">
           {guides.map((guide, idx) => (
-            <div key={idx} className="mb-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-3">
-                {guide.category}
-              </h2>
-              <Accordion type="single" collapsible className="space-y-2">
+            <section key={idx}>
+              <h2 className="mb-4 text-2xl font-bold text-gray-800">{guide.category}</h2>
+              <Accordion type="single" collapsible className="space-y-3">
                 {guide.items.map((item, itemIdx) => {
                   const itemKey = `item-${idx}-${itemIdx}`;
                   const isExpanded = expandedItems[itemKey];
@@ -514,9 +483,9 @@ export default function CitizenGuidePage() {
                     <AccordionItem
                       key={itemIdx}
                       value={itemKey}
-                      className="border rounded-lg bg-white"
+                      className="rounded-2xl border border-gray-200 bg-white px-5"
                     >
-                      <AccordionTrigger className="px-4 hover:no-underline">
+                      <AccordionTrigger className="py-5 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">
                         <span className="font-medium text-gray-900">
                           {item.title}
                         </span>
@@ -529,7 +498,7 @@ export default function CitizenGuidePage() {
                             </p>
                             <Button
                               variant="link"
-                              className="text-orange-600 px-0 mt-2"
+                              className="mt-2 rounded-xl px-2 text-brand-secondary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2"
                               onClick={() => toggleExpanded(itemKey)}
                             >
                               Read more{" "}
@@ -541,7 +510,7 @@ export default function CitizenGuidePage() {
                             {item.fullContent}
                             <Button
                               variant="link"
-                              className="text-orange-600 px-0 mt-2"
+                              className="mt-2 rounded-xl px-2 text-brand-secondary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2"
                               onClick={() => toggleExpanded(itemKey)}
                             >
                               Show less
@@ -553,9 +522,12 @@ export default function CitizenGuidePage() {
                   );
                 })}
               </Accordion>
-            </div>
+            </section>
           ))}
-        </main>
+          <Link href="/dashboard/citizen/services" className="inline-flex rounded-xl border border-gray-300 px-6 py-3 font-semibold text-gray-800 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">
+            Browse available services
+          </Link>
+        </div>
       </div>
     </CitizenLayout>
   );

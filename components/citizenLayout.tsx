@@ -9,12 +9,6 @@ import { authClient } from "@/lib/auth";
 
 interface CitizenLayoutProps {
   children: React.ReactNode;
-  /**
-   * Set to false for pages that should be viewable/fillable without being
-   * logged in (e.g. Report an Issue, service application forms). Those
-   * pages handle their own auth check at submit time instead.
-   * Defaults to true (existing behavior — protected pages).
-   */
   requireAuth?: boolean;
 }
 
@@ -26,13 +20,33 @@ export default function CitizenLayout({
   const [isChecking, setIsChecking] = useState(requireAuth);
   const [user, setUser] = useState<any>(null);
 
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  useEffect(() => {
+    try {
+      setSidebarCollapsed(
+        localStorage.getItem("citizen-sidebar-collapsed") === "true"
+      );
+    } catch {
+      // Storage unavailable (private mode, etc.) — keep the default.
+    }
+  }, []);
+
+  const toggleSidebar = () => {
+    setSidebarCollapsed((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem("citizen-sidebar-collapsed", String(next));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+  };
+
   useEffect(() => {
     async function checkAuth() {
       try {
-        // Get user from cookie-based auth. We still fetch this even when
-        // requireAuth is false, so the header/sidebar can show the user's
-        // name if they happen to already be logged in — we just don't
-        // redirect/block when there isn't one.
         const currentUser = await authClient.getCurrentUser();
 
         if (!currentUser || currentUser.role !== "citizen") {
@@ -58,15 +72,15 @@ export default function CitizenLayout({
     checkAuth();
   }, []); // Run only once on mount
 
-  // Show loading state while checking auth — only blocks rendering when
-  // this page actually requires auth. Public-ish pages (requireAuth=false)
-  // render immediately without waiting.
   if (isChecking && requireAuth) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-orange-50 flex items-center justify-center">
+      <div
+        role="status"
+        className="min-h-screen bg-gradient-to-br from-brand-accent-50 via-white to-brand-secondary-50 flex items-center justify-center"
+      >
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Verifying authentication...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-secondary-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Checking your session…</p>
         </div>
       </div>
     );
@@ -79,17 +93,23 @@ export default function CitizenLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-orange-50">
-      {/* Sidebar - Desktop only */}
-      <CitizenSidebar />
+    <div className="min-h-screen bg-gradient-to-br from-brand-accent-50 via-white to-brand-secondary-50">
+      {/* Sidebar - Desktop only (w-72 open, w-20 collapsed) */}
+      <CitizenSidebar collapsed={sidebarCollapsed} onToggle={toggleSidebar} />
 
-      {/* Main Content */}
-      <div className="lg:ml-64 pb-20 lg:pb-0">
+      {/* Main Content — offset must match the sidebar width */}
+      <div
+        className={`pb-24 lg:pb-0 transition-[margin] duration-200 motion-reduce:transition-none ${
+          sidebarCollapsed ? "lg:ml-20" : "lg:ml-72"
+        }`}
+      >
         {/* Header */}
         <CitizenHeader />
 
         {/* Page Content */}
-        <main className="p-6">{children}</main>
+        <main className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+          {children}
+        </main>
       </div>
 
       {/* Bottom Navigation - Mobile only */}

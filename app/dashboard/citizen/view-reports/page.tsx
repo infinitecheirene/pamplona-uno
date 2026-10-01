@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ChevronLeft, Filter, Clock, CheckCircle, AlertCircle, XCircle } from "lucide-react"
+import { Filter, Clock, CheckCircle, AlertCircle, XCircle } from "lucide-react"
 import Link from "next/link"
 import CitizenLayout from "@/components/citizenLayout"
 interface Report {
@@ -43,9 +43,9 @@ export default function MyReportsPage() {
       case "in-progress":
         return <AlertCircle className="w-5 h-5 text-blue-600" />
       case "resolved":
-        return <CheckCircle className="w-5 h-5 text-green-600" />
+        return <CheckCircle className="w-5 h-5 text-brand-accent-600" />
       case "rejected":
-        return <XCircle className="w-5 h-5 text-red-600" />
+        return <XCircle className="w-5 h-5 text-brand-primary-600" />
       default:
         return <Clock className="w-5 h-5 text-gray-600" />
     }
@@ -58,9 +58,9 @@ export default function MyReportsPage() {
       case "in-progress":
         return "bg-blue-100 text-blue-800 border-blue-200"
       case "resolved":
-        return "bg-green-100 text-green-800 border-green-200"
+        return "bg-brand-accent-100 text-brand-accent-800 border-brand-accent-200"
       case "rejected":
-        return "bg-red-100 text-red-800 border-red-200"
+        return "bg-brand-primary-100 text-brand-primary-800 border-brand-primary-200"
       default:
         return "bg-gray-100 text-gray-800 border-gray-200"
     }
@@ -69,11 +69,11 @@ export default function MyReportsPage() {
   const getUrgencyColor = (urgency: string) => {
     switch (urgency) {
       case "high":
-        return "text-red-600"
+        return "text-brand-primary-600"
       case "medium":
         return "text-yellow-600"
       case "low":
-        return "text-green-600"
+        return "text-brand-accent-600"
       default:
         return "text-gray-600"
     }
@@ -82,22 +82,16 @@ export default function MyReportsPage() {
   const filteredReports = filter === "all" ? reports : reports.filter((report) => report.status === filter)
 
   return (
-    < CitizenLayout>
-    <div className="flex flex-col min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-orange-600 text-white px-4 py-4">
-        <div className="flex items-center gap-3 mb-2">
-          <Link href="/dashboard/citizen/">
-            <ChevronLeft className="w-6 h-6" />
-          </Link>
-          <h1 className="text-xl font-bold">My Reports</h1>
-        </div>
-        <p className="text-orange-100 text-sm">Track your submitted reports</p>
+    <CitizenLayout>
+    <div className="space-y-6">
+      <header>
+        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">My reports</h1>
+        <p className="mt-2 text-gray-600">Check the status and details of issues you reported.</p>
       </header>
 
       {/* Filter Tabs */}
-      <div className="bg-white border-b border-gray-200 px-4 py-3 overflow-x-auto">
-        <div className="flex gap-2">
+      <div className="overflow-x-auto">
+        <div className="flex min-w-max gap-2">
           {[
             { value: "all", label: "All" },
             { value: "pending", label: "Pending" },
@@ -107,8 +101,8 @@ export default function MyReportsPage() {
             <button
               key={tab.value}
               onClick={() => setFilter(tab.value)}
-              className={`px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors ${
-                filter === tab.value ? "bg-orange-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              className={`rounded-xl border px-4 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 ${
+                filter === tab.value ? "border-brand-accent-600 bg-brand-accent-600 text-white" : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
               }`}
             >
               {tab.label}
@@ -118,64 +112,60 @@ export default function MyReportsPage() {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 px-4 py-6">
+      <section>
         {loading ? (
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-gray-600">Loading reports...</p>
-            </div>
+          <div role="status" aria-label="Loading reports" className="space-y-3">
+            {[0, 1, 2].map((item) => <div key={item} className="h-24 animate-pulse rounded-2xl bg-gray-100" />)}
           </div>
         ) : filteredReports.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-12">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-              <Filter className="w-10 h-10 text-gray-400" />
+          <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-secondary-50">
+              <Filter className="h-7 w-7 text-brand-secondary-600" aria-hidden="true" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No reports found</h3>
-            <p className="text-gray-600 text-center mb-6 max-w-sm">
-              {filter === "all" ? "You haven't submitted any reports yet." : `No ${filter} reports at the moment.`}
+            <h2 className="mb-2 text-2xl font-bold text-gray-800">No reports found</h2>
+            <p className="mx-auto mb-6 max-w-prose leading-relaxed text-gray-700">
+              {filter === "all" ? "You have not sent a report yet. Tell us about an issue in your area." : `There are no ${filter.replace("-", " ")} reports right now.`}
             </p>
-            <Link href="/dashboard/citizen/report-issue" className="bg-orange-600 text-white px-6 py-3 rounded-xl font-semibold">
-              Submit a Report
+            <Link href="/dashboard/citizen/report-issue" className="inline-flex rounded-xl bg-brand-accent-600 px-6 py-3 font-bold text-white hover:bg-brand-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">
+              Report an issue
             </Link>
           </div>
         ) : (
-          <div className="space-y-4">
+          <ul className="space-y-3">
             {filteredReports.map((report) => (
-              <Link
-                key={report.id}
-                href={`/dashboard/citizen/view-reports/${report.id}`}
-                className="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 mb-1">{report.title}</h3>
+              <li key={report.id}>
+                <Link
+                  href={`/dashboard/citizen/view-reports/${report.id}`}
+                  className="block rounded-2xl border border-gray-200 bg-white p-5 hover:border-gray-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 motion-reduce:transition-none"
+                >
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-bold text-gray-900">{report.title}</h3>
                     <p className="text-sm text-gray-600">{report.location}</p>
                   </div>
                   <div
-                    className={`px-3 py-1 rounded-full border text-xs font-semibold ${getStatusColor(report.status)}`}
+                    className={`rounded-full border px-3 py-1 text-sm font-semibold ${getStatusColor(report.status)}`}
                   >
-                    {report.status.replace("-", " ").toUpperCase()}
+                    {report.status.replace("-", " ")}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-1">
+                <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-gray-600">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1">
                       {getStatusIcon(report.status)}
-                      <span className="text-xs text-gray-600">{report.date}</span>
-                    </div>
-                    <span className={`text-xs font-semibold ${getUrgencyColor(report.urgency)}`}>
-                      {report.urgency.toUpperCase()}
+                      {report.date}
                     </span>
+                    <span className={`rounded-full bg-gray-100 px-3 py-1 font-semibold ${getUrgencyColor(report.urgency)}`}>
+                      {report.urgency} urgency
+                    </span>
+                    <span className="rounded-full bg-brand-secondary-50 px-3 py-1 text-brand-secondary-700">{report.category}</span>
                   </div>
-                  <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">{report.category}</span>
-                </div>
-              </Link>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
-      </main>
+      </section>
 
      
     </div>

@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import { ChevronLeft, MapPin, User, Phone, AlertCircle, Siren, Clock } from "lucide-react"
+import { ChevronLeft, MapPin, User, Phone, AlertCircle, Siren } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
@@ -178,192 +178,179 @@ export default function AmbulanceRequestPage() {
   return (
     <CitizenLayout>
       {isLoadingUserData && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-8 shadow-2xl text-center max-w-sm">
-            <div className="relative w-16 h-16 mx-auto mb-4">
-              <div className="absolute inset-0 border-4 border-orange-200 rounded-full"></div>
-              <div className="absolute inset-0 border-4 border-orange-600 rounded-full border-t-transparent animate-spin"></div>
-              <Siren className="absolute inset-0 m-auto w-8 h-8 text-orange-600" />
+        <div role="status" aria-label="Loading your information" className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-6 shadow-xl">
+            <p className="font-semibold text-gray-900">Loading your details</p>
+            <div className="mt-4 space-y-3 animate-pulse">
+              <div className="h-4 rounded bg-gray-100" />
+              <div className="h-10 rounded-xl bg-gray-100" />
+              <div className="h-10 rounded-xl bg-gray-100" />
             </div>
-            <p className="text-gray-700 font-semibold">Loading emergency system...</p>
           </div>
         </div>
       )}
 
-      <div className="flex flex-col min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-gradient-to-r from-green-600 via-yellow-500 to-orange-500 text-white px-6 py-5 shadow-lg sticky top-0 z-10">
-          <div className="flex items-center gap-4">
-            <Link href="/emergency" className="hover:bg-white/20 p-2 rounded-lg transition-all active:scale-95">
-              <ChevronLeft className="w-6 h-6" />
-            </Link>
-            <div className="flex items-center gap-3">
-              <div className="bg-white/20 p-2.5 rounded-xl backdrop-blur-sm">
-                <Siren className="w-7 h-7 animate-pulse" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold">Emergency Ambulance</h1>
-                <p className="text-white/90 text-sm">⚡ Fast Response • 24/7 Available</p>
-              </div>
-            </div>
+      <div className="space-y-6">
+        <header className="flex items-start gap-3">
+          <Link href="/emergency" aria-label="Back to emergency contacts" className="mt-1 rounded-xl p-2 text-gray-700 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">
+            <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+          </Link>
+          <div>
+            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Request an ambulance</h1>
+            <p className="mt-2 text-gray-600">Share your location and the patient&apos;s details so responders can assist.</p>
           </div>
         </header>
 
-        <main className="flex-1 p-6">
-          <div className="grid lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            {/* Left Column - Info Cards */}
-            <div className="lg:col-span-1 space-y-4">
+        <div className="grid gap-6 lg:grid-cols-[minmax(16rem,0.8fr)_minmax(0,1.6fr)]">
+            <aside className="space-y-4" aria-label="Emergency request information">
               {/* Location Card */}
-              <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-2xl p-5 shadow-lg">
+              <section className="rounded-2xl border border-gray-200 bg-white p-5">
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="bg-white/20 p-2 rounded-lg">
-                    <MapPin className="w-5 h-5" />
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-brand-accent-50">
+                    <MapPin className="h-6 w-6 text-brand-accent-700" aria-hidden="true" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-bold text-lg">📍 Location Detected</p>
+                    <h2 className="text-lg font-bold text-gray-900">Detected location</h2>
                   </div>
                 </div>
                 {location ? (
                   <div className="space-y-2">
-                    <p className="text-sm font-mono bg-white/10 px-3 py-1.5 rounded">
+                    <p className="rounded-lg bg-gray-50 px-3 py-2 text-sm font-mono text-gray-800">
                       {location.lat.toFixed(4)}, {location.lng.toFixed(4)}
                     </p>
                     {detectedAddress && (
-                      <p className="text-sm opacity-90 leading-relaxed">{detectedAddress}</p>
+                      <p className="text-sm leading-relaxed text-gray-700">{detectedAddress}</p>
                     )}
                   </div>
                 ) : (
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white/50 border-t-white rounded-full animate-spin"></div>
-                    <p className="text-sm">Detecting location...</p>
+                  <div className="space-y-2 animate-pulse" role="status" aria-label="Detecting location">
+                    <div className="h-4 rounded bg-gray-100" />
+                    <div className="h-10 rounded-lg bg-gray-100" />
                   </div>
                 )}
-              </div>
+              </section>
 
               {/* Profile Card */}
-              <div className="bg-gradient-to-r from-green-500 to-yellow-500 text-white rounded-2xl p-5 shadow-lg">
+              <section className="rounded-2xl border border-gray-200 bg-white p-5">
                 <div className="flex items-center gap-3">
-                  <div className="bg-white/20 p-2 rounded-lg">
-                    <User className="w-5 h-5" />
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-brand-secondary-50">
+                    <User className="h-6 w-6 text-brand-secondary-700" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="font-bold">✓ Profile Auto-filled</p>
-                    <p className="text-xs opacity-90">Your info is ready. Edit if needed.</p>
+                    <h2 className="font-bold text-gray-900">Your contact details</h2>
+                    <p className="text-sm text-gray-600">Review them before sending the request.</p>
                   </div>
                 </div>
-              </div>
+              </section>
 
               {/* Emergency Hotline */}
-              <div className="bg-white rounded-2xl p-5 shadow-lg border-2 border-green-200">
-                <p className="text-sm font-semibold text-gray-700 mb-3 text-center">📞 Emergency Hotline</p>
+              <section className="rounded-2xl border-2 border-brand-primary-200 bg-brand-primary-50 p-5">
+                <h2 className="mb-3 text-lg font-bold text-gray-900">Need urgent help?</h2>
                 <a
                   href="tel:(043)288-8888"
-                  className="flex items-center justify-center gap-3 bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-green-700 hover:to-green-800 transition-all"
+                  className="flex min-h-14 items-center justify-center gap-3 rounded-xl bg-brand-primary-600 px-5 py-3 font-bold text-white hover:bg-brand-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-600 focus-visible:ring-offset-2 motion-reduce:transition-none"
                 >
-                  <Phone className="w-5 h-5" />
+                  <Phone className="h-5 w-5" aria-hidden="true" />
                   (043) 288-8888
                 </a>
-              </div>
+              </section>
 
               {/* Warning */}
-              <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-orange-300 rounded-2xl p-4">
+              <section className="rounded-2xl border-2 border-brand-primary-200 bg-brand-primary-50 p-4">
                 <div className="flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                  <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-brand-primary-600" aria-hidden="true" />
                   <div>
-                    <p className="text-sm text-orange-900 font-bold mb-1">⚠️ Emergency Use Only</p>
-                    <p className="text-xs text-orange-800">False reports may result in penalties and delay actual emergencies.</p>
+                    <h2 className="mb-1 text-sm font-bold text-brand-primary-900">For emergencies only</h2>
+                    <p className="text-sm text-brand-primary-700">Use this form for urgent medical needs. False requests can delay help for others.</p>
                   </div>
                 </div>
-              </div>
-            </div>
+              </section>
+            </aside>
 
             {/* Right Column - Form */}
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                {/* Form Header */}
-                <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-4">
-                  <h2 className="text-white font-bold text-xl flex items-center gap-2">
-                    <Clock className="w-6 h-6" />
-                    Request Details
-                  </h2>
-                </div>
-
-                <form onSubmit={handleSubmit} className="p-6 space-y-5">
+            <section className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-6">
+                <h2 className="mb-5 text-2xl font-bold text-gray-800">Request details</h2>
+                <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name & Phone - 2 columns */}
                   <div className="grid md:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-sm font-bold text-gray-800 mb-2">👤 Full Name *</label>
+                      <label htmlFor="ambulance-name" className="block text-sm font-semibold text-gray-900 mb-2">Full name (required)</label>
                       <input
+                        id="ambulance-name"
                         type="text"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Enter your full name"
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-500 focus:border-brand-accent-600 focus:outline-none focus:ring-2 focus:ring-brand-accent-600/30"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-800 mb-2">📱 Contact Number *</label>
+                      <label htmlFor="ambulance-phone" className="block text-sm font-semibold text-gray-900 mb-2">Contact number (required)</label>
                       <input
+                        id="ambulance-phone"
                         type="tel"
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="09XX XXX XXXX"
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-500 focus:border-brand-accent-600 focus:outline-none focus:ring-2 focus:ring-brand-accent-600/30"
                       />
                     </div>
                   </div>
 
                   {/* Address */}
                   <div>
-                    <label className="block text-sm font-bold text-gray-800 mb-2">🏠 Exact Address *</label>
+                    <label htmlFor="ambulance-address" className="block text-sm font-semibold text-gray-900 mb-2">Exact address (required)</label>
                     <textarea
+                      id="ambulance-address"
                       required
                       value={formData.address}
                       onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                      placeholder="Street, Barangay, Landmarks"
+                      placeholder="Street, barangay, or nearby landmark"
                       rows={3}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none transition-all"
+                      className="w-full resize-y rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-500 focus:border-brand-accent-600 focus:outline-none focus:ring-2 focus:ring-brand-accent-600/30"
                     />
                   </div>
 
                   {/* Emergency Type */}
-                  <div>
-                    <label className="block text-sm font-bold text-gray-800 mb-3">🚨 Type of Emergency *</label>
+                  <fieldset>
+                    <legend className="block text-sm font-semibold text-gray-900 mb-3">Type of emergency (required)</legend>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {emergencyTypes.map((type) => (
                         <button
                           key={type.value}
                           type="button"
+                          aria-pressed={formData.emergency === type.value}
                           onClick={() => setFormData({ ...formData, emergency: type.value })}
-                          className={`p-4 rounded-xl border-2 transition-all ${
+                          className={`rounded-xl border p-4 transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 ${
                             formData.emergency === type.value
-                              ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white border-transparent shadow-lg scale-105"
-                              : "bg-white border-gray-200 hover:border-orange-300 hover:shadow-md"
+                              ? "border-brand-primary-600 bg-brand-primary-50"
+                              : "border-gray-200 bg-white hover:border-gray-300"
                           }`}
                         >
-                          <div className="text-3xl mb-2">{type.icon}</div>
+                          <div className="text-3xl mb-2" aria-hidden="true">{type.icon}</div>
                           <div className={`text-sm font-semibold ${
-                            formData.emergency === type.value ? "text-white" : "text-gray-700"
+                            formData.emergency === type.value ? "text-brand-primary-700" : "text-gray-700"
                           }`}>
                             {type.label}
                           </div>
                         </button>
                       ))}
                     </div>
-                  </div>
+                  </fieldset>
 
                   {/* Notes */}
                   <div>
-                    <label className="block text-sm font-bold text-gray-800 mb-2">📝 Additional Notes</label>
+                    <label htmlFor="ambulance-notes" className="block text-sm font-semibold text-gray-900 mb-2">Additional notes (optional)</label>
                     <textarea
+                      id="ambulance-notes"
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                       placeholder="Patient condition, floor number, special instructions..."
                       rows={3}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none transition-all"
+                      className="w-full resize-y rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-500 focus:border-brand-accent-600 focus:outline-none focus:ring-2 focus:ring-brand-accent-600/30"
                     />
                   </div>
 
@@ -371,25 +358,23 @@ export default function AmbulanceRequestPage() {
                   <button
                     type="submit"
                     disabled={loading || !location || isLoadingUserData}
-                    className="w-full bg-gradient-to-r from-green-600 via-yellow-500 to-orange-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:from-green-700 hover:via-yellow-600 hover:to-orange-700 active:scale-98 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-primary-600 px-6 py-3 font-bold text-white hover:bg-brand-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary-600 focus-visible:ring-offset-2 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {loading ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        Submitting Request...
+                        Sending request...
                       </>
                     ) : (
                       <>
-                        <Siren className="w-5 h-5" />
-                        Request Ambulance Now
+                        <Siren className="w-5 h-5" aria-hidden="true" />
+                        Request ambulance
                       </>
                     )}
                   </button>
                 </form>
-              </div>
-            </div>
+            </section>
           </div>
-        </main>
       </div>
     </CitizenLayout>
   )

@@ -233,10 +233,10 @@ export default function AdminHealthCertificatePage() {
 
   const getStatusBadge = (status: string) => {
     const styles = {
-      pending: "bg-orange-100 text-orange-700",
+      pending: "bg-brand-secondary-100 text-brand-secondary-700",
       under_review: "bg-blue-100 text-blue-700",
-      approved: "bg-green-100 text-green-700",
-      rejected: "bg-red-100 text-red-700",
+      approved: "bg-brand-accent-100 text-brand-accent-700",
+      rejected: "bg-brand-primary-100 text-brand-primary-700",
       completed: "bg-purple-100 text-purple-700",
     };
 
@@ -299,7 +299,7 @@ export default function AdminHealthCertificatePage() {
               </p>
             </div>
             <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600">
-              <Heart className="w-5 h-5 text-red-500" />
+              <Heart className="w-5 h-5 text-brand-primary-500" />
               <span className="font-medium">{pagination.total} Total</span>
             </div>
           </div>
@@ -320,7 +320,7 @@ export default function AdminHealthCertificatePage() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                    className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent"
                   />
                 </div>
 
@@ -334,7 +334,7 @@ export default function AdminHealthCertificatePage() {
                         setStatusFilter(e.target.value);
                         setPagination((prev) => ({ ...prev, current_page: 1 }));
                       }}
-                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent appearance-none bg-white"
                     >
                       <option value="all">All Status</option>
                       <option value="pending">Pending</option>
@@ -347,7 +347,7 @@ export default function AdminHealthCertificatePage() {
 
                   <button
                     onClick={handleSearch}
-                    className="px-4 py-2 bg-orange-600 text-white rounded-lg text-sm font-medium hover:bg-orange-700 transition-colors"
+                    className="px-4 py-2 bg-brand-secondary-600 text-white rounded-lg text-sm font-medium hover:bg-brand-secondary-700 transition-colors"
                   >
                     Search
                   </button>
@@ -359,19 +359,19 @@ export default function AdminHealthCertificatePage() {
             <div className="grid grid-cols-3 gap-2 sm:hidden mb-4">
               <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
                 <p className="text-xs text-gray-600">Pending</p>
-                <p className="text-lg font-bold text-orange-600">
+                <p className="text-lg font-bold text-brand-secondary-600">
                   {certificates.filter((c) => c.status === "pending").length}
                 </p>
               </div>
               <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
                 <p className="text-xs text-gray-600">Approved</p>
-                <p className="text-lg font-bold text-green-600">
+                <p className="text-lg font-bold text-brand-accent-600">
                   {certificates.filter((c) => c.status === "approved").length}
                 </p>
               </div>
               <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
                 <p className="text-xs text-gray-600">Rejected</p>
-                <p className="text-lg font-bold text-red-600">
+                <p className="text-lg font-bold text-brand-primary-600">
                   {certificates.filter((c) => c.status === "rejected").length}
                 </p>
               </div>
@@ -382,7 +382,7 @@ export default function AdminHealthCertificatePage() {
               {loading ? (
                 <div className="flex items-center justify-center py-12">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-orange-500 mx-auto mb-3"></div>
+                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-brand-secondary-500 mx-auto mb-3"></div>
                     <p className="text-gray-600 text-sm">
                       Loading applications...
                     </p>
@@ -404,7 +404,7 @@ export default function AdminHealthCertificatePage() {
                   <div className="hidden sm:block overflow-x-auto">
                     <div className="inline-block min-w-full align-middle">
                       <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gradient-to-r from-emerald-600 to-orange-500 text-white">
+                        <thead className="bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white">
                           <tr>
                             <th className="px-3 sm:px-4 py-3 text-left text-xs font-semibold uppercase whitespace-nowrap">
                               Reference #
@@ -430,7 +430,7 @@ export default function AdminHealthCertificatePage() {
                             <th className="px-3 sm:px-4 py-3 text-left text-xs font-semibold uppercase whitespace-nowrap">
                               Date
                             </th>
-                            <th className="px-3 sm:px-4 py-3 text-center text-xs font-semibold uppercase whitespace-nowrap sticky right-0 bg-gradient-to-r from-emerald-600 to-orange-500">
+                            <th className="px-3 sm:px-4 py-3 text-center text-xs font-semibold uppercase whitespace-nowrap sticky right-0 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500">
                               Actions
                             </th>
                           </tr>
@@ -491,7 +491,7 @@ export default function AdminHealthCertificatePage() {
                                   onClick={() =>
                                     handleViewCertificate(certificate)
                                   }
-                                  className="inline-flex items-center gap-1 px-2 sm:px-3 py-1.5 bg-orange-100 text-orange-700 rounded-lg text-xs font-medium hover:bg-orange-200 transition-colors"
+                                  className="inline-flex items-center gap-1 px-2 sm:px-3 py-1.5 bg-brand-secondary-100 text-brand-secondary-700 rounded-lg text-xs font-medium hover:bg-brand-secondary-200 transition-colors"
                                 >
                                   <Eye className="w-3 h-3" />
                                   <span className="hidden sm:inline">View</span>
@@ -556,7 +556,7 @@ export default function AdminHealthCertificatePage() {
                           </div>
                           <button
                             onClick={() => handleViewCertificate(certificate)}
-                            className="inline-flex items-center gap-1 px-3 py-2 bg-orange-100 text-orange-700 rounded-lg text-xs font-medium hover:bg-orange-200 transition-colors flex-shrink-0"
+                            className="inline-flex items-center gap-1 px-3 py-2 bg-brand-secondary-100 text-brand-secondary-700 rounded-lg text-xs font-medium hover:bg-brand-secondary-200 transition-colors flex-shrink-0"
                           >
                             <Eye className="w-4 h-4" />
                             <span>View</span>
@@ -613,7 +613,7 @@ export default function AdminHealthCertificatePage() {
                               onClick={() => handlePageChange(pageNum)}
                               className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
                                 pagination.current_page === pageNum
-                                  ? "bg-orange-600 text-white"
+                                  ? "bg-brand-secondary-600 text-white"
                                   : "border border-gray-300 hover:bg-gray-50"
                               }`}
                             >
@@ -647,7 +647,7 @@ export default function AdminHealthCertificatePage() {
           <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50 p-0 sm:p-4">
             <div className="bg-white sm:rounded-xl shadow-2xl w-full sm:max-w-4xl h-[95vh] sm:h-auto sm:max-h-[90vh] overflow-hidden flex flex-col">
               {/* Modal Header */}
-              <div className="bg-gradient-to-r from-emerald-600 to-orange-500 text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 z-10">
+              <div className="bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 z-10">
                 <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                   <Heart className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                   <div className="min-w-0">
@@ -691,7 +691,7 @@ export default function AdminHealthCertificatePage() {
                   {/* Personal Information */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <User className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
+                      <User className="w-4 h-4 sm:w-5 sm:h-5 text-brand-secondary-600" />
                       Personal Information
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -769,14 +769,14 @@ export default function AdminHealthCertificatePage() {
                   {/* Medical Information */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" />
+                      <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-brand-primary-600" />
                       Medical Information
                     </h3>
                     <div className="space-y-3">
                       {/* Allergies */}
                       <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
                         <div className="flex items-start gap-2">
-                          <AlertCircle className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                          <AlertCircle className="w-4 h-4 text-brand-secondary-600 mt-0.5 flex-shrink-0" />
                           <div className="flex-1">
                             <label className="text-xs sm:text-sm font-medium text-gray-700">
                               Allergies
@@ -820,7 +820,7 @@ export default function AdminHealthCertificatePage() {
                       {/* Medical Conditions */}
                       <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
                         <div className="flex items-start gap-2">
-                          <Heart className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
+                          <Heart className="w-4 h-4 text-brand-primary-600 mt-0.5 flex-shrink-0" />
                           <div className="flex-1">
                             <label className="text-xs sm:text-sm font-medium text-gray-700">
                               Medical Conditions
@@ -844,7 +844,7 @@ export default function AdminHealthCertificatePage() {
                   {/* Application Dates */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
+                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-brand-secondary-600" />
                       Important Dates
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -891,13 +891,13 @@ export default function AdminHealthCertificatePage() {
                       )}
                       <button
                         onClick={() => openActionModal("rejected")}
-                        className="w-full sm:w-auto px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                        className="w-full sm:w-auto px-4 py-3 bg-brand-primary-600 text-white rounded-lg hover:bg-brand-primary-700 transition-colors text-sm font-medium"
                       >
                         Reject
                       </button>
                       <button
                         onClick={() => openActionModal("approved")}
-                        className="w-full sm:w-auto px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                        className="w-full sm:w-auto px-4 py-3 bg-brand-accent-600 text-white rounded-lg hover:bg-brand-accent-700 transition-colors text-sm font-medium"
                       >
                         Approve
                       </button>
@@ -939,9 +939,9 @@ export default function AdminHealthCertificatePage() {
               <div
                 className={`px-6 py-4 border-b border-gray-200 ${
                   actionType === "approved"
-                    ? "bg-green-50"
+                    ? "bg-brand-accent-50"
                     : actionType === "rejected"
-                      ? "bg-red-50"
+                      ? "bg-brand-primary-50"
                       : actionType === "completed"
                         ? "bg-purple-50"
                         : "bg-blue-50"
@@ -950,9 +950,9 @@ export default function AdminHealthCertificatePage() {
                 <h3
                   className={`text-lg font-semibold ${
                     actionType === "approved"
-                      ? "text-green-900"
+                      ? "text-brand-accent-900"
                       : actionType === "rejected"
-                        ? "text-red-900"
+                        ? "text-brand-primary-900"
                         : actionType === "completed"
                           ? "text-purple-900"
                           : "text-blue-900"
@@ -989,10 +989,10 @@ export default function AdminHealthCertificatePage() {
                         : "Add any additional notes..."
                     }
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent resize-none text-sm"
                   />
                   {actionType === "rejected" && (
-                    <p className="text-xs text-red-600 mt-1">
+                    <p className="text-xs text-brand-primary-600 mt-1">
                       * Required field
                     </p>
                   )}
@@ -1001,9 +1001,9 @@ export default function AdminHealthCertificatePage() {
                 <div
                   className={`p-3 rounded-lg text-sm ${
                     actionType === "approved"
-                      ? "bg-green-50 text-green-800"
+                      ? "bg-brand-accent-50 text-brand-accent-800"
                       : actionType === "rejected"
-                        ? "bg-red-50 text-red-800"
+                        ? "bg-brand-primary-50 text-brand-primary-800"
                         : actionType === "completed"
                           ? "bg-purple-50 text-purple-800"
                           : "bg-blue-50 text-blue-800"
@@ -1033,9 +1033,9 @@ export default function AdminHealthCertificatePage() {
                   onClick={handleUpdateStatus}
                   className={`flex-1 px-4 py-2 text-white rounded-lg transition-colors text-sm font-medium ${
                     actionType === "approved"
-                      ? "bg-green-600 hover:bg-green-700"
+                      ? "bg-brand-accent-600 hover:bg-brand-accent-700"
                       : actionType === "rejected"
-                        ? "bg-red-600 hover:bg-red-700"
+                        ? "bg-brand-primary-600 hover:bg-brand-primary-700"
                         : actionType === "completed"
                           ? "bg-purple-600 hover:bg-purple-700"
                           : "bg-blue-600 hover:bg-blue-700"

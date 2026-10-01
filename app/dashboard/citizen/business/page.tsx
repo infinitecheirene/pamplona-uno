@@ -1,17 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import {
-  ArrowLeft,
-  Home,
-  Grid3x3,
-  Newspaper,
-  AlertTriangle,
-  User,
-} from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import CitizenLayout from "@/components/citizenLayout";
 
 export default function BusinessPage() {
@@ -63,83 +54,46 @@ export default function BusinessPage() {
 
   return (
     <CitizenLayout requireAuth={false}>
-      <div className="flex flex-col min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white px-4 py-4 border-b border-gray-200">
-          <div className="flex items-center gap-3">
-            <Link href="/dashboard/citizen">
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <ArrowLeft className="w-5 h-5 text-gray-700" />
-              </Button>
-            </Link>
-            <h1 className="text-xl font-bold text-gray-900">
-              Business Services
-            </h1>
-          </div>
+      <div>
+        <header className="mb-8">
+          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Business services</h1>
+          <p className="mt-2 text-gray-600">Find permits, licenses, and support for your business in Pamplona Uno.</p>
         </header>
 
-        {/* Main Content */}
-        <main className="flex-1 px-4 py-6 pb-24 overflow-y-auto">
-          <Card className="mb-6 border-orange-200 bg-orange-50">
-            <CardContent className="p-4">
-              <h2 className="font-semibold text-gray-900 mb-2">
-                Grow Your Business in Pamplona Uno
-              </h2>
-              <p className="text-sm text-gray-700">
-                Access permits, licenses, and business support services all in
-                one place.
-              </p>
-            </CardContent>
-          </Card>
-
+        <div className="space-y-8">
           {businessServices.map((section, idx) => (
-            <div key={idx} className="mb-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-3">
-                {section.category}
-              </h2>
-              <div className="space-y-3">
+            <section key={idx}>
+              <h2 className="mb-4 text-2xl font-bold text-gray-800">{section.category}</h2>
+              <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {section.items.map((item, itemIdx) => (
-                  <Card key={itemIdx} className="border-gray-200">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-2xl">
-                          {item.icon}
+                  <li key={itemIdx}>
+                    <Card className="h-full rounded-2xl border border-gray-200 bg-white p-5">
+                      <CardContent className="p-0">
+                        <div className="flex items-start gap-4">
+                          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-brand-secondary-50 text-2xl" aria-hidden="true">
+                            {item.icon}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-semibold text-gray-900">{item.name}</h3>
+                            <p className="mt-1 text-sm text-gray-600">{item.description}</p>
+                            {item.link ? (
+                              <Link href={item.link} className="mt-4 inline-flex rounded-xl bg-brand-accent-600 px-5 py-2.5 font-bold text-white hover:bg-brand-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 motion-reduce:transition-none">
+                                View {item.name.toLowerCase()}
+                              </Link>
+                            ) : null}
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900">
-                            {item.name}
-                          </h3>
-                          <p className="text-sm text-gray-600">
-                            {item.description}
-                          </p>
-                        </div>
-                        {item.link ? (
-                          <Link href={item.link}>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="text-orange-600"
-                            >
-                              View
-                            </Button>
-                          </Link>
-                        ) : (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-orange-600"
-                          >
-                            Apply
-                          </Button>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
           ))}
-        </main>
+        </div>
+        <Link href="/dashboard/citizen/services" className="mt-8 inline-flex rounded-xl border border-gray-300 px-6 py-3 font-semibold text-gray-800 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">
+          Browse all city services
+        </Link>
       </div>
     </CitizenLayout>
   );

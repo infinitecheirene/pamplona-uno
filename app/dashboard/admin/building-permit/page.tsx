@@ -220,10 +220,10 @@ export default function AdminBuildingPermitPage() {
 
   const getStatusBadge = (status: string) => {
     const styles = {
-      pending: "bg-orange-100 text-orange-700",
+      pending: "bg-brand-secondary-100 text-brand-secondary-700",
       processing: "bg-blue-100 text-blue-700",
-      approved: "bg-green-100 text-green-700",
-      rejected: "bg-red-100 text-red-700",
+      approved: "bg-brand-accent-100 text-brand-accent-700",
+      rejected: "bg-brand-primary-100 text-brand-primary-700",
     };
 
     const icons = {
@@ -304,7 +304,7 @@ export default function AdminBuildingPermitPage() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                    className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent"
                   />
                 </div>
 
@@ -318,7 +318,7 @@ export default function AdminBuildingPermitPage() {
                         setStatusFilter(e.target.value);
                         setPagination((prev) => ({ ...prev, current_page: 1 }));
                       }}
-                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent appearance-none bg-white"
                     >
                       <option value="all">All Status</option>
                       <option value="pending">Pending</option>
@@ -330,7 +330,7 @@ export default function AdminBuildingPermitPage() {
 
                   <button
                     onClick={handleSearch}
-                    className="px-4 py-2 bg-orange-600 text-white rounded-lg text-sm font-medium hover:bg-orange-700 transition-colors"
+                    className="px-4 py-2 bg-brand-secondary-600 text-white rounded-lg text-sm font-medium hover:bg-brand-secondary-700 transition-colors"
                   >
                     Search
                   </button>
@@ -342,19 +342,19 @@ export default function AdminBuildingPermitPage() {
             <div className="grid grid-cols-3 gap-2 sm:hidden mb-4">
               <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
                 <p className="text-xs text-gray-600">Pending</p>
-                <p className="text-lg font-bold text-orange-600">
+                <p className="text-lg font-bold text-brand-secondary-600">
                   {permits.filter((p) => p.status === "pending").length}
                 </p>
               </div>
               <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
                 <p className="text-xs text-gray-600">Approved</p>
-                <p className="text-lg font-bold text-green-600">
+                <p className="text-lg font-bold text-brand-accent-600">
                   {permits.filter((p) => p.status === "approved").length}
                 </p>
               </div>
               <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
                 <p className="text-xs text-gray-600">Rejected</p>
-                <p className="text-lg font-bold text-red-600">
+                <p className="text-lg font-bold text-brand-primary-600">
                   {permits.filter((p) => p.status === "rejected").length}
                 </p>
               </div>
@@ -365,7 +365,7 @@ export default function AdminBuildingPermitPage() {
               {loading ? (
                 <div className="flex items-center justify-center py-12">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-orange-500 mx-auto mb-3"></div>
+                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-brand-secondary-500 mx-auto mb-3"></div>
                     <p className="text-gray-600 text-sm">
                       Loading applications...
                     </p>
@@ -386,7 +386,7 @@ export default function AdminBuildingPermitPage() {
                   {/* Desktop / Tablet Table - hidden on mobile, no swipe needed */}
                   <div className="hidden sm:block overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
-                      <thead className="bg-gradient-to-r from-emerald-600 to-orange-500 text-white">
+                      <thead className="bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white">
                         <tr>
                           <th className="px-4 py-3 text-left text-xs font-semibold uppercase whitespace-nowrap">
                             Project Type
@@ -466,7 +466,7 @@ export default function AdminBuildingPermitPage() {
                             <td className="px-4 py-3 text-center whitespace-nowrap">
                               <button
                                 onClick={() => handleViewPermit(permit)}
-                                className="inline-flex items-center gap-1 px-3 py-1.5 bg-orange-100 text-orange-700 rounded-lg text-xs font-medium hover:bg-orange-200 transition-colors"
+                                className="inline-flex items-center gap-1 px-3 py-1.5 bg-brand-secondary-100 text-brand-secondary-700 rounded-lg text-xs font-medium hover:bg-brand-secondary-200 transition-colors"
                               >
                                 <Eye className="w-3 h-3" />
                                 <span>View</span>
@@ -517,7 +517,7 @@ export default function AdminBuildingPermitPage() {
                           </span>
                           <button
                             onClick={() => handleViewPermit(permit)}
-                            className="inline-flex items-center gap-1 px-3 py-2 bg-orange-100 text-orange-700 rounded-lg text-xs font-medium hover:bg-orange-200 transition-colors"
+                            className="inline-flex items-center gap-1 px-3 py-2 bg-brand-secondary-100 text-brand-secondary-700 rounded-lg text-xs font-medium hover:bg-brand-secondary-200 transition-colors"
                           >
                             <Eye className="w-4 h-4" />
                             <span>View</span>
@@ -574,7 +574,7 @@ export default function AdminBuildingPermitPage() {
                               onClick={() => handlePageChange(pageNum)}
                               className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
                                 pagination.current_page === pageNum
-                                  ? "bg-orange-600 text-white"
+                                  ? "bg-brand-secondary-600 text-white"
                                   : "border border-gray-300 hover:bg-gray-50"
                               }`}
                             >
@@ -608,7 +608,7 @@ export default function AdminBuildingPermitPage() {
           <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50 p-0 sm:p-4">
             <div className="bg-white sm:rounded-xl shadow-2xl w-full sm:max-w-4xl h-[95vh] sm:h-auto sm:max-h-[90vh] overflow-hidden flex flex-col">
               {/* Modal Header */}
-              <div className="bg-gradient-to-r from-emerald-600 to-orange-500 text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 z-10">
+              <div className="bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 z-10">
                 <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                   <Home className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                   <div className="min-w-0">
@@ -640,8 +640,8 @@ export default function AdminBuildingPermitPage() {
                       {getStatusBadge(selectedPermit.status)}
                     </div>
                     {selectedPermit.rejection_reason && (
-                      <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <p className="text-sm text-red-800">
+                      <div className="mt-2 p-3 bg-brand-primary-50 border border-brand-primary-200 rounded-lg">
+                        <p className="text-sm text-brand-primary-800">
                           <span className="font-medium">
                             Rejection Reason:{" "}
                           </span>
@@ -650,8 +650,8 @@ export default function AdminBuildingPermitPage() {
                       </div>
                     )}
                     {selectedPermit.permit_number && (
-                      <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-lg">
-                        <p className="text-sm text-green-800">
+                      <div className="mt-2 p-3 bg-brand-accent-50 border border-brand-accent-200 rounded-lg">
+                        <p className="text-sm text-brand-accent-800">
                           <span className="font-medium">Permit Number: </span>
                           {selectedPermit.permit_number}
                         </p>
@@ -662,7 +662,7 @@ export default function AdminBuildingPermitPage() {
                   {/* Project Information */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <Home className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
+                      <Home className="w-4 h-4 sm:w-5 sm:h-5 text-brand-secondary-600" />
                       Project Information
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -736,7 +736,7 @@ export default function AdminBuildingPermitPage() {
                   {/* Owner Information */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <User className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
+                      <User className="w-4 h-4 sm:w-5 sm:h-5 text-brand-secondary-600" />
                       Owner Information
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -790,7 +790,7 @@ export default function AdminBuildingPermitPage() {
                   {/* Property Location */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
+                      <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-brand-secondary-600" />
                       Property Location
                     </h3>
                     <div className="grid grid-cols-1 gap-3 sm:gap-4">
@@ -808,7 +808,7 @@ export default function AdminBuildingPermitPage() {
                   {/* Documents */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
+                      <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-brand-secondary-600" />
                       Uploaded Documents
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -821,7 +821,7 @@ export default function AdminBuildingPermitPage() {
                             href={selectedPermit.building_plans_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-orange-600 hover:text-orange-700 underline flex items-center gap-1 mt-1"
+                            className="text-sm text-brand-secondary-600 hover:text-brand-secondary-700 underline flex items-center gap-1 mt-1"
                           >
                             <FileText className="w-4 h-4" />
                             View Document
@@ -841,7 +841,7 @@ export default function AdminBuildingPermitPage() {
                             href={selectedPermit.land_title_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-orange-600 hover:text-orange-700 underline flex items-center gap-1 mt-1"
+                            className="text-sm text-brand-secondary-600 hover:text-brand-secondary-700 underline flex items-center gap-1 mt-1"
                           >
                             <FileText className="w-4 h-4" />
                             View Document
@@ -858,7 +858,7 @@ export default function AdminBuildingPermitPage() {
                   {/* Application Dates */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
+                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-brand-secondary-600" />
                       Important Dates
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -910,7 +910,7 @@ export default function AdminBuildingPermitPage() {
                         onClick={() =>
                           handleUpdateStatus(selectedPermit.id, "rejected")
                         }
-                        className="w-full sm:w-auto px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                        className="w-full sm:w-auto px-4 py-3 bg-brand-primary-600 text-white rounded-lg hover:bg-brand-primary-700 transition-colors text-sm font-medium"
                       >
                         Reject
                       </button>
@@ -918,7 +918,7 @@ export default function AdminBuildingPermitPage() {
                         onClick={() =>
                           handleUpdateStatus(selectedPermit.id, "approved")
                         }
-                        className="w-full sm:w-auto px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                        className="w-full sm:w-auto px-4 py-3 bg-brand-accent-600 text-white rounded-lg hover:bg-brand-accent-700 transition-colors text-sm font-medium"
                       >
                         Approve
                       </button>

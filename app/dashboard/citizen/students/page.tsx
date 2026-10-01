@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -159,50 +159,27 @@ export default function StudentsPage() {
 
   return (
     <CitizenLayout>
-      <div className="flex flex-col min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white px-4 py-4 border-b border-gray-200">
-          <div className="flex items-center gap-3">
-            <Link href="/dashboard/citizen">
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <ArrowLeft className="w-5 h-5 text-gray-700" />
-              </Button>
-            </Link>
-            <h1 className="text-xl font-bold text-gray-900">
-              Student Services
-            </h1>
-          </div>
+      <div>
+        <header className="mb-8">
+          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Student support</h1>
+          <p className="mt-2 text-gray-600">Find scholarships, learning programs, and youth activities in Pamplona Uno.</p>
         </header>
 
-        {/* Main Content */}
-        <main className="flex-1 px-4 py-6 pb-24 overflow-y-auto">
-          <Card className="mb-6 border-orange-200 bg-orange-50">
-            <CardContent className="p-4">
-              <h2 className="font-semibold text-gray-900 mb-2">
-                Empowering Pamplona Uno Youth
-              </h2>
-              <p className="text-sm text-gray-700">
-                Access scholarships, educational programs, and youth development
-                opportunities.
-              </p>
-            </CardContent>
-          </Card>
-
+        <div className="space-y-8">
           {studentServices.map((section, sectionIdx) => (
-            <div key={sectionIdx} className="mb-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-3">
-                {section.category}
-              </h2>
-              <div className="space-y-3">
+            <section key={sectionIdx}>
+              <h2 className="mb-4 text-2xl font-bold text-gray-800">{section.category}</h2>
+              <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {section.items.map((item, itemIdx) => {
                   const key = `${section.category}-${itemIdx}`;
                   const isExpanded = expandedItems[key];
 
                   return (
-                    <Card key={itemIdx} className="border-gray-200">
-                      <CardContent className="p-4">
+                    <li key={itemIdx}>
+                      <Card className="h-full rounded-2xl border border-gray-200 bg-white p-5">
+                      <CardContent className="p-0">
                         <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">
+                          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-brand-accent-50 text-2xl" aria-hidden="true">
                             {item.icon}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -216,19 +193,19 @@ export default function StudentsPage() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="text-orange-600 hover:text-orange-700 hover:bg-orange-50 p-0 h-auto font-medium"
+                              className="h-auto rounded-xl p-2 font-semibold text-brand-secondary-700 hover:bg-brand-secondary-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2"
                               onClick={() =>
                                 toggleItem(section.category, itemIdx)
                               }
                             >
                               {isExpanded ? (
                                 <>
-                                  Hide Requirements{" "}
+                                  Hide requirements{" "}
                                   <ChevronUp className="w-4 h-4 ml-1" />
                                 </>
                               ) : (
                                 <>
-                                  View Requirements{" "}
+                                  View requirements{" "}
                                   <ChevronDown className="w-4 h-4 ml-1" />
                                 </>
                               )}
@@ -237,7 +214,7 @@ export default function StudentsPage() {
                             {isExpanded && (
                               <div className="mt-3 pt-3 border-t border-gray-200">
                                 <h4 className="text-sm font-semibold text-gray-900 mb-2">
-                                  Requirements:
+                                  Requirements
                                 </h4>
                                 <ul className="space-y-1.5">
                                   {item.requirements.map((req, reqIdx) => (
@@ -245,7 +222,7 @@ export default function StudentsPage() {
                                       key={reqIdx}
                                       className="text-sm text-gray-700 flex items-start gap-2"
                                     >
-                                      <span className="text-orange-600 mt-0.5">
+                                      <span className="text-brand-secondary-600 mt-0.5">
                                         •
                                       </span>
                                       <span>{req}</span>
@@ -257,13 +234,17 @@ export default function StudentsPage() {
                           </div>
                         </div>
                       </CardContent>
-                    </Card>
+                      </Card>
+                    </li>
                   );
                 })}
-              </div>
-            </div>
+              </ul>
+            </section>
           ))}
-        </main>
+        </div>
+        <Link href="/dashboard/citizen/services" className="mt-8 inline-flex rounded-xl border border-gray-300 px-6 py-3 font-semibold text-gray-800 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">
+          Browse available services
+        </Link>
       </div>
     </CitizenLayout>
   );

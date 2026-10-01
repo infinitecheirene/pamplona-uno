@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import nodemailer from "nodemailer";
+import { emailBrandPalette } from "@/lib/email-brand-palette";
 
 const LARAVEL_API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
@@ -68,9 +69,9 @@ export async function POST(
             <style>
               body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
               .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-              .header { background: linear-gradient(to right, #059669, #f97316); color: white; padding: 20px; border-radius: 8px 8px 0 0; }
+              .header { background: linear-gradient(to right, ${emailBrandPalette.primary600}, ${emailBrandPalette.secondary600}, ${emailBrandPalette.accent600}); color: white; padding: 20px; border-radius: 8px 8px 0 0; }
               .content { background: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none; }
-              .message { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #059669; }
+              .message { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid ${emailBrandPalette.accent600}; }
               .footer { text-align: center; padding: 20px; color: #6b7280; font-size: 12px; }
             </style>
           </head>
@@ -85,7 +86,7 @@ export async function POST(
                 <p>Thank you for contacting pamplona Tres Government. We have reviewed your message regarding: <strong>${originalSubject}</strong></p>
                 
                 <div class="message">
-                  <h3 style="margin-top: 0; color: #059669;">Our Response:</h3>
+                  <h3 style="margin-top: 0; color: ${emailBrandPalette.accent600};">Our Response:</h3>
                   <p style="white-space: pre-wrap;">${message}</p>
                 </div>
 

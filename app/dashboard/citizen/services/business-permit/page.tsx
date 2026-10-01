@@ -370,7 +370,7 @@ export default function BusinessPermitPage() {
         {isLoadingUserData && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-secondary-500 mx-auto mb-4"></div>
               <p className="text-gray-600">
                 Loading your profile information...
               </p>
@@ -401,7 +401,7 @@ export default function BusinessPermitPage() {
                     <div
                       className={`w-10 h-10 rounded-full flex items-center justify-center ${
                         currentStep >= step.id
-                          ? "bg-orange-500 text-white"
+                          ? "bg-brand-secondary-500 text-white"
                           : "bg-gray-200 text-gray-500"
                       }`}
                     >
@@ -417,7 +417,7 @@ export default function BusinessPermitPage() {
                   </div>
                   {index < steps.length - 1 && (
                     <div
-                      className={`h-1 flex-1 mx-2 ${currentStep > step.id ? "bg-orange-500" : "bg-gray-200"}`}
+                      className={`h-1 flex-1 mx-2 ${currentStep > step.id ? "bg-brand-secondary-500" : "bg-gray-200"}`}
                     />
                   )}
                 </div>
@@ -457,12 +457,12 @@ export default function BusinessPermitPage() {
                         updateFormData("businessName", e.target.value)
                       }
                       className={
-                        validationErrors.businessName ? "border-red-500" : ""
+                        validationErrors.businessName ? "border-brand-primary-500" : ""
                       }
                       aria-invalid={!!validationErrors.businessName}
                     />
                     {validationErrors.businessName && (
-                      <p className="text-sm text-red-500 flex items-center gap-1">
+                      <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                         <AlertCircle className="h-4 w-4" />
                         {validationErrors.businessName}
                       </p>
@@ -480,7 +480,7 @@ export default function BusinessPermitPage() {
                         <SelectTrigger
                           className={
                             validationErrors.businessType
-                              ? "border-red-500"
+                              ? "border-brand-primary-500"
                               : ""
                           }
                         >
@@ -499,7 +499,7 @@ export default function BusinessPermitPage() {
                         </SelectContent>
                       </Select>
                       {validationErrors.businessType && (
-                        <p className="text-sm text-red-500 flex items-center gap-1">
+                        <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                           <AlertCircle className="h-4 w-4" />
                           {validationErrors.businessType}
                         </p>
@@ -518,7 +518,7 @@ export default function BusinessPermitPage() {
                         <SelectTrigger
                           className={
                             validationErrors.businessCategory
-                              ? "border-red-500"
+                              ? "border-brand-primary-500"
                               : ""
                           }
                         >
@@ -573,7 +573,7 @@ export default function BusinessPermitPage() {
                         </SelectContent>
                       </Select>
                       {validationErrors.businessCategory && (
-                        <p className="text-sm text-red-500 flex items-center gap-1">
+                        <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                           <AlertCircle className="h-4 w-4" />
                           {validationErrors.businessCategory}
                         </p>
@@ -597,12 +597,12 @@ export default function BusinessPermitPage() {
                         }
                         className={
                           validationErrors.businessCategoryOther
-                            ? "border-red-500"
+                            ? "border-brand-primary-500"
                             : ""
                         }
                       />
                       {validationErrors.businessCategoryOther && (
-                        <p className="text-sm text-red-500 flex items-center gap-1">
+                        <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                           <AlertCircle className="h-4 w-4" />
                           {validationErrors.businessCategoryOther}
                         </p>
@@ -623,12 +623,12 @@ export default function BusinessPermitPage() {
                       }
                       className={
                         validationErrors.businessDescription
-                          ? "border-red-500"
+                          ? "border-brand-primary-500"
                           : ""
                       }
                     />
                     {validationErrors.businessDescription && (
-                      <p className="text-sm text-red-500 flex items-center gap-1">
+                      <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                         <AlertCircle className="h-4 w-4" />
                         {validationErrors.businessDescription}
                       </p>
@@ -649,11 +649,11 @@ export default function BusinessPermitPage() {
                         updateFormData("ownerName", e.target.value)
                       }
                       className={
-                        validationErrors.ownerName ? "border-red-500" : ""
+                        validationErrors.ownerName ? "border-brand-primary-500" : ""
                       }
                     />
                     {validationErrors.ownerName && (
-                      <p className="text-sm text-red-500 flex items-center gap-1">
+                      <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                         <AlertCircle className="h-4 w-4" />
                         {validationErrors.ownerName}
                       </p>
@@ -671,11 +671,11 @@ export default function BusinessPermitPage() {
                           updateFormData("ownerEmail", e.target.value)
                         }
                         className={
-                          validationErrors.ownerEmail ? "border-red-500" : ""
+                          validationErrors.ownerEmail ? "border-brand-primary-500" : ""
                         }
                       />
                       {validationErrors.ownerEmail && (
-                        <p className="text-sm text-red-500 flex items-center gap-1">
+                        <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                           <AlertCircle className="h-4 w-4" />
                           {validationErrors.ownerEmail}
                         </p>
@@ -691,11 +691,11 @@ export default function BusinessPermitPage() {
                           updateFormData("ownerPhone", e.target.value)
                         }
                         className={
-                          validationErrors.ownerPhone ? "border-red-500" : ""
+                          validationErrors.ownerPhone ? "border-brand-primary-500" : ""
                         }
                       />
                       {validationErrors.ownerPhone && (
-                        <p className="text-sm text-red-500 flex items-center gap-1">
+                        <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                           <AlertCircle className="h-4 w-4" />
                           {validationErrors.ownerPhone}
                         </p>
@@ -713,11 +713,11 @@ export default function BusinessPermitPage() {
                         updateFormData("ownerAddress", e.target.value)
                       }
                       className={
-                        validationErrors.ownerAddress ? "border-red-500" : ""
+                        validationErrors.ownerAddress ? "border-brand-primary-500" : ""
                       }
                     />
                     {validationErrors.ownerAddress && (
-                      <p className="text-sm text-red-500 flex items-center gap-1">
+                      <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                         <AlertCircle className="h-4 w-4" />
                         {validationErrors.ownerAddress}
                       </p>
@@ -739,11 +739,11 @@ export default function BusinessPermitPage() {
                         updateFormData("businessAddress", e.target.value)
                       }
                       className={
-                        validationErrors.businessAddress ? "border-red-500" : ""
+                        validationErrors.businessAddress ? "border-brand-primary-500" : ""
                       }
                     />
                     {validationErrors.businessAddress && (
-                      <p className="text-sm text-red-500 flex items-center gap-1">
+                      <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                         <AlertCircle className="h-4 w-4" />
                         {validationErrors.businessAddress}
                       </p>
@@ -759,11 +759,11 @@ export default function BusinessPermitPage() {
                         updateFormData("barangay", e.target.value)
                       }
                       className={
-                        validationErrors.barangay ? "border-red-500" : ""
+                        validationErrors.barangay ? "border-brand-primary-500" : ""
                       }
                     />
                     {validationErrors.barangay && (
-                      <p className="text-sm text-red-500 flex items-center gap-1">
+                      <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                         <AlertCircle className="h-4 w-4" />
                         {validationErrors.barangay}
                       </p>
@@ -792,11 +792,11 @@ export default function BusinessPermitPage() {
                           updateFormData("floorArea", e.target.value)
                         }
                         className={
-                          validationErrors.floorArea ? "border-red-500" : ""
+                          validationErrors.floorArea ? "border-brand-primary-500" : ""
                         }
                       />
                       {validationErrors.floorArea && (
-                        <p className="text-sm text-red-500 flex items-center gap-1">
+                        <p className="text-sm text-brand-primary-500 flex items-center gap-1">
                           <AlertCircle className="h-4 w-4" />
                           {validationErrors.floorArea}
                         </p>
@@ -894,7 +894,7 @@ export default function BusinessPermitPage() {
                 {currentStep < steps.length ? (
                   <Button
                     onClick={handleNext}
-                    className="flex-1 bg-orange-500 hover:bg-orange-600"
+                    className="flex-1 bg-brand-secondary-500 hover:bg-brand-secondary-600"
                   >
                     Next
                   </Button>
@@ -902,7 +902,7 @@ export default function BusinessPermitPage() {
                   <Button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
-                    className="flex-1 bg-orange-500 hover:bg-orange-600"
+                    className="flex-1 bg-brand-secondary-500 hover:bg-brand-secondary-600"
                   >
                     {isSubmitting ? "Submitting..." : "Submit Application"}
                   </Button>

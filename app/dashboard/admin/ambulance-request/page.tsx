@@ -201,12 +201,12 @@ export default function AdminAmbulanceRequestsPage() {
 
   const getStatusBadge = (status: string) => {
     const styles = {
-      pending: "bg-orange-100 text-orange-700",
+      pending: "bg-brand-secondary-100 text-brand-secondary-700",
       dispatched: "bg-blue-100 text-blue-700",
       en_route: "bg-purple-100 text-purple-700",
       arrived: "bg-cyan-100 text-cyan-700",
-      completed: "bg-green-100 text-green-700",
-      cancelled: "bg-red-100 text-red-700",
+      completed: "bg-brand-accent-100 text-brand-accent-700",
+      cancelled: "bg-brand-primary-100 text-brand-primary-700",
     };
 
     const icons = {
@@ -233,11 +233,11 @@ export default function AdminAmbulanceRequestsPage() {
 
   const getEmergencyBadge = (emergency: string) => {
     const styles = {
-      cardiac: "bg-red-100 text-red-700",
+      cardiac: "bg-brand-primary-100 text-brand-primary-700",
       breathing: "bg-blue-100 text-blue-700",
       accident: "bg-yellow-100 text-yellow-700",
-      medical: "bg-green-100 text-green-700",
-      injury: "bg-orange-100 text-orange-700",
+      medical: "bg-brand-accent-100 text-brand-accent-700",
+      injury: "bg-brand-secondary-100 text-brand-secondary-700",
       other: "bg-purple-100 text-purple-700",
     };
 
@@ -287,7 +287,7 @@ export default function AdminAmbulanceRequestsPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <Ambulance className="w-6 h-6 text-red-600" />
+                <Ambulance className="w-6 h-6 text-brand-primary-600" />
                 Ambulance Requests
               </h1>
               <p className="text-xs sm:text-sm text-gray-600 mt-1">
@@ -295,7 +295,7 @@ export default function AdminAmbulanceRequestsPage() {
               </p>
             </div>
             <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600">
-              <Siren className="w-5 h-5 text-red-600" />
+              <Siren className="w-5 h-5 text-brand-primary-600" />
               <span className="font-medium">{pagination.total} Total</span>
             </div>
           </div>
@@ -316,7 +316,7 @@ export default function AdminAmbulanceRequestsPage() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                    className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                    className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent-500 focus:border-transparent"
                   />
                 </div>
 
@@ -330,7 +330,7 @@ export default function AdminAmbulanceRequestsPage() {
                         setStatusFilter(e.target.value);
                         setPagination((prev) => ({ ...prev, current_page: 1 }));
                       }}
-                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent appearance-none bg-white"
+                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent-500 focus:border-transparent appearance-none bg-white"
                     >
                       <option value="all">All Status</option>
                       <option value="pending">Pending</option>
@@ -344,7 +344,7 @@ export default function AdminAmbulanceRequestsPage() {
 
                   <button
                     onClick={handleSearch}
-                    className="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 transition-colors"
+                    className="px-4 py-2 bg-brand-accent-600 text-white rounded-lg text-sm font-medium hover:bg-brand-accent-700 transition-colors"
                   >
                     Search
                   </button>
@@ -356,7 +356,7 @@ export default function AdminAmbulanceRequestsPage() {
             <div className="grid grid-cols-3 gap-2 sm:hidden mb-4">
               <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
                 <p className="text-xs text-gray-600">Pending</p>
-                <p className="text-lg font-bold text-orange-600">
+                <p className="text-lg font-bold text-brand-secondary-600">
                   {requests.filter((r) => r.status === "pending").length}
                 </p>
               </div>
@@ -372,7 +372,7 @@ export default function AdminAmbulanceRequestsPage() {
               </div>
               <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
                 <p className="text-xs text-gray-600">Completed</p>
-                <p className="text-lg font-bold text-green-600">
+                <p className="text-lg font-bold text-brand-accent-600">
                   {requests.filter((r) => r.status === "completed").length}
                 </p>
               </div>
@@ -383,7 +383,7 @@ export default function AdminAmbulanceRequestsPage() {
               {loading ? (
                 <div className="flex items-center justify-center py-12">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-emerald-500 mx-auto mb-3"></div>
+                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-brand-accent-500 mx-auto mb-3"></div>
                     <p className="text-gray-600 text-sm">Loading requests...</p>
                   </div>
                 </div>
@@ -401,7 +401,7 @@ export default function AdminAmbulanceRequestsPage() {
                   <div className="hidden sm:block overflow-x-auto">
                     <div className="inline-block min-w-full align-middle">
                       <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gradient-to-r from-emerald-600 to-orange-500 text-white">
+                        <thead className="bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white">
                           <tr>
                             <th className="px-3 sm:px-4 py-3 text-left text-xs font-semibold uppercase whitespace-nowrap">
                               Request ID
@@ -424,7 +424,7 @@ export default function AdminAmbulanceRequestsPage() {
                             <th className="px-3 sm:px-4 py-3 text-left text-xs font-semibold uppercase whitespace-nowrap">
                               Requested
                             </th>
-                            <th className="px-3 sm:px-4 py-3 text-center text-xs font-semibold uppercase whitespace-nowrap sticky right-0 bg-gradient-to-r from-emerald-600 to-orange-500">
+                            <th className="px-3 sm:px-4 py-3 text-center text-xs font-semibold uppercase whitespace-nowrap sticky right-0 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500">
                               Actions
                             </th>
                           </tr>
@@ -477,7 +477,7 @@ export default function AdminAmbulanceRequestsPage() {
                               <td className="px-3 sm:px-4 py-3 text-center whitespace-nowrap sticky right-0 bg-white">
                                 <button
                                   onClick={() => handleViewRequest(request)}
-                                  className="inline-flex items-center gap-1 px-2 sm:px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-lg text-xs font-medium hover:bg-emerald-200 transition-colors"
+                                  className="inline-flex items-center gap-1 px-2 sm:px-3 py-1.5 bg-brand-accent-100 text-brand-accent-700 rounded-lg text-xs font-medium hover:bg-brand-accent-200 transition-colors"
                                 >
                                   <Eye className="w-3 h-3" />
                                   <span className="hidden sm:inline">View</span>
@@ -529,7 +529,7 @@ export default function AdminAmbulanceRequestsPage() {
                           <span className="text-xs text-gray-500">
                             {formatDate(request.requested_at)}
                           </span>
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-emerald-100 text-emerald-700 rounded-lg text-xs font-medium">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-brand-accent-100 text-brand-accent-700 rounded-lg text-xs font-medium">
                             <Eye className="w-3 h-3" />
                             View
                           </span>
@@ -585,7 +585,7 @@ export default function AdminAmbulanceRequestsPage() {
                               onClick={() => handlePageChange(pageNum)}
                               className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
                                 pagination.current_page === pageNum
-                                  ? "bg-emerald-600 text-white"
+                                  ? "bg-brand-accent-600 text-white"
                                   : "border border-gray-300 hover:bg-gray-50"
                               }`}
                             >
@@ -622,7 +622,7 @@ export default function AdminAmbulanceRequestsPage() {
               <div
                 style={{
                   background:
-                    "linear-gradient(to right, rgb(5, 150, 105), rgb(249, 115, 22))",
+                    "linear-gradient(to right, var(--brand-primary-600), var(--brand-secondary-600), var(--brand-accent-600))",
                 }}
                 className="text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 z-10"
               >
@@ -667,7 +667,7 @@ export default function AdminAmbulanceRequestsPage() {
                   {/* Patient Information */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <User className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                      <User className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent-600" />
                       Patient Information
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -687,7 +687,7 @@ export default function AdminAmbulanceRequestsPage() {
                         </label>
                         <a
                           href={`tel:${selectedRequest.phone}`}
-                          className="text-sm sm:text-base text-emerald-600 hover:text-emerald-700 font-medium"
+                          className="text-sm sm:text-base text-brand-accent-600 hover:text-brand-accent-700 font-medium"
                         >
                           {selectedRequest.phone}
                         </a>
@@ -698,7 +698,7 @@ export default function AdminAmbulanceRequestsPage() {
                   {/* Location */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                      <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent-600" />
                       Location
                     </h3>
                     <div className="space-y-3">
@@ -724,7 +724,7 @@ export default function AdminAmbulanceRequestsPage() {
                               href={`https://www.google.com/maps?q=${selectedRequest.latitude},${selectedRequest.longitude}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-sm text-emerald-600 hover:text-emerald-700 underline flex items-center gap-1 mt-1"
+                              className="text-sm text-brand-accent-600 hover:text-brand-accent-700 underline flex items-center gap-1 mt-1"
                             >
                               <Navigation className="w-4 h-4" />
                               Open in Google Maps
@@ -738,7 +738,7 @@ export default function AdminAmbulanceRequestsPage() {
                   {selectedRequest.notes && (
                     <div>
                       <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                        <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                        <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent-600" />
                         Additional Notes
                       </h3>
                       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4">
@@ -752,12 +752,12 @@ export default function AdminAmbulanceRequestsPage() {
                   {/* Timeline */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent-600" />
                       Timeline
                     </h3>
                     <div className="space-y-2">
                       <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                        <Clock className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                        <Clock className="w-5 h-5 text-brand-secondary-600 flex-shrink-0 mt-0.5" />
                         <div>
                           <p className="text-sm font-medium text-gray-900">
                             Request Submitted
@@ -766,7 +766,7 @@ export default function AdminAmbulanceRequestsPage() {
                             {formatDate(selectedRequest.requested_at)}
                           </p>
                           {selectedRequest.estimated_arrival && (
-                            <p className="text-xs text-orange-600 mt-1">
+                            <p className="text-xs text-brand-secondary-600 mt-1">
                               ETA: {selectedRequest.estimated_arrival}
                             </p>
                           )}
@@ -802,8 +802,8 @@ export default function AdminAmbulanceRequestsPage() {
                       )}
 
                       {selectedRequest.completed_at && (
-                        <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
-                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                        <div className="flex items-start gap-3 p-3 bg-brand-accent-50 rounded-lg border border-brand-accent-200">
+                          <CheckCircle className="w-5 h-5 text-brand-accent-600 flex-shrink-0 mt-0.5" />
                           <div>
                             <p className="text-sm font-medium text-gray-900">
                               Request Completed
@@ -834,7 +834,7 @@ export default function AdminAmbulanceRequestsPage() {
                         onClick={() =>
                           handleUpdateStatus(selectedRequest.id, "cancelled")
                         }
-                        className="w-full sm:w-auto px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                        className="w-full sm:w-auto px-4 py-3 bg-brand-primary-600 text-white rounded-lg hover:bg-brand-primary-700 transition-colors text-sm font-medium"
                       >
                         Cancel Request
                       </button>
@@ -893,7 +893,7 @@ export default function AdminAmbulanceRequestsPage() {
                         onClick={() =>
                           handleUpdateStatus(selectedRequest.id, "completed")
                         }
-                        className="w-full sm:w-auto px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                        className="w-full sm:w-auto px-4 py-3 bg-brand-accent-600 text-white rounded-lg hover:bg-brand-accent-700 transition-colors text-sm font-medium"
                       >
                         Mark Completed
                       </button>

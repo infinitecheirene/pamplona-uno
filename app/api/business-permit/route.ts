@@ -1,8 +1,9 @@
 // app/api/business-permit/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { getLaravelApiUrl } from '@/lib/laravel-api-url'
 
-const LARAVEL_API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
+const LARAVEL_API_URL = getLaravelApiUrl()
 
 export async function POST(request: NextRequest) {
   try {

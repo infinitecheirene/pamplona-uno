@@ -35,7 +35,7 @@ export default function FloatingSocialMedia() {
       name: "WhatsApp",
       icon: MessageCircle,
       url: "https://wa.me/9543095528", // Replace with actual WhatsApp number
-      color: "bg-green-500 hover:bg-green-600",
+      color: "bg-brand-accent-500 hover:bg-brand-accent-600",
     },
     {
       name: "Telegram",
@@ -47,7 +47,7 @@ export default function FloatingSocialMedia() {
       name: "Email",
       icon: Mail,
       url: "mailto:barangay.pamplonatres.lpc@gmail.com",
-      color: "bg-red-500 hover:bg-red-600",
+      color: "bg-brand-primary-500 hover:bg-brand-primary-600",
     },
     {
       name: "Phone",
@@ -83,7 +83,7 @@ export default function FloatingSocialMedia() {
         {/* Globe Button */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="bg-gradient-to-r from-orange-600 to-orange-500 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl"
+          className="bg-gradient-to-r from-brand-secondary-600 to-brand-secondary-500 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl"
           aria-label="Social Media Menu"
         >
           <Globe

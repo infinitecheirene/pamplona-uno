@@ -309,11 +309,11 @@ export default function AdminAnnouncementsPage() {
 
   const getCategoryBadge = (category: string) => {
     const styles: Record<string, string> = {
-      Alert: "bg-red-100 text-red-700",
+      Alert: "bg-brand-primary-100 text-brand-primary-700",
       Event: "bg-purple-100 text-purple-700",
       Update: "bg-blue-100 text-blue-700",
       Development: "bg-indigo-100 text-indigo-700",
-      Health: "bg-green-100 text-green-700",
+      Health: "bg-brand-accent-100 text-brand-accent-700",
       Notice: "bg-yellow-100 text-yellow-700",
     };
 
@@ -338,7 +338,7 @@ export default function AdminAnnouncementsPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-secondary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -353,8 +353,8 @@ export default function AdminAnnouncementsPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-orange-100 rounded-lg">
-                  <Bell className="w-6 h-6 text-orange-600" />
+                <div className="p-2 bg-brand-secondary-100 rounded-lg">
+                  <Bell className="w-6 h-6 text-brand-secondary-600" />
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">
@@ -367,14 +367,14 @@ export default function AdminAnnouncementsPage() {
               </div>
               <button
                 onClick={handleCreateNew}
-                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all"
+                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white rounded-lg hover:from-brand-accent-700 hover:to-brand-secondary-600 transition-all"
               >
                 <Plus className="w-5 h-5" />
                 New Announcement
               </button>
               <button
                 onClick={handleCreateNew}
-                className="sm:hidden p-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all"
+                className="sm:hidden p-2 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white rounded-lg hover:from-brand-accent-700 hover:to-brand-secondary-600 transition-all"
               >
                 <Plus className="w-5 h-5" />
               </button>
@@ -396,7 +396,7 @@ export default function AdminAnnouncementsPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent"
                 />
               </div>
 
@@ -406,7 +406,7 @@ export default function AdminAnnouncementsPage() {
                 <select
                   value={categoryFilter}
                   onChange={(e) => handleCategoryChange(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent appearance-none bg-white"
                 >
                   <option value="all">All Categories</option>
                   <option value="Update">Update</option>
@@ -421,7 +421,7 @@ export default function AdminAnnouncementsPage() {
 
             <button
               onClick={handleSearch}
-              className="mt-4 w-full sm:w-auto px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium"
+              className="mt-4 w-full sm:w-auto px-6 py-2 bg-brand-secondary-600 text-white rounded-lg hover:bg-brand-secondary-700 transition-colors text-sm font-medium"
             >
               Search
             </button>
@@ -437,7 +437,7 @@ export default function AdminAnnouncementsPage() {
             </div>
             <div className="bg-white p-4 rounded-lg border border-gray-200 text-center">
               <p className="text-xs text-gray-500 mb-1">Active</p>
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-2xl font-bold text-brand-accent-600">
                 {announcements.filter((a) => a.is_active).length}
               </p>
             </div>
@@ -454,7 +454,7 @@ export default function AdminAnnouncementsPage() {
             {loading ? (
               <div className="flex items-center justify-center py-12">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-secondary-600 mx-auto"></div>
                   <p className="mt-4 text-gray-600">Loading announcements...</p>
                 </div>
               </div>
@@ -469,7 +469,7 @@ export default function AdminAnnouncementsPage() {
                 </p>
                 <button
                   onClick={handleCreateNew}
-                  className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
+                  className="px-4 py-2 bg-brand-secondary-600 text-white rounded-lg hover:bg-brand-secondary-700 transition-colors"
                 >
                   New Announcement
                 </button>
@@ -521,14 +521,14 @@ export default function AdminAnnouncementsPage() {
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center gap-2">
                               {announcement.is_active ? (
-                                <ToggleRight className="w-5 h-5 text-green-600" />
+                                <ToggleRight className="w-5 h-5 text-brand-accent-600" />
                               ) : (
                                 <ToggleLeft className="w-5 h-5 text-gray-400" />
                               )}
                               <span
                                 className={`text-sm ${
                                   announcement.is_active
-                                    ? "text-green-600 font-medium"
+                                    ? "text-brand-accent-600 font-medium"
                                     : "text-gray-400"
                                 }`}
                               >
@@ -552,14 +552,14 @@ export default function AdminAnnouncementsPage() {
                               </button>
                               <button
                                 onClick={() => handleEdit(announcement)}
-                                className="p-1.5 text-orange-600 hover:bg-orange-50 rounded transition-colors"
+                                className="p-1.5 text-brand-secondary-600 hover:bg-brand-secondary-50 rounded transition-colors"
                                 title="Edit"
                               >
                                 <Edit className="w-4 h-4" />
                               </button>
                               <button
                                 onClick={() => handleDelete(announcement.id)}
-                                className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors"
+                                className="p-1.5 text-brand-primary-600 hover:bg-brand-primary-50 rounded transition-colors"
                                 title="Delete"
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -594,14 +594,14 @@ export default function AdminAnnouncementsPage() {
                         </div>
                         <div className="flex items-center gap-1.5">
                           {announcement.is_active ? (
-                            <ToggleRight className="w-4 h-4 text-green-600" />
+                            <ToggleRight className="w-4 h-4 text-brand-accent-600" />
                           ) : (
                             <ToggleLeft className="w-4 h-4 text-gray-400" />
                           )}
                           <span
                             className={
                               announcement.is_active
-                                ? "text-green-600 font-medium"
+                                ? "text-brand-accent-600 font-medium"
                                 : "text-gray-400"
                             }
                           >
@@ -627,14 +627,14 @@ export default function AdminAnnouncementsPage() {
                           </button>
                           <button
                             onClick={() => handleEdit(announcement)}
-                            className="p-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
+                            className="p-2 text-brand-secondary-600 hover:bg-brand-secondary-50 rounded-lg transition-colors"
                             title="Edit"
                           >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(announcement.id)}
-                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            className="p-2 text-brand-primary-600 hover:bg-brand-primary-50 rounded-lg transition-colors"
                             title="Delete"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -688,7 +688,7 @@ export default function AdminAnnouncementsPage() {
                                 onClick={() => handlePageChange(pageNum)}
                                 className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
                                   pagination.current_page === pageNum
-                                    ? "bg-orange-600 text-white"
+                                    ? "bg-brand-secondary-600 text-white"
                                     : "border border-gray-300 hover:bg-gray-50"
                                 }`}
                               >
@@ -757,14 +757,14 @@ export default function AdminAnnouncementsPage() {
                       </span>
                       <div className="flex items-center gap-2">
                         {selectedAnnouncement.is_active ? (
-                          <ToggleRight className="w-5 h-5 text-green-600" />
+                          <ToggleRight className="w-5 h-5 text-brand-accent-600" />
                         ) : (
                           <ToggleLeft className="w-5 h-5 text-gray-400" />
                         )}
                         <span
                           className={`text-sm font-medium ${
                             selectedAnnouncement.is_active
-                              ? "text-green-600"
+                              ? "text-brand-accent-600"
                               : "text-gray-400"
                           }`}
                         >
@@ -840,7 +840,7 @@ export default function AdminAnnouncementsPage() {
                     {/* Form */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Title <span className="text-red-500">*</span>
+                        Title <span className="text-brand-primary-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -848,7 +848,7 @@ export default function AdminAnnouncementsPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, title: e.target.value })
                         }
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500"
                         placeholder="Enter announcement title"
                       />
                     </div>
@@ -856,7 +856,7 @@ export default function AdminAnnouncementsPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Category <span className="text-red-500">*</span>
+                          Category <span className="text-brand-primary-500">*</span>
                         </label>
                         <select
                           value={formData.category}
@@ -867,7 +867,7 @@ export default function AdminAnnouncementsPage() {
                                 .value as Announcement["category"],
                             })
                           }
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500"
                         >
                           <option value="Update">Update</option>
                           <option value="Event">Event</option>
@@ -880,7 +880,7 @@ export default function AdminAnnouncementsPage() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Date <span className="text-red-500">*</span>
+                          Date <span className="text-brand-primary-500">*</span>
                         </label>
                         <input
                           type="date"
@@ -888,14 +888,14 @@ export default function AdminAnnouncementsPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, date: e.target.value })
                           }
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500"
                         />
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Description <span className="text-red-500">*</span>
+                        Description <span className="text-brand-primary-500">*</span>
                       </label>
                       <textarea
                         value={formData.description}
@@ -906,7 +906,7 @@ export default function AdminAnnouncementsPage() {
                           })
                         }
                         rows={3}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500"
                         placeholder="Brief description (max 500 characters)"
                         maxLength={500}
                       />
@@ -917,7 +917,7 @@ export default function AdminAnnouncementsPage() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Content <span className="text-red-500">*</span>
+                        Content <span className="text-brand-primary-500">*</span>
                       </label>
                       <textarea
                         value={formData.content}
@@ -925,7 +925,7 @@ export default function AdminAnnouncementsPage() {
                           setFormData({ ...formData, content: e.target.value })
                         }
                         rows={8}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500"
                         placeholder="Full announcement content"
                       />
                     </div>
@@ -946,7 +946,7 @@ export default function AdminAnnouncementsPage() {
                               priority: parseInt(e.target.value) || 0,
                             })
                           }
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500"
                         />
                         <p className="text-xs text-gray-500 mt-1">
                           Higher priority appears first
@@ -968,7 +968,7 @@ export default function AdminAnnouncementsPage() {
                                 is_active: e.target.checked,
                               })
                             }
-                            className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
+                            className="w-4 h-4 text-brand-secondary-600 border-gray-300 rounded focus:ring-brand-secondary-500"
                           />
                           <label
                             htmlFor="is_active"
@@ -996,7 +996,7 @@ export default function AdminAnnouncementsPage() {
                       </button>
                       <button
                         onClick={() => handleEdit(selectedAnnouncement!)}
-                        className="w-full sm:w-auto px-4 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium"
+                        className="w-full sm:w-auto px-4 py-3 bg-brand-secondary-600 text-white rounded-lg hover:bg-brand-secondary-700 transition-colors text-sm font-medium"
                       >
                         Edit
                       </button>
@@ -1012,7 +1012,7 @@ export default function AdminAnnouncementsPage() {
                       <button
                         onClick={handleSubmit}
                         disabled={isSubmitting}
-                        className="w-full sm:w-auto px-4 py-3 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        className="w-full sm:w-auto px-4 py-3 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white rounded-lg hover:from-brand-accent-700 hover:to-brand-secondary-600 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                       >
                         {isSubmitting ? (
                           <>

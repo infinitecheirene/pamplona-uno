@@ -153,8 +153,8 @@ export default function TaxAssistanceGuide() {
                   </div>
                 </div>
               </div>
-              <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 mt-4">
-                <p className="text-sm text-orange-800">
+              <div className="bg-brand-secondary-50 border border-brand-secondary-200 rounded-lg p-3 mt-4">
+                <p className="text-sm text-brand-secondary-800">
                   <strong>Note:</strong> Tax laws and rates are subject to
                   change. Always verify current regulations with the Bureau of
                   Internal Revenue (BIR) or consult with a certified tax
@@ -213,8 +213,8 @@ export default function TaxAssistanceGuide() {
                   <h4 className="font-semibold text-gray-900 mb-2">
                     Payment Schedule & Discounts
                   </h4>
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                    <p className="text-sm text-green-800">
+                  <div className="bg-brand-accent-50 border border-brand-accent-200 rounded-lg p-3">
+                    <p className="text-sm text-brand-accent-800">
                       <strong>Early Payment Discounts:</strong>
                       <br />
                       • Pay in January: 20% discount
@@ -353,8 +353,8 @@ export default function TaxAssistanceGuide() {
                     <li>Proof of income or financial capacity</li>
                   </ul>
                 </div>
-                <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                  <p className="text-sm text-red-800">
+                <div className="bg-brand-primary-50 border border-brand-primary-200 rounded-lg p-3">
+                  <p className="text-sm text-brand-primary-800">
                     <strong>Important:</strong> Don't wait until your property
                     is scheduled for auction. Contact the City Treasurer's
                     Office immediately if you're unable to pay your property
@@ -469,10 +469,10 @@ export default function TaxAssistanceGuide() {
   return (
     <CitizenLayout requireAuth={false}>
       <div className="space-y-6 p-4">
-        <Card className="border-orange-200 bg-orange-50">
+        <Card className="border-brand-secondary-200 bg-brand-secondary-50">
           <CardContent className="p-4">
             <div className="flex items-start gap-3">
-              <Calculator className="w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" />
+              <Calculator className="w-5 h-5 text-brand-secondary-600 mt-0.5 flex-shrink-0" />
               <div>
                 <h2 className="font-semibold text-gray-900 mb-2">
                   Tax Assistance Services
@@ -515,7 +515,7 @@ export default function TaxAssistanceGuide() {
                           </p>
                           <Button
                             variant="link"
-                            className="text-orange-600 px-0 mt-2"
+                            className="text-brand-secondary-600 px-0 mt-2"
                             onClick={() => toggleExpanded(itemKey)}
                           >
                             Read more <ChevronRight className="w-4 h-4 ml-1" />
@@ -526,7 +526,7 @@ export default function TaxAssistanceGuide() {
                           {item.fullContent}
                           <Button
                             variant="link"
-                            className="text-orange-600 px-0 mt-2"
+                            className="text-brand-secondary-600 px-0 mt-2"
                             onClick={() => toggleExpanded(itemKey)}
                           >
                             Show less

@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { getLaravelApiUrl } from "@/lib/laravel-api-url";
 
-// Define the base URL for your Laravel API
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API_BASE_URL = getLaravelApiUrl();
 
 export async function GET(request: NextRequest) {
   try {

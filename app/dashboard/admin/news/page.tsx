@@ -103,14 +103,14 @@ export default function AdminNewsPage() {
     {
       value: "Development",
       label: "Development",
-      color: "bg-green-100 text-green-700",
+      color: "bg-brand-accent-100 text-brand-accent-700",
     },
     {
       value: "Business",
       label: "Business",
       color: "bg-blue-100 text-blue-700",
     },
-    { value: "Health", label: "Health", color: "bg-red-100 text-red-700" },
+    { value: "Health", label: "Health", color: "bg-brand-primary-100 text-brand-primary-700" },
     {
       value: "Education",
       label: "Education",
@@ -119,12 +119,12 @@ export default function AdminNewsPage() {
     {
       value: "Environment",
       label: "Environment",
-      color: "bg-emerald-100 text-emerald-700",
+      color: "bg-brand-accent-100 text-brand-accent-700",
     },
     {
       value: "Community",
       label: "Community",
-      color: "bg-orange-100 text-orange-700",
+      color: "bg-brand-secondary-100 text-brand-secondary-700",
     },
     {
       value: "Infrastructure",
@@ -409,7 +409,7 @@ export default function AdminNewsPage() {
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
       draft: "bg-gray-100 text-gray-700",
-      published: "bg-green-100 text-green-700",
+      published: "bg-brand-accent-100 text-brand-accent-700",
       archived: "bg-yellow-100 text-yellow-700",
     };
 
@@ -434,7 +434,7 @@ export default function AdminNewsPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-secondary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -448,8 +448,8 @@ export default function AdminNewsPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-orange-100 rounded-lg">
-                  <Newspaper className="w-6 h-6 text-orange-600" />
+                <div className="p-2 bg-brand-secondary-100 rounded-lg">
+                  <Newspaper className="w-6 h-6 text-brand-secondary-600" />
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">
@@ -462,14 +462,14 @@ export default function AdminNewsPage() {
               </div>
               <button
                 onClick={handleCreateNew}
-                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all"
+                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white rounded-lg hover:from-brand-accent-700 hover:to-brand-secondary-600 transition-all"
               >
                 <Plus className="w-5 h-5" />
                 New Article
               </button>
               <button
                 onClick={handleCreateNew}
-                className="sm:hidden p-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all"
+                className="sm:hidden p-2 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white rounded-lg hover:from-brand-accent-700 hover:to-brand-secondary-600 transition-all"
               >
                 <Plus className="w-5 h-5" />
               </button>
@@ -488,7 +488,7 @@ export default function AdminNewsPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent"
                 />
               </div>
 
@@ -500,7 +500,7 @@ export default function AdminNewsPage() {
                     setCategoryFilter(e.target.value);
                     setPagination((prev) => ({ ...prev, current_page: 1 }));
                   }}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent appearance-none bg-white"
                 >
                   <option value="all">All Categories</option>
                   {categories.map((cat) => (
@@ -519,7 +519,7 @@ export default function AdminNewsPage() {
                     setStatusFilter(e.target.value);
                     setPagination((prev) => ({ ...prev, current_page: 1 }));
                   }}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 focus:border-transparent appearance-none bg-white"
                 >
                   <option value="all">All Status</option>
                   <option value="draft">Draft</option>
@@ -531,7 +531,7 @@ export default function AdminNewsPage() {
 
             <button
               onClick={handleSearch}
-              className="mt-4 w-full sm:w-auto px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium"
+              className="mt-4 w-full sm:w-auto px-6 py-2 bg-brand-secondary-600 text-white rounded-lg hover:bg-brand-secondary-700 transition-colors text-sm font-medium"
             >
               Search
             </button>
@@ -546,7 +546,7 @@ export default function AdminNewsPage() {
             </div>
             <div className="bg-white p-4 rounded-lg border border-gray-200 text-center">
               <p className="text-xs text-gray-500 mb-1">Published</p>
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-2xl font-bold text-brand-accent-600">
                 {news.filter((n) => n.status === "published").length}
               </p>
             </div>
@@ -562,7 +562,7 @@ export default function AdminNewsPage() {
             {loading ? (
               <div className="flex items-center justify-center py-12">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-secondary-600 mx-auto"></div>
                   <p className="mt-4 text-gray-600">Loading news...</p>
                 </div>
               </div>
@@ -577,7 +577,7 @@ export default function AdminNewsPage() {
                 </p>
                 <button
                   onClick={handleCreateNew}
-                  className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
+                  className="px-4 py-2 bg-brand-secondary-600 text-white rounded-lg hover:bg-brand-secondary-700 transition-colors"
                 >
                   New Article
                 </button>
@@ -653,14 +653,14 @@ export default function AdminNewsPage() {
                               </button>
                               <button
                                 onClick={() => handleEdit(newsItem)}
-                                className="p-1.5 text-orange-600 hover:bg-orange-50 rounded transition-colors"
+                                className="p-1.5 text-brand-secondary-600 hover:bg-brand-secondary-50 rounded transition-colors"
                                 title="Edit"
                               >
                                 <Edit className="w-4 h-4" />
                               </button>
                               <button
                                 onClick={() => handleDelete(newsItem.id)}
-                                className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors"
+                                className="p-1.5 text-brand-primary-600 hover:bg-brand-primary-50 rounded transition-colors"
                                 title="Delete"
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -722,14 +722,14 @@ export default function AdminNewsPage() {
                           </button>
                           <button
                             onClick={() => handleEdit(newsItem)}
-                            className="p-2 bg-orange-50 text-orange-600 rounded-lg hover:bg-orange-100 transition-colors"
+                            className="p-2 bg-brand-secondary-50 text-brand-secondary-600 rounded-lg hover:bg-brand-secondary-100 transition-colors"
                             title="Edit"
                           >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(newsItem.id)}
-                            className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+                            className="p-2 bg-brand-primary-50 text-brand-primary-600 rounded-lg hover:bg-brand-primary-100 transition-colors"
                             title="Delete"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -782,7 +782,7 @@ export default function AdminNewsPage() {
                                 onClick={() => handlePageChange(pageNum)}
                                 className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
                                   pagination.current_page === pageNum
-                                    ? "bg-orange-600 text-white"
+                                    ? "bg-brand-secondary-600 text-white"
                                     : "border border-gray-300 hover:bg-gray-50"
                                 }`}
                               >
@@ -904,7 +904,7 @@ export default function AdminNewsPage() {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Title <span className="text-red-500">*</span>
+                        Title <span className="text-brand-primary-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -912,14 +912,14 @@ export default function AdminNewsPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, title: e.target.value })
                         }
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500"
                         placeholder="Enter news title"
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Category <span className="text-red-500">*</span>
+                        Category <span className="text-brand-primary-500">*</span>
                       </label>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                         {categories.map((cat) => (
@@ -943,7 +943,7 @@ export default function AdminNewsPage() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Content <span className="text-red-500">*</span>
+                        Content <span className="text-brand-primary-500">*</span>
                       </label>
                       <textarea
                         value={formData.content}
@@ -951,7 +951,7 @@ export default function AdminNewsPage() {
                           setFormData({ ...formData, content: e.target.value })
                         }
                         rows={6}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500 resize-none"
                         placeholder="Write your article content here..."
                       />
                     </div>
@@ -973,13 +973,13 @@ export default function AdminNewsPage() {
                           <button
                             type="button"
                             onClick={removeImage}
-                            className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-lg font-bold hover:bg-red-600 transition-colors"
+                            className="absolute top-2 right-2 w-8 h-8 bg-brand-primary-500 text-white rounded-full flex items-center justify-center text-lg font-bold hover:bg-brand-primary-600 transition-colors"
                           >
                             ×
                           </button>
                         </div>
                       ) : (
-                        <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-orange-500 hover:bg-orange-50 transition-colors">
+                        <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-brand-secondary-500 hover:bg-brand-secondary-50 transition-colors">
                           <div className="flex flex-col items-center">
                             <Upload className="w-12 h-12 text-gray-400 mb-2" />
                             <p className="text-sm font-medium text-gray-600">
@@ -1002,7 +1002,7 @@ export default function AdminNewsPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Status <span className="text-red-500">*</span>
+                          Status <span className="text-brand-primary-500">*</span>
                         </label>
                         <select
                           value={formData.status}
@@ -1012,7 +1012,7 @@ export default function AdminNewsPage() {
                               status: e.target.value as News["status"],
                             })
                           }
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500"
                         >
                           <option value="draft">Draft</option>
                           <option value="published">Published</option>
@@ -1036,7 +1036,7 @@ export default function AdminNewsPage() {
                                   published_at: e.target.value,
                                 })
                               }
-                              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary-500"
                             />
                           </div>
                           <p className="text-xs text-gray-500 mt-1">
@@ -1061,7 +1061,7 @@ export default function AdminNewsPage() {
                       </button>
                       <button
                         onClick={() => handleEdit(selectedNews!)}
-                        className="w-full sm:w-auto px-4 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium"
+                        className="w-full sm:w-auto px-4 py-3 bg-brand-secondary-600 text-white rounded-lg hover:bg-brand-secondary-700 transition-colors text-sm font-medium"
                       >
                         Edit
                       </button>
@@ -1077,7 +1077,7 @@ export default function AdminNewsPage() {
                       <button
                         onClick={handleSubmit}
                         disabled={isSubmitting}
-                        className="w-full sm:w-auto px-4 py-3 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        className="w-full sm:w-auto px-4 py-3 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white rounded-lg hover:from-brand-accent-700 hover:to-brand-secondary-600 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                       >
                         {isSubmitting ? (
                           <>

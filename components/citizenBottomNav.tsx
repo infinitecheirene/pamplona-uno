@@ -97,7 +97,7 @@ export default function CitizenBottomNav() {
     <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40">
       {/* Quick Access Expandable Panel */}
       <div
-        className={`bg-gradient-to-br from-emerald-50 to-orange-50 border-t border-gray-200 shadow-lg transition-all duration-300 overflow-hidden ${
+        className={`bg-gradient-to-br from-brand-accent-50 to-brand-secondary-50 border-t border-gray-200 shadow-lg transition-all duration-300 overflow-hidden ${
           showQuickAccess ? "max-h-96" : "max-h-0"
         }`}
       >
@@ -112,7 +112,7 @@ export default function CitizenBottomNav() {
                   onClick={() => handleNavigation(item.path)}
                   className={`flex flex-col items-center gap-1 p-3 rounded-lg transition-all ${
                     active
-                      ? "bg-gradient-to-br from-emerald-500 to-orange-500 shadow-md"
+                      ? "bg-gradient-to-br from-brand-accent-500 to-brand-secondary-500 shadow-md"
                       : "bg-white hover:bg-gray-50"
                   }`}
                 >
@@ -139,7 +139,7 @@ export default function CitizenBottomNav() {
               // Add your logout logic here
               console.log("Logout clicked");
             }}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-500 hover:bg-red-600 transition-colors text-white shadow-md"
+            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-brand-primary-500 hover:bg-brand-primary-600 transition-colors text-white shadow-md"
           >
             <LogOut size={18} />
             <span className="font-semibold">Logout</span>
@@ -168,16 +168,16 @@ export default function CitizenBottomNav() {
                 key={index}
                 onClick={() => router.push(item.path)}
                 className={`flex flex-col items-center gap-1 px-3 py-2 transition-colors flex-1 ${
-                  active ? "text-orange-600" : "text-gray-600"
+                  active ? "text-brand-secondary-600" : "text-gray-600"
                 }`}
               >
                 <item.icon
                   size={22}
-                  className={active ? "text-orange-600" : "text-gray-600"}
+                  className={active ? "text-brand-secondary-600" : "text-gray-600"}
                   strokeWidth={active ? 2.5 : 2}
                 />
                 <span
-                  className={`text-xs font-medium ${active ? "text-orange-600 font-semibold" : "text-gray-600"}`}
+                  className={`text-xs font-medium ${active ? "text-brand-secondary-600 font-semibold" : "text-gray-600"}`}
                 >
                   {item.label}
                 </span>
@@ -188,12 +188,12 @@ export default function CitizenBottomNav() {
           {/* Menu Toggle Button */}
           <button
             onClick={() => setShowQuickAccess(!showQuickAccess)}
-            className="flex flex-col items-center gap-1 px-3 py-2 transition-colors flex-1 text-gray-600 hover:text-orange-600"
+            className="flex flex-col items-center gap-1 px-3 py-2 transition-colors flex-1 text-gray-600 hover:text-brand-secondary-600"
           >
             {showQuickAccess ? (
               <>
-                <X size={22} className="text-orange-600" strokeWidth={2.5} />
-                <span className="text-xs font-semibold text-orange-600">
+                <X size={22} className="text-brand-secondary-600" strokeWidth={2.5} />
+                <span className="text-xs font-semibold text-brand-secondary-600">
                   Close
                 </span>
               </>

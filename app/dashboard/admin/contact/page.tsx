@@ -221,9 +221,9 @@ export default function AdminContactMessagesPage() {
 
   const getStatusBadge = (status: string) => {
     const styles = {
-      unread: "bg-orange-100 text-orange-700",
+      unread: "bg-brand-secondary-100 text-brand-secondary-700",
       read: "bg-blue-100 text-blue-700",
-      replied: "bg-green-100 text-green-700",
+      replied: "bg-brand-accent-100 text-brand-accent-700",
     };
 
     const icons = {
@@ -270,7 +270,7 @@ export default function AdminContactMessagesPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <Mail className="w-6 h-6 text-emerald-600" />
+                <Mail className="w-6 h-6 text-brand-accent-600" />
                 Contact Messages
               </h1>
               <p className="text-xs sm:text-sm text-gray-600 mt-1">
@@ -278,7 +278,7 @@ export default function AdminContactMessagesPage() {
               </p>
             </div>
             <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600">
-              <MessageSquare className="w-5 h-5 text-emerald-600" />
+              <MessageSquare className="w-5 h-5 text-brand-accent-600" />
               <span className="font-medium">{pagination.total} Total</span>
             </div>
           </div>
@@ -299,7 +299,7 @@ export default function AdminContactMessagesPage() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                    className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                    className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent-500 focus:border-transparent"
                   />
                 </div>
 
@@ -313,7 +313,7 @@ export default function AdminContactMessagesPage() {
                         setStatusFilter(e.target.value);
                         setPagination((prev) => ({ ...prev, current_page: 1 }));
                       }}
-                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent appearance-none bg-white"
+                      className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent-500 focus:border-transparent appearance-none bg-white"
                     >
                       <option value="all">All Status</option>
                       <option value="unread">Unread</option>
@@ -324,7 +324,7 @@ export default function AdminContactMessagesPage() {
 
                   <button
                     onClick={handleSearch}
-                    className="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 transition-colors"
+                    className="px-4 py-2 bg-brand-accent-600 text-white rounded-lg text-sm font-medium hover:bg-brand-accent-700 transition-colors"
                   >
                     Search
                   </button>
@@ -336,7 +336,7 @@ export default function AdminContactMessagesPage() {
             <div className="grid grid-cols-3 gap-2 sm:hidden mb-4">
               <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
                 <p className="text-xs text-gray-600">Unread</p>
-                <p className="text-lg font-bold text-orange-600">
+                <p className="text-lg font-bold text-brand-secondary-600">
                   {messages.filter((m) => m.status === "unread").length}
                 </p>
               </div>
@@ -348,7 +348,7 @@ export default function AdminContactMessagesPage() {
               </div>
               <div className="bg-white rounded-lg border border-gray-200 p-3 text-center">
                 <p className="text-xs text-gray-600">Replied</p>
-                <p className="text-lg font-bold text-green-600">
+                <p className="text-lg font-bold text-brand-accent-600">
                   {messages.filter((m) => m.status === "replied").length}
                 </p>
               </div>
@@ -359,7 +359,7 @@ export default function AdminContactMessagesPage() {
               {loading ? (
                 <div className="flex items-center justify-center py-12">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-emerald-500 mx-auto mb-3"></div>
+                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-brand-accent-500 mx-auto mb-3"></div>
                     <p className="text-gray-600 text-sm">Loading messages...</p>
                   </div>
                 </div>
@@ -376,7 +376,7 @@ export default function AdminContactMessagesPage() {
                   {/* Desktop / Tablet Table - hidden on mobile, no swipe needed */}
                   <div className="hidden sm:block overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
-                      <thead className="bg-gradient-to-r from-emerald-600 to-orange-500 text-white">
+                      <thead className="bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white">
                         <tr>
                           <th className="px-4 py-3 text-left text-xs font-semibold uppercase whitespace-nowrap">
                             Name
@@ -448,7 +448,7 @@ export default function AdminContactMessagesPage() {
                             <td className="px-4 py-3 text-center whitespace-nowrap">
                               <button
                                 onClick={() => handleViewMessage(message)}
-                                className="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-lg text-xs font-medium hover:bg-emerald-200 transition-colors"
+                                className="inline-flex items-center gap-1 px-3 py-1.5 bg-brand-accent-100 text-brand-accent-700 rounded-lg text-xs font-medium hover:bg-brand-accent-200 transition-colors"
                               >
                                 <Eye className="w-3 h-3" />
                                 <span>View</span>
@@ -494,7 +494,7 @@ export default function AdminContactMessagesPage() {
                         <div className="flex items-center justify-end pt-2 border-t border-gray-100">
                           <button
                             onClick={() => handleViewMessage(message)}
-                            className="inline-flex items-center gap-1 px-3 py-2 bg-emerald-100 text-emerald-700 rounded-lg text-xs font-medium hover:bg-emerald-200 transition-colors"
+                            className="inline-flex items-center gap-1 px-3 py-2 bg-brand-accent-100 text-brand-accent-700 rounded-lg text-xs font-medium hover:bg-brand-accent-200 transition-colors"
                           >
                             <Eye className="w-4 h-4" />
                             <span>View</span>
@@ -551,7 +551,7 @@ export default function AdminContactMessagesPage() {
                               onClick={() => handlePageChange(pageNum)}
                               className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
                                 pagination.current_page === pageNum
-                                  ? "bg-emerald-600 text-white"
+                                  ? "bg-brand-accent-600 text-white"
                                   : "border border-gray-300 hover:bg-gray-50"
                               }`}
                             >
@@ -588,7 +588,7 @@ export default function AdminContactMessagesPage() {
               <div
                 style={{
                   background:
-                    "linear-gradient(to right, rgb(5, 150, 105), rgb(249, 115, 22))",
+                    "linear-gradient(to right, var(--brand-primary-600), var(--brand-secondary-600), var(--brand-accent-600))",
                 }}
                 className="text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 z-10"
               >
@@ -625,7 +625,7 @@ export default function AdminContactMessagesPage() {
                   {/* Sender Information */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <User className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                      <User className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent-600" />
                       Sender Information
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -645,7 +645,7 @@ export default function AdminContactMessagesPage() {
                         </label>
                         <a
                           href={`mailto:${selectedMessage.email}`}
-                          className="text-sm sm:text-base text-emerald-600 hover:text-emerald-700 font-medium break-all"
+                          className="text-sm sm:text-base text-brand-accent-600 hover:text-brand-accent-700 font-medium break-all"
                         >
                           {selectedMessage.email}
                         </a>
@@ -656,7 +656,7 @@ export default function AdminContactMessagesPage() {
                   {/* Message Content */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                      <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent-600" />
                       Message
                     </h3>
                     <div className="space-y-3">
@@ -695,7 +695,7 @@ export default function AdminContactMessagesPage() {
                     selectedMessage.replies.length > 0 && (
                       <div>
                         <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                          <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                          <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent-600" />
                           Previous Replies
                         </h3>
                         <div className="space-y-3">
@@ -706,7 +706,7 @@ export default function AdminContactMessagesPage() {
                             >
                               <div className="flex items-start justify-between mb-3">
                                 <div className="flex items-center gap-2">
-                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-full text-sm font-semibold shadow-sm">
+                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-brand-accent-600 to-brand-secondary-500 text-white rounded-full text-sm font-semibold shadow-sm">
                                     <svg
                                       className="w-4 h-4"
                                       fill="currentColor"
@@ -737,7 +737,7 @@ export default function AdminContactMessagesPage() {
                   {/* Reply Form */}
                   <div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
-                      <Send className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                      <Send className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent-600" />
                       Send Reply
                     </h3>
                     <div className="space-y-3">
@@ -749,7 +749,7 @@ export default function AdminContactMessagesPage() {
                           rows={6}
                           value={replyMessage}
                           onChange={(e) => setReplyMessage(e.target.value)}
-                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm"
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-accent-500 focus:border-transparent text-sm"
                           placeholder="Type your reply here..."
                           disabled={isSendingReply}
                         />
@@ -772,7 +772,7 @@ export default function AdminContactMessagesPage() {
                   <button
                     onClick={handleSendReply}
                     disabled={isSendingReply || !replyMessage.trim()}
-                    className="w-full sm:w-auto px-4 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-4 py-3 bg-brand-accent-600 text-white rounded-lg hover:bg-brand-accent-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSendingReply ? (
                       <>

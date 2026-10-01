@@ -18,10 +18,10 @@ import CitizenLayout from "@/components/citizenLayout";
 export default function FireSafetyGuide() {
   return (
     <CitizenLayout requireAuth={false}>
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-100 py-8 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-brand-secondary-50 to-brand-primary-100 py-8 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <div className="mx-auto w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mb-4">
+            <div className="mx-auto w-16 h-16 bg-brand-secondary-600 rounded-full flex items-center justify-center mb-4">
               <Flame className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
@@ -33,10 +33,10 @@ export default function FireSafetyGuide() {
             </p>
           </div>
 
-          <Card className="mb-6 border-l-4 border-l-orange-600">
+          <Card className="mb-6 border-l-4 border-l-brand-secondary-600">
             <CardHeader>
               <div className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-orange-600 mt-1" />
+                <AlertCircle className="w-5 h-5 text-brand-secondary-600 mt-1" />
                 <div>
                   <CardTitle className="text-lg">Important Notice</CardTitle>
                   <CardDescription>
@@ -54,7 +54,7 @@ export default function FireSafetyGuide() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Building2 className="w-5 h-5 text-orange-600" />
+                  <Building2 className="w-5 h-5 text-brand-secondary-600" />
                   What is FSIC?
                 </CardTitle>
               </CardHeader>
@@ -71,7 +71,7 @@ export default function FireSafetyGuide() {
                     "Event permits for large gatherings",
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-brand-accent-600 mt-0.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -82,7 +82,7 @@ export default function FireSafetyGuide() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-orange-600" />
+                  <Clock className="w-5 h-5 text-brand-secondary-600" />
                   Processing Time & Validity
                 </CardTitle>
               </CardHeader>
@@ -118,7 +118,7 @@ export default function FireSafetyGuide() {
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-orange-600" />
+                <FileText className="w-5 h-5 text-brand-secondary-600" />
                 Requirements
               </CardTitle>
             </CardHeader>
@@ -140,13 +140,13 @@ export default function FireSafetyGuide() {
                     "Mechanical/Plumbing Plan (if applicable)",
                   ].map((req, index) => (
                     <li key={index} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-brand-accent-600 mt-0.5 flex-shrink-0" />
                       <span>{req}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-4 p-3 bg-orange-50 rounded-lg">
+                <div className="mt-4 p-3 bg-brand-secondary-50 rounded-lg">
                   <p className="text-sm text-gray-700">
                     <strong>Note:</strong> All documents should be photocopied.
                     Bring original copies for verification.
@@ -159,7 +159,7 @@ export default function FireSafetyGuide() {
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Flame className="w-5 h-5 text-orange-600" />
+                <Flame className="w-5 h-5 text-brand-secondary-600" />
                 Fire Safety Equipment Checklist
               </CardTitle>
             </CardHeader>
@@ -177,7 +177,7 @@ export default function FireSafetyGuide() {
                     "Exit Signs (illuminated)",
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-brand-secondary-600 mt-0.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -190,7 +190,7 @@ export default function FireSafetyGuide() {
                     "Smoke Detectors",
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-brand-secondary-600 mt-0.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -202,12 +202,12 @@ export default function FireSafetyGuide() {
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-orange-600" />
+                <MapPin className="w-5 h-5 text-brand-secondary-600" />
                 Where to Apply
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-orange-50 p-4 rounded-lg">
+              <div className="bg-brand-secondary-50 p-4 rounded-lg">
                 <h4 className="font-semibold mb-2 flex items-center gap-2">
                   <Flame className="w-4 h-4" />
                   Bureau of Fire Protection - Pamplona Uno City
@@ -274,7 +274,7 @@ export default function FireSafetyGuide() {
                   },
                 ].map((step, index) => (
                   <li key={index} className="flex gap-3 text-sm">
-                    <span className="flex-shrink-0 w-6 h-6 bg-orange-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                    <span className="flex-shrink-0 w-6 h-6 bg-brand-secondary-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
                       {index + 1}
                     </span>
                     <div>

@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import CitizenLayout from "@/components/citizenLayout";
-import { useRouter } from "next/navigation";
 
 interface Location {
   id: string;
@@ -36,22 +35,20 @@ export default function MapPage() {
     lat: number;
     lng: number;
   } | null>(null);
-  const router = useRouter();
-
   const categories = [
-    { value: "all", label: "All", icon: MapPin, color: "bg-orange-500" },
+    { value: "all", label: "All", icon: MapPin, color: "bg-brand-secondary-500" },
     {
       value: "hospital",
       label: "Hospitals",
       icon: Hospital,
-      color: "bg-red-500",
+      color: "bg-brand-primary-500",
     },
     { value: "police", label: "Police", icon: Shield, color: "bg-blue-600" },
     {
       value: "fire",
       label: "Fire Dept",
       icon: FireExtinguisher,
-      color: "bg-orange-600",
+      color: "bg-brand-secondary-600",
     },
     {
       value: "government",
@@ -59,7 +56,7 @@ export default function MapPage() {
       icon: Building2,
       color: "bg-purple-600",
     },
-    { value: "school", label: "Schools", icon: School, color: "bg-green-600" },
+    { value: "school", label: "Schools", icon: School, color: "bg-brand-accent-600" },
     {
       value: "landmark",
       label: "Landmarks",
@@ -186,45 +183,40 @@ export default function MapPage() {
 
   return (
     <CitizenLayout requireAuth={false}>
-      <div className="flex flex-col min-h-screen bg-white">
-        {/* Header */}
-        <header className="bg-orange-600 text-white px-4 py-4">
-          <div className="flex items-center gap-3 mb-3">
-            <Link href="/dashboard/citizen">
-              <ChevronLeft className="w-6 h-6" />
-            </Link>
-            <h1 className="text-xl font-bold">City Map</h1>
-          </div>
-
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-300" />
-            <input
-              type="search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search locations..."
-              className="w-full pl-11 pr-4 py-3 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-300"
-            />
-          </div>
+      <div className="space-y-6">
+        <header>
+          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">City map</h1>
+          <p className="mt-2 text-gray-600">Search for public services and key places in Pamplona Uno.</p>
         </header>
 
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden="true" />
+          <input
+            type="search"
+            aria-label="Search locations"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search locations"
+            className="w-full rounded-xl border border-gray-300 bg-white py-3 pl-12 pr-4 text-gray-900 placeholder:text-gray-500 focus:border-brand-accent-600 focus:outline-none focus:ring-2 focus:ring-brand-accent-600/30"
+          />
+        </div>
+
         {/* Category Filter */}
-        <div className="bg-white border-b border-gray-200 px-4 py-3 overflow-x-auto">
-          <div className="flex gap-2">
+        <div className="overflow-x-auto">
+          <div className="flex min-w-max gap-2">
             {categories.map((category) => {
               const Icon = category.icon;
               return (
                 <button
                   key={category.value}
                   onClick={() => setSelectedCategory(category.value)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm whitespace-nowrap transition-all ${
+                  className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 font-semibold text-sm whitespace-nowrap transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2 ${
                     selectedCategory === category.value
-                      ? `${category.color} text-white`
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                      ? "border-brand-accent-600 bg-brand-accent-600 text-white"
+                      : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-4 h-4" aria-hidden="true" />
                   {category.label}
                 </button>
               );
@@ -233,40 +225,41 @@ export default function MapPage() {
         </div>
 
         {/* Default Map Embed */}
-        <div className="relative h-64 border-b border-gray-200">
+        <section aria-label="Map" className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
           <iframe
-            src="https://www.google.com/maps?q=pamplona Tres+City+Hall,+pamplona Tres+City,+Oriental+Mindoro&z=15&output=embed"
+            title="Map of public places in Pamplona Uno"
+            src="https://www.google.com/maps?q=Pamplona+Uno+City+Hall,+Pamplona+Uno+City,+Oriental+Mindoro&z=15&output=embed"
             width="100%"
-            height="100%"
+            height="420"
             style={{ border: 0 }}
+            className="h-[360px] w-full sm:h-[440px]"
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+          />
 
           {userLocation && (
-            <div className="absolute top-4 right-4 bg-white rounded-full p-3 shadow-lg">
-              <Navigation className="w-5 h-5 text-orange-600" />
+            <div className="absolute right-4 top-4 rounded-xl border border-gray-200 bg-white p-3 shadow-sm" aria-label="Your location is available">
+              <Navigation className="w-5 h-5 text-brand-accent-600" aria-hidden="true" />
             </div>
           )}
-        </div>
+        </section>
 
         {/* Locations List */}
-        <main className="flex-1 px-4 py-4 overflow-y-auto pb-20">
+        <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-gray-900">
-              {filteredLocations.length} Location
-              {filteredLocations.length !== 1 ? "s" : ""}
+            <h2 className="text-2xl font-bold text-gray-800">
+              Key places <span className="text-base font-normal text-gray-600">({filteredLocations.length})</span>
             </h2>
             {userLocation && (
-              <button className="text-sm text-orange-600 font-semibold flex items-center gap-1">
+              <button type="button" className="flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-semibold text-brand-secondary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">
                 <Navigation className="w-4 h-4" />
                 Sort by distance
               </button>
             )}
           </div>
 
-          <div className="space-y-3">
+          <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {filteredLocations.map((location) => {
               const Icon = getLocationIcon(location.category);
               const distance =
@@ -283,18 +276,12 @@ export default function MapPage() {
                 : `https://www.google.com/maps?q=${location.lat},${location.lng}`;
 
               return (
-                <a
-                  key={location.id}
-                  href={mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow text-left"
-                >
+                <li key={location.id} className="rounded-2xl border border-gray-200 bg-white p-5">
                   <div className="flex items-start gap-4">
                     <div
                       className={`${getLocationColor(location.category)} w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0`}
                     >
-                      <Icon className="w-6 h-6 text-white" />
+                      <Icon className="w-6 h-6 text-white" aria-hidden="true" />
                     </div>
 
                     <div className="flex-1 min-w-0">
@@ -302,35 +289,34 @@ export default function MapPage() {
                         {location.name}
                       </h3>
                       <p className="text-sm text-gray-600 mb-2 flex items-start gap-1">
-                        <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                        <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" aria-hidden="true" />
                         <span>{location.address}</span>
                       </p>
 
                       <div className="flex items-center gap-4">
                         {location.phone && (
-                          <a
-                            href={`tel:${location.phone}`}
-                            onClick={(e) => e.stopPropagation()}
-                            className="text-sm text-orange-600 font-semibold flex items-center gap-1"
-                          >
-                            <Phone className="w-4 h-4" />
+                          <a href={`tel:${location.phone}`} className="flex items-center gap-1 text-sm font-semibold text-brand-secondary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">
+                            <Phone className="w-4 h-4" aria-hidden="true" />
                             {location.phone}
                           </a>
                         )}
                         {distance && (
                           <span className="text-sm text-gray-500 flex items-center gap-1">
-                            <Navigation className="w-4 h-4" />
+                            <Navigation className="w-4 h-4" aria-hidden="true" />
                             {distance} km away
                           </span>
                         )}
                       </div>
+                      <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-xl bg-brand-accent-600 px-5 py-2.5 font-bold text-white hover:bg-brand-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-600 focus-visible:ring-offset-2">
+                        Open in Maps
+                      </a>
                     </div>
                   </div>
-                </a>
+                </li>
               );
             })}
-          </div>
-        </main>
+          </ul>
+        </section>
       </div>
     </CitizenLayout>
   );

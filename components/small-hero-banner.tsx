@@ -10,7 +10,7 @@ interface SmallHeroBannerProps {
 
 export default function SmallHeroBanner({ title, subtitle }: SmallHeroBannerProps) {
   return (
-    <div className="w-full h-48 bg-gradient-to-r from-emerald-400 via-orange-400 to-orange-500 relative overflow-hidden">
+    <div className="w-full h-48 bg-gradient-to-r from-brand-accent-400 via-brand-secondary-400 to-brand-secondary-500 relative overflow-hidden">
       <motion.div
         initial={{ opacity: 0, scale: 1.05 }}
         animate={{ opacity: 1, scale: 1 }}

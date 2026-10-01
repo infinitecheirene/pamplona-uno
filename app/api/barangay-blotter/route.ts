@@ -1,7 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { getLaravelApiUrl } from "@/lib/laravel-api-url"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api"
-const LARAVEL_API_URL = process.env.NEXT_PUBLIC_LARAVEL_API_URL || "http://localhost:8000/api"
+const API_URL = getLaravelApiUrl()
+const LARAVEL_API_URL = getLaravelApiUrl()
 
 function getAuthToken(request: NextRequest): string | null {
   const cookieToken = request.cookies.get("auth_token")?.value

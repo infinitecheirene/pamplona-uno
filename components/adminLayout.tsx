@@ -65,17 +65,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <div className="min-h-screen bg-gray-50">
       {/* Sidebar - Desktop only */}
       <AdminSidebar />
 
       {/* Main Content */}
-      <div className="lg:ml-64 pb-20 lg:pb-0">
+      <div className="min-w-0 pb-20 lg:ml-64 lg:pb-0">
         {/* Header */}
         <AdminHeader />
 
         {/* Page Content */}
-        <main className="p-6">
+        <main className="mx-auto w-full max-w-screen-2xl px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
           {children}
         </main>
       </div>
